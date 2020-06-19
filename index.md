@@ -1,4 +1,4 @@
-@def title = "Franklin Example"
+@def title = "Minimally Disruptive Curves: documentation"
 @def tags = ["syntax", "code"]
 
 # How to use Franklin
