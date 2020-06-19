@@ -1,7 +1,7 @@
 @def title = "MinimallyDisruptiveCurves.jl: Documentation"
 @def tags = ["syntax", "code"]
 
-# MinimallyDisruptiveCurves.jl
+# Introduction
 
 \tableofcontents <!-- you can use \toc as well -->
 
@@ -9,7 +9,7 @@
 
 \\
 ~~~
-<p style="color:black;font-size:22px;">Building a model is hard</p>  
+<p style="color:black;font-size:22px;">Building a good model is hard</p>  
 ~~~
 
 ~~~
@@ -33,13 +33,38 @@
 </div>
 ~~~
 
+### Context
+<!-- **The Context** -->
+- You have a mathematical model of a (mechanical/biological/...) system
+- The model works (you've tweaked parameters until it matches data/ a desired set of behaviours).
+\\
+~~~
+<p style="color:black;font-size:18px;">Now you want to use your model to say something clever!</p> 
+~~~
+\\
+### Standard Questions
+<!-- **Next Questions**: -->
+- Are some model interactions unnecessary? Which ones?
+- What spaces of parameters are (approximately/exactly) consistent with the data?
+- Could changes in parameter $x$ could be compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? 
+- Is there a hidden approximation you could make in the model that wouldn't greatly change behaviour? 
+\\
+~~~
+<p style="color:black;font-size:18px;">MinimallyDisruptiveCurves.jl can help!</p> 
+~~~
 
-MinimallyDisruptiveCurves.jl is a tool
-
+<!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
+~~~
+<p style = "text-align:right">  ...(but nothing is a substitute for expert domain knowledge) </p>
+~~~
 
 ## What it does
 
-For mathematical details go here
+At its' core, only one thing: 
+
+> Finds functional relationships between model parameters that best preserves model behaviour.
+
+We'll unpack exactly what this means, and how you can use it to answer different model-related questions. 
 
 ## How it's useful
 
@@ -152,9 +177,6 @@ It's probably easier to see this in action:
 
 ### Raw HTML
 
-You can include raw HTML by just surrounding a block with `~~~`.
-Not much more to add.
-This may be useful for local custom layouts like having a photo next to a text in a specific way.
 
 ~~~
 <div class="row">
