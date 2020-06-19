@@ -33,16 +33,18 @@
 </div>
 ~~~
 
+\\
 ### Context
 <!-- **The Context** -->
 - You have a mathematical model of a (mechanical/biological/...) system
 - The model works (you've tweaked parameters until it matches data/ a desired set of behaviours).
+- You care about how the parameters relate to each other 
 \\
 ~~~
 <p style="color:black;font-size:18px;">Now you want to use your model to say something clever!</p> 
 ~~~
 \\
-### Standard Questions
+### Standard questions
 <!-- **Next Questions**: -->
 - Are some model interactions unnecessary? Which ones?
 - What spaces of parameters are (approximately/exactly) consistent with the data?
@@ -64,7 +66,81 @@ At its' core, only one thing:
 
 > Finds functional relationships between model parameters that best preserves model behaviour.
 
-We'll unpack exactly what this means, and how you can use it to answer different model-related questions. 
+We'll gradually unpack exactly what this means, and how you can use it to answer different model-related questions. First some background.
+
+### This is *not* model-fitting, but let's recap that anyway
+
+
+~~~
+<a href="#optimization_skip">
+<p style="color:blue">
+<br> [Skip this section if you've fitted a model before]</br>
+</p>
+</a>
+~~~
+\\
+
+Think about the problem of tuning a model parameters to fit data/recreate a desired behaviour. The flow diagram might look something like this:
+\\ \\
+~~~
+<div class="row">
+  <div class="container">
+    <img class="center" src="/assets/loss_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+\\ \\
+- A fixed model structure has variable parameters. The behaviour of the model changes with the parameters. Some behaviours are more desirable than others. We quantify this through a loss function, which reduces model behaviour to a scalar number. 
+- For instance if we are fitting a model to data, the loss function might measure the discrepancy between model predictions and data. The lower the value of the loss, the more desirable the model behaviour.
+- So we can factor out the model, and just consider a function mapping parameter values to 'loss' (ie an inverse measure of model desirability).
+\\ \\
+~~~
+<div class="row">
+  <div class="container">
+    <img class="right" src="/assets/reduced_loss_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+\\ \\
+
+
+
+- **Model fitting** (also known as training, optimisation, calibration, ...) consists of minimising the loss as a function of the parameters. So, finding the set of parameters that results in the 'most desirable' model behaviour. 
+- We can consider the loss function as a landscape, where height represents the value of the loss, and the x-y co-ordinates represent parameter values. Model fitting then consists of getting to the deepest point of the landscape (see schematic below).
+
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/Optimizers7.gif">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+*This gif was taken from an Intro to Optimization blog post, [website here](https://blog.paperspace.com/intro-to-optimization-momentum-rmsprop-adam/)*
+
+
+
+~~~
+<a id="optimization_skip">
+</a>
+~~~
+### Minimally disruptive curves on parameter space
+
+
+So we've recalled how model-fitting can be conceptualised as descending to the bottom of a 'loss landscape'. Imagine you've got to the bottom, and on your journey have acquired a healthy dose of altitude sickness. There, you encounter a strange man filled with murderous intent. Where would you run to get away from him? That's where the minimally disruptive curve will go.
+
+ 
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/mdc_traj_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+
 
 ## How it's useful
 
@@ -128,16 +204,6 @@ Here we go! (this is styled in the css sheet with name "colbox-blue").
 
 Since it's just a `<div>` block, you can put this construction wherever you like and locally style your text.
 
-### LaTeX and Maths
-
-Essentially three things are imitated from LaTeX
-
-1. you can introduce definitions using `\newcommand`
-1. you can use hyper-references with `\eqref`, `\cite`, ...
-1. you can show nice maths (via KaTeX)
-
-The definitions can be introduced in the page or in the `config.md` (in which case they're available everywhere as opposed to just in that page).
-For instance, the commands `\scal` and `\R` are defined in the config file (see `src/config.md`) and can directly be used whereas the command `\E` is defined below (and therefore only available on this page):
 
 \newcommand{\E}[1]{\mathbb E\left[#1\right]}
 
@@ -175,41 +241,8 @@ It's probably easier to see this in action:
 * with: \pathwith{script.jl}, there's a whitespace you don't want 🚫
 * without: \pathwithout{script.jl} here there isn't ✅
 
-### Raw HTML
 
 
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/rndimg.jpg">
-    <p>
-    Marine iguanas are truly splendid creatures. They're found on the Gálapagos islands, have skin that basically acts as a solar panel, can swim and may have the ability to adapt their body size depending on whether there's food or not.
-    </p>
-    <p>
-    Evolution is cool.
-    </p>
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-
-**Note 1**: again, entire such blocks can be made into latex-like commands via `\newcommand{\mynewblock}[1]{...}`.
-
-**Note 2**: whatever is in a raw HTML block is *not* further processed (so you can't have LaTeX in there for instance). A partial way around this is to use `@@...` blocks which *will* be recursively parsed. The following code gives the same result as above with the small difference that there is LaTeX being processed in the inner div.
-
-@@row
-@@container
-@@left ![](/assets/rndimg.jpg) @@
-@@
-Marine iguanas are **truly splendid** creatures. They're not found in equations like $\exp(-i\pi)+1$. But they're still quite cool.
-~~~
-<div style="clear: both"></div>
-~~~
-@@
-
-## Pages and structure
-
-Here are a few empty pages connecting to the menu links to show where files can go and the resulting paths. (It's probably best if you look at the source folder for this).
 
 * [Installation](/menu1/)
 * [menu 2](/menu2/)

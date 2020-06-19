@@ -27,3 +27,4 @@ For instance:
 -->
 \newcommand{\R}{\mathbb R}
 \newcommand{\scal}[1]{\langle #1 \rangle}
+\newcommand{\col}[2]{~~~<span style="color:#1">#2</span>~~~}
