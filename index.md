@@ -7,23 +7,34 @@
 
 ## The problem being addressed
 
-
 \\
-\\
-
-@@row
-@@container
-@@left ![](/assets/physicists.png) @@
-@@
+~~~
+<p style="color:black;font-size:22px;">Building a model is hard</p>  
+~~~
 
 ~~~
-<div style="clear: both"></div>
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/physicists.png">
+    <div style="clear: both"></div>      
+  </div>
+</div>
 ~~~
-@@
+\\ \\
+~~~
+<p style="color:black;font-size:30px;">Extracting useful insight from a model is harder</p>  
+~~~
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/curve_fitting.png">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
 
-\\
 
-Building a model is hard. Extracting useful understanding from a model is harder. 
+MinimallyDisruptiveCurves.jl is a tool
 
 
 ## What it does
@@ -178,7 +189,7 @@ Marine iguanas are **truly splendid** creatures. They're not found in equations 
 
 Here are a few empty pages connecting to the menu links to show where files can go and the resulting paths. (It's probably best if you look at the source folder for this).
 
-* [menu 1](/menu1/)
+* [Installation](/menu1/)
 * [menu 2](/menu2/)
 * [menu 3](/menu3/)
 
