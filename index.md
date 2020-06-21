@@ -1,15 +1,13 @@
 @def title = "MinimallyDisruptiveCurves.jl: Documentation"
 @def tags = ["syntax", "code"]
 
-# Introduction
+# MinimallyDisruptiveCurves.jl
 
 \tableofcontents <!-- you can use \toc as well -->
-
-## The problem being addressed
-
+\\
 \\
 ~~~
-<p style="color:black;font-size:22px;">Building a good model is hard</p>  
+<p style="color:black;font-size:22px;"> Building a good model is hard</p>  
 ~~~
 
 ~~~
@@ -22,7 +20,7 @@
 ~~~
 \\ \\
 ~~~
-<p style="color:black;font-size:30px;">Extracting useful insight from a model is harder</p>  
+<p style="color:black;font-size:28px;">But extracting useful insight from a model is harder</p>  
 ~~~
 ~~~
 <div class="row">
@@ -34,104 +32,38 @@
 ~~~
 
 \\
-### Context
+## When might MinimallyDisruptiveCurves.jl be useful?
 <!-- **The Context** -->
-- You have a mathematical model of a (mechanical/biological/...) system
-- The model works (you've tweaked parameters until it matches data/ a desired set of behaviours).
-- You care about how the parameters relate to each other 
-\\
+
 ~~~
-<p style="color:black;font-size:18px;">Now you want to use your model to say something clever!</p> 
+<p style="color:black;font-size:18px;"> When you have a mathematical model (of any flavour), and you want to answer questions like: </p> 
 ~~~
-\\
-### Standard questions
 <!-- **Next Questions**: -->
 - Are some model interactions unnecessary? Which ones?
 - What spaces of parameters are (approximately/exactly) consistent with the data?
-- Could changes in parameter $x$ could be compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? 
+- Could changes in parameter $x$ could be compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? If so, what form of compensation?
 - Is there a hidden approximation you could make in the model that wouldn't greatly change behaviour? 
 \\
-~~~
+<!-- ~~~
 <p style="color:black;font-size:18px;">MinimallyDisruptiveCurves.jl can help!</p> 
 ~~~
 
 <!-- &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -->
-~~~
-<p style = "text-align:right">  ...(but nothing is a substitute for expert domain knowledge) </p>
-~~~
 
-## What it does
+<!-- <p style = "text-align:right">  ...(but nothing is a substitute for expert domain knowledge) </p> -->
+
+## What it does (short form)
 
 At its' core, only one thing: 
 
-> Finds functional relationships between model parameters that best preserves model behaviour.
-
-We'll gradually unpack exactly what this means, and how you can use it to answer different model-related questions. First some background.
-
-### This is *not* model-fitting, but let's recap that anyway
-
+> Finds functional relationships between model parameters that best preserve model behaviour.
 
 ~~~
-<a href="#optimization_skip">
-<p style="color:blue">
-<br> [Skip this section if you've fitted a model before]</br>
-</p>
-</a>
+<p style = "text-align:right">  (...by solving a differential equation on the parameters) </p>
 ~~~
 \\
+It does this by generating what we call **minimally disruptive curves** (MDC) on parameter space. For a model with three parameters, an MDC might look something like this:
 
-Think about the problem of tuning a model parameters to fit data/recreate a desired behaviour. The flow diagram might look something like this:
-\\ \\
-~~~
-<div class="row">
-  <div class="container">
-    <img class="center" src="/assets/loss_schematic.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-\\ \\
-- A fixed model structure has variable parameters. The behaviour of the model changes with the parameters. Some behaviours are more desirable than others. We quantify this through a loss function, which reduces model behaviour to a scalar number. 
-- For instance if we are fitting a model to data, the loss function might measure the discrepancy between model predictions and data. The lower the value of the loss, the more desirable the model behaviour.
-- So we can factor out the model, and just consider a function mapping parameter values to 'loss' (ie an inverse measure of model desirability).
-\\ \\
-~~~
-<div class="row">
-  <div class="container">
-    <img class="right" src="/assets/reduced_loss_schematic.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-\\ \\
-
-
-
-- **Model fitting** (also known as training, optimisation, calibration, ...) consists of minimising the loss as a function of the parameters. So, finding the set of parameters that results in the 'most desirable' model behaviour. 
-- We can consider the loss function as a landscape, where height represents the value of the loss, and the x-y co-ordinates represent parameter values. Model fitting then consists of getting to the deepest point of the landscape (see schematic below).
-
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/Optimizers7.gif">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-*This gif was taken from an Intro to Optimization blog post, [website here](https://blog.paperspace.com/intro-to-optimization-momentum-rmsprop-adam/)*
-
-
-
-~~~
-<a id="optimization_skip">
-</a>
-~~~
-### Minimally disruptive curves on parameter space
-
-
-So we've recalled how model-fitting can be conceptualised as descending to the bottom of a 'loss landscape'. Imagine you've got to the bottom, and on your journey have acquired a healthy dose of altitude sickness. There, you encounter a strange man filled with murderous intent. Where would you run to get away from him? That's where the minimally disruptive curve will go.
-
- 
 ~~~
 <div class="row">
   <div class="container">
@@ -140,6 +72,41 @@ So we've recalled how model-fitting can be conceptualised as descending to the b
   </div>
 </div>
 ~~~
+
+- In this schematic, any point on the graph defines a parameter vector that can be fed to the model. 
+- You've **already fitted the model**. I.e. you've found an initial set of parameters $p^*$ (red dot) for which the model performs best (e.g.  best matches data/recreates desired behaviour).
+- But there might be many other sets of parameters that perform (almost/) as well as  $p^*$! 
+- The MDC (dotted curve) is constructed so that **any** point on the curve (e.g. green dot) gives a set of parameters for which the model performs well.
+
+
+
+1. **Let's first figure out what this means**
+2.  **Then we will go on to see how it can help answer model related questions**
+
+\\ 
+
+Once you've built a model, you tune the model parameters to recreate a desired behaviour / match data. This is called **model-fitting**. Mathematically, it looks something like this:
+\\ \\
+\begin{align}
+ &\text{Minimise } & & C(p) \\
+ &\text{subject to} 
+ & & g_1(p) = 0; \quad g_2(p) \leq 0
+ \end{align}
+ \\
+ - $p$ is a vector containing all the parameters of the model.
+- $C(p) \geq 0$ is some cost function that maps your parameters $p$ to **how badly** the model performs. Smaller is better. Zero is best.
+- $g_1(p)$, $g_2(p)$ represent constraints on your parameters (if any). Maybe $p_1$ represents the mass of an object, in which case $p_1 \geq 0$ is a constraint. 
+
+
+
+Once you done this, you have some 'optimal' parameter vector $p_0$, that best fits your data. Now
+
+
+
+<!-- So we've recalled how model-fitting can be conceptualised as descending to the bottom of a 'loss landscape'. Imagine you've got to the bottom, and on your journey have acquired a healthy dose of altitude sickness. There, you encounter a strange man filled with murderous intent. Where would you run to get away from him? That's where the minimally disruptive curve will go. -->
+
+ 
+
 
 
 ## How it's useful
