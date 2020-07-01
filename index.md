@@ -62,7 +62,20 @@ At its' core, only one thing:
 <p style = "text-align:right">  (...by solving a differential equation on the parameters) </p>
 ~~~
 \\
-Each functional relationship is termed a 'minimally disruptive curve'. It's basically a path in parameter space over which model behaviour changes minimally. A more rigorous definition is provided in 
+Each functional relationship is termed a 'minimally disruptive curve'. It's basically a path in parameter space over which model behaviour changes minimally. For a more complete characterisation, see table below:
+
+\\
+
+|          Source                                                                     | Rigorous enough | Excessively rigorous | Excessively verbose |
+| ----------------------------------------------------------------------------------- | --------------- | -------------------- | ------------------- |
+| [My thesis, ch. 5 (ch. 4 is relevant too)](https://ora.ox.ac.uk/objects/uuid:f58aa335-db0a-495b-8eef-1ddb363cbd19/download_file?file_format=pdf&safe_filename=masterDoc.pdf&type_of_work=Thesis) |                 | x                    | x                   |
+| \citep{Raman17}                                                                     | x               |                      | x                   |
+| [How it works](/menu1/)                                                             | x               |                      |                     |     
+
+
+\\
+
+#### Ingredients
 
 - You need a cost function, which maps model parameters to 'how bad' the model behaviour is (whether the optimal behaviour is matching data, oscillating at 3Hz, or doing backflips).
 - You need a locally optimal set of parameters for that cost function. (You get these from 'fitting' the model).
@@ -95,6 +108,9 @@ A minimally disruptive curve might look something like this (in the easily-visua
 
 
 ## Workflow on toy example
+
+Let's say you're given some
+
 #### Preamble
 
 
@@ -120,9 +136,9 @@ A minimally disruptive curve might look something like this (in the easily-visua
 $$ \theta^* = \arg\min_{\theta} C(\theta).$$
 
 Your model works! Now come to MinimallyDisruptiveCurves.jl. If you can, bring the following:
-  - ☑ The cost function $C(\theta)$
-  - ☑ Ideally, a gradient of the cost: $\nabla C(\theta)$ (i.e.  $\frac{d}{d\theta} C(\theta)$ ).
-  - ☑ A locally optimal parameter vector, $\theta^*$.
+  - ✅ The cost function $C(\theta)$
+  - ✅ Ideally, a gradient of the cost: $\nabla C(\theta)$ (i.e.  $\frac{d}{d\theta} C(\theta)$ ).
+  - ✅ A locally optimal parameter vector, $\theta^*$.
 
 \\
 
@@ -190,8 +206,10 @@ Once you done this, you have some 'optimal' parameter vector $p_0$, that best fi
 
 
 
-## How it's useful
+## How it fits with existing literature
 
+Structural identifiability, practical unidentifiability
+Profile likelihood without gradients. Mbam. 
 
 ## Getting started
 
@@ -292,13 +310,12 @@ It's probably easier to see this in action:
 
 
 
-* [Installation](/menu1/)
-* [menu 2](/menu2/)
+* [Installation](/installation/)
+* [How it works](/menu1/)
 * [menu 3](/menu3/)
 
 ## References 
+* \biblabel{Raman17}{Raman et al. (2017)} **Raman**,  **Anderson**  and **Papachristodoulou**, [Delineating parameter unidentifiabilities in complex models.](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.032314), Physical Review E 95.3 (2017).
 
-* \biblabel{noether15}{Noether (1915)} **Noether**,  Körper und Systeme rationaler Funktionen, 1915.
-* \biblabel{bezanson17}{Bezanson et al. (2017)} **Bezanson**, **Edelman**, **Karpinski** and **Shah**, [Julia: a fresh approach to numerical computing](https://julialang.org/research/julia-fresh-approach-BEKS.pdf), SIAM review 2017.
 
 
