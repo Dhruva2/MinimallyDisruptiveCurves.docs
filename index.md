@@ -32,11 +32,11 @@
 ~~~
 
 \\
-## When might MinimallyDisruptiveCurves.jl be useful?
+## Use Cases  
 <!-- **The Context** -->
 
 ~~~
-<p style="color:black;font-size:18px;"> When you have a mathematical model (of any flavour), and you want to answer questions like: </p> 
+<p style="color:black;font-size:18px;"> You have a mathematical model (of any flavour), and you want to answer questions like: </p> 
 ~~~
 <!-- **Next Questions**: -->
 - Are some model interactions unnecessary? Which ones?
@@ -62,7 +62,22 @@ At its' core, only one thing:
 <p style = "text-align:right">  (...by solving a differential equation on the parameters) </p>
 ~~~
 \\
-It does this by generating what we call **minimally disruptive curves** (MDC) on parameter space. For a model with three parameters, an MDC might look something like this:
+Each functional relationship is termed a 'minimally disruptive curve'. It's basically a path in parameter space over which model behaviour changes minimally. A more rigorous definition is provided in 
+
+- You need a cost function, which maps model parameters to 'how bad' the model behaviour is (whether the optimal behaviour is matching data, oscillating at 3Hz, or doing backflips).
+- You need a locally optimal set of parameters for that cost function. (You get these from 'fitting' the model).
+Then the workflow might look something like this 
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/intro_workflow_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+- At each iteration, you choose which parameters the minimally disruptive curve can change (you can choose all of them!). 
+
+A minimally disruptive curve might look something like this (in the easily-visualisable case of a model with three parameters):
 
 ~~~
 <div class="row">
@@ -73,29 +88,95 @@ It does this by generating what we call **minimally disruptive curves** (MDC) on
 </div>
 ~~~
 
-- In this schematic, any point on the graph defines a parameter vector that can be fed to the model. 
-- You've **already fitted the model**. I.e. you've found an initial set of parameters $p^*$ (red dot) for which the model performs best (e.g.  best matches data/recreates desired behaviour).
-- But there might be many other sets of parameters that perform (almost/) as well as  $p^*$! 
-- The MDC (dotted curve) is constructed so that **any** point on the curve (e.g. green dot) gives a set of parameters for which the model performs well.
+- Every point on the curve corresponds to a set of model parameters. 
+- The starting point (which you provide, red dot) is a locally optimal set of parameters. That is, one that best matches 'optimal' model behaviour, where 'optimal' is defined in terms of your cost function. 
+- The minimally disruptive curve generator tries to change the parameters *as much as possible* while best preserving model behaviour (i.e. keeping the cost low/minimal). So any parameter set on the curve (e.g. green dot) should induce model behaviour that is similar/identical to the red dot. 
+-  *As much as possible* requires a notion of distance on parameter space (i.e. a metric). You can play with this metric. It could be quantified as relative changes in parameter values. And/or you could bias the curve so that small changes in a particular parameter (let's call it p7) correspond to large changes in the metric. So the curve will try to align with p7, and tell you how other parameters in the model can compensate for changes in p7, to preserve model behaviour.
 
 
+## Workflow on toy example
+#### Preamble
+
+
+1. You've built a model. It depends on tunable parameters. You want the model to do **X**. 
+   \\ \\ 
+   $ \quad \quad \ \ \ \ \ \ \ \ \ X = \text{(matching data/oscillating at 3Hz/doing backflips/all of the above). } $ 
+\\
+
+2. So you build a **cost function**, that maps parameters, to "*how badly does the model do X*". A lower cost is better. The schematic might look like this:
+
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/loss_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+(*Bracketed blocks are optional, but common*)
+\\ \\
+
+3. **Model fitting**  is the process of *finding the parameters that (locally/) minimise the cost function*. If we wrap up all parameters in a vector $\theta$, this amounts to
+$$ \theta^* = \arg\min_{\theta} C(\theta).$$
+
+Your model works! Now come to MinimallyDisruptiveCurves.jl. If you can, bring the following:
+  - ☑ The cost function $C(\theta)$
+  - ☑ Ideally, a gradient of the cost: $\nabla C(\theta)$ (i.e.  $\frac{d}{d\theta} C(\theta)$ ).
+  - ☑ A locally optimal parameter vector, $\theta^*$.
+
+\\
+
+**If not, we provide examples, helper functions, and references** for creating cost functions and their gradients. These will focus on differential equation-based models. 
+
+<!-- - It might be easier than you think to take the gradient of a cost function of [insert complicated differential-equation model here]. There are some extremely good tools for automatic differentiation of arbitrary code in Julia. -->
+\\ \\ 
+#### Basic workflow
+
+1. From the preamble, you have a **differentiable cost function**, and a **locally optimal parameter vector**. The cost function should have two methods:
+
+```julia
+function cost(params)
+  ... 
+  return cost
+end
+
+function cost(params, gradient_holder)
+  ...
+  gradient_holder[:] = ∇C(params) # MUTATE gradient holder
+  return cost
+end
+```
+- A cost function of the above form is compatible with several julia optimisation packages (such as Optim.jl and NLOpt.jl) that you can use for the model fitting step. So you can switch straight from optimising a cost function (i.e. model-fitting) to generating MD curves based off of it. Moreover, you can use these packages to build your cost function for use here.
+
+- Otherwise, Zygote.jl and ForwardDiff.jl can take the gradient of pretty much any differentiable Julia code between them. Other methods can be faster for models based on differential equations. If all else fails, MinimallyDisruptiveCurves.jl provides a function: make_fd_differentiable(cost), that spits out a function of the above form, with a finite-difference step to calculate the gradient.
+
+Meanwhile, let us call the locally optimal parameter vector $\theta^*$. By local optimality, $\nabla C(\theta^*) = 0$. 
+\\ \\
+
+2. You generate a 
+
+
+1. For your cost function 
+
+#### Workflow on toy example
 
 1. **Let's first figure out what this means**
 2.  **Then we will go on to see how it can help answer model related questions**
 
 \\ 
 
-Once you've built a model, you tune the model parameters to recreate a desired behaviour / match data. This is called **model-fitting**. Mathematically, it looks something like this:
+<!-- Once you've built a model, you tune the model parameters to recreate a desired behaviour / match data. This is called **model-fitting**. Mathematically, it looks something like this:
 \\ \\
 \begin{align}
  &\text{Minimise } & & C(p) \\
  &\text{subject to} 
  & & g_1(p) = 0; \quad g_2(p) \leq 0
- \end{align}
- \\
- - $p$ is a vector containing all the parameters of the model.
+ <!-- \end{align}
+ \\ -->
+
+ <!-- - $p$ is a vector containing all the parameters of the model.
 - $C(p) \geq 0$ is some cost function that maps your parameters $p$ to **how badly** the model performs. Smaller is better. Zero is best.
-- $g_1(p)$, $g_2(p)$ represent constraints on your parameters (if any). Maybe $p_1$ represents the mass of an object, in which case $p_1 \geq 0$ is a constraint. 
+- $g_1(p)$, $g_2(p)$ represent constraints on your parameters (if any). Maybe $p_1$ represents the mass of an object, in which case $p_1 \geq 0$ is a constraint.  --> -->
 
 
 
