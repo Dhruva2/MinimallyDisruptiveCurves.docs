@@ -44,7 +44,7 @@
 - Is there a hidden approximation you could make in the model that wouldn't greatly change behaviour? 
 - Which model parameters can never be determined by model-fitting to data? Can we instead find some identifiable function of these parameters? 
 - (*Dually*) What spaces of parameters are (approximately/exactly) consistent with the data?
-- (*Equivalently*) Could changes in parameter $x$ could be compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? If so, what form of compensation?
+- Could changes in parameter $x$ could be continuously compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? If so, what form of compensation?
 \\
 
 @@infobox
