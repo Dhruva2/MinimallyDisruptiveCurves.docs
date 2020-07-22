@@ -103,7 +103,7 @@ function cost(params, gradient_holder)
 end
 ```
 
-- You need a locally optimal set of parameters for that cost function. (You get these from 'fitting' the model). You can get these by optimising your cost function (model fitting), using the aforementioned julia optimisation packages, for example.
+- You need a locally optimal set of parameters for that cost function. (You get these from 'fitting' the model). You can get these by optimising your cost function (model fitting), using the julia optimisation packages mentioned below, for example.
 \\ \\
 @@infobox
 **By the way**
@@ -147,67 +147,41 @@ A minimally disruptive curve might look something like this (in the easily-visua
 - For differential equation-based models, 
 @@
 
-## Minimal example
-
-
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/loss_schematic.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-(*Bracketed blocks are optional, but common*)
-\\ \\
 
 ## Features
 
 
 
-
-
-
-
-
-
-
-
-<!-- So we've recalled how model-fitting can be conceptualised as descending to the bottom of a 'loss landscape'. Imagine you've got to the bottom, and on your journey have acquired a healthy dose of altitude sickness. There, you encounter a strange man filled with murderous intent. Where would you run to get away from him? That's where the minimally disruptive curve will go. -->
-
- 
-
-
-
-## How it fits with existing literature
+## Place in the literature ecosystem
 
 Structural identifiability, practical unidentifiability
 Profile likelihood without gradients. Mbam. 
 <!-- http://pengqiu.gatech.edu/software/model_manifold/html/publish_MBAM_example.html -->
 
 
+## Citing
 
+**The algorithm**: (minus a few tweaks)
+```
+@article{raman2017delineating,
+  title={Delineating parameter unidentifiabilities in complex models},
+  author={Raman, Dhruva V and Anderson, James and Papachristodoulou, Antonis},
+  journal={Physical Review E},
+  volume={95},
+  number={3},
+  pages={032314},
+  year={2017},
+  publisher={APS}
+}
+```
 
-Footnotes are nice too:
+**The software**: as yet unpublished, keep your eye on this!
 
-[^1]: this is the text for the first footnote, you can style all this looking at `.fndef` elements; note that the whole footnote definition is _expected to be on the same line_.
-[^blah]: and this is a longer footnote with some blah from veggie ipsum: turnip greens yarrow ricebean rutabaga endive cauliflower sea lettuce kohlrabi amaranth water spinach avocado daikon napa cabbage asparagus winter purslane kale. Celery potato scallion desert raisin horseradish spinach carrot soko.
-
-
-
-
-
-
-
-
-
-
-* [Installation](/installation/)
-* [How it works](/menu1/)
-* [menu 3](/menu3/)
 
 ## References 
 * \biblabel{Raman17}{Raman et al. (2017)} **Raman**,  **Anderson**  and **Papachristodoulou**, [Delineating parameter unidentifiabilities in complex models.](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.032314), Physical Review E 95.3 (2017).
+
+
 
 
 

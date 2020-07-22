@@ -530,6 +530,22 @@ border-right: 5px solid #ddec56;
 border-top: 5px solid #ddec56;
 border-bottom: 5px solid #ddec56;}
 
+.franklin-content .backgroundbox {
+background-color: #e9e5a9;
+padding-top: 5px;
+padding-right: 10px;
+padding-left: 10px;
+padding-bottom: 5px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-top: 5px;
+margin-bottom: 5px;
+border-radius: 0 10px 10px 0;
+border-left: 5px solid #e9e5a9; 
+border-right: 5px solid #e9e5a9;
+border-top: 5px solid #e9e5a9;
+border-bottom: 5px solid #e9e5a9;}
+
 
 /* ==================================================================
     KATEX

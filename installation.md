@@ -6,65 +6,50 @@
 @def tags = ["syntax", "code"]
 
 # Installation
-
 \toc
+\\ \\ 
+### Dependencies
+Julia v1.4 or greater
+\\ \\
 
-## Dependencies
-- Make sure you have a working installation of Julia v1.3 or above.
-
-```julia:./exdot.jl
-using LinearAlgebra
-a = [1, 2, 3, 3, 4, 5, 2, 2]
-@show dot(a, a)
-println(dot(a, a))
+### Steps
+1. Open a REPL and enter the package manager (by typing ] at the prompt)
+2. If you want, make a new environment (see [package management documentation](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) for more details ), with:
+```julia
+] activate .
+```
+3. Add MinimallyDisruptiveCurves.jl to your current environment with
+```julia
+] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git
 ```
 
-You can now show what this would look like:
-
-\output{./exdot.jl}
-
-
-Here's another example,
-
-```julia:./code/ex2
-for i ∈ 1:5, j ∈ 1:5
-    print(" ", rpad("*"^i,5), lpad("*"^(6-i),5), j==5 ? "\n" : " "^4)
-end
+4. If you want access to MyModelMenagerie.jl, which contains a few differential equation models with which to try out MinimallyDisruptiveCurves.jl, you can do so:
+```julia
+] add https://github.com/Dhruva2/MyModelMenagerie.jl.git
 ```
-
-which gives the (utterly useless):
-
-\output{./code/ex2}
-
-note the absence of `.jl`, it's inferred.
-
-You can also hide lines (that will be executed nonetheless):
-
-```julia:./code/ex3
-using Random
-Random.seed!(1) # hide
-@show randn(2)
+5. Finally preface any julia code running in your environment, with:
+```julia
+using MinimallyDisruptiveCurves
 ```
-
-\output{./code/ex3}
-
-
-## Including scripts
-
-Another approach is to include the content of a script that has already been executed.
-This can be an alternative to the description above if you'd like to only run the code once because it's particularly slow or because it's not Julia code.
-For this you can use the `\input` command specifying which language it should be tagged as:
+6. Feel smug that you're not using Python.
+ *(... but you **are** using a superset of Python, see [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) )*
 
 
-\input{julia}{/_assets/scripts/script1.jl} <!--_-->
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/python_environment.png">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+  (*Credit: https://xkcd.com/1987/*)
 
 
-these scripts can be run in such a way that their output is also saved to file, see `scripts/generate_results.jl` for instance, and you can then also input the results:
+### Downloading tutorial notebook
 
-\output{/_assets/scripts/script1.jl} <!--_-->
+No point downloading the software if you can't use it!
+ 
 
-which is convenient if you're presenting code.
 
-**Note**: paths specification matters, see [the docs](https://tlienart.github.io/franklindocs/code/index.html#more_on_paths) for details.
 
-Using this approach with the `generate_results.jl` file also makes sure that all the code on your website works and that all results match the code which makes maintenance easier.
