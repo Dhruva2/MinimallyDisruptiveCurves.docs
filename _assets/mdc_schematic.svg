@@ -13,7 +13,7 @@
    version="1.1"
    id="svg8"
    inkscape:version="1.0 (4035a4f, 2020-05-01)"
-   sodipodi:docname="loss_schematic.svg">
+   sodipodi:docname="mdc_schematic.svg">
   <sodipodi:namedview
      showguides="true"
      id="base"
@@ -1401,14 +1401,18 @@
        style="opacity:0.387654;fill:none;fill-opacity:0.293255;fill-rule:evenodd;stroke:#ff0000;stroke-width:0.988571;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1121)" />
     <text
        id="text1131"
-       y="235.16188"
-       x="27.567228"
+       y="226.67905"
+       x="28.048044"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Chalkduster;-inkscape-font-specification:'Chalkduster, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;fill-opacity:0.68915;stroke:none;stroke-width:0.264583;stroke-opacity:1"
        xml:space="preserve"><tspan
-         y="235.16188"
-         x="27.567228"
-         id="tspan1125"
-         sodipodi:role="line">Find set of these</tspan></text>
+         y="226.67905"
+         x="28.048044"
+         id="tspan1127"
+         sodipodi:role="line">Continuously change</tspan><tspan
+         y="234.61655"
+         x="28.048044"
+         id="tspan1129"
+         sodipodi:role="line">these</tspan></text>
     <ellipse
        style="opacity:0.387654;fill:none;fill-opacity:0.293255;fill-rule:evenodd;stroke:#ff0000;stroke-width:1.08513;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter1121-4)"
        id="path1115-2"
@@ -1420,17 +1424,17 @@
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.35px;line-height:1.25;font-family:Chalkduster;-inkscape-font-specification:'Chalkduster, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#ff0000;fill-opacity:0.68915;stroke:none;stroke-width:0.264583;stroke-opacity:1"
-       x="130.0863"
-       y="279.55057"
+       x="116.32801"
+       y="280.60892"
        id="text1131-2"><tspan
-         y="279.55057"
-         x="130.0863"
-         id="tspan1129"
-         sodipodi:role="line">...that minimises</tspan><tspan
-         y="287.48807"
-         x="130.0863"
-         id="tspan1131"
-         sodipodi:role="line"> this</tspan></text>
+         y="280.60892"
+         x="116.32801"
+         id="tspan1133"
+         sodipodi:role="line">...while keeping this</tspan><tspan
+         y="288.54642"
+         x="116.32801"
+         id="tspan1135"
+         sodipodi:role="line"> minimal/low</tspan></text>
     <text
        transform="scale(1.0119222,0.98821827)"
        id="text310-6"

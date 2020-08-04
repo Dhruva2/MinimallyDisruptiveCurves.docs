@@ -33,6 +33,86 @@
 ~~~
   (*Credit: https://xkcd.com/793/ and https://xkcd.com/2048/*)
 \\
+## What it does (short form)
+
+At its' core, only one thing: 
+
+> Finds functional relationships between model parameters that best preserve model behaviour.
+
+~~~
+<p style = "text-align:right">  (...by solving a differential equation on the parameters) </p>
+~~~
+\\
+
+@@unobtrusivebox
+**Schematic**
+\\ \\
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/mdc_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+*(bracketed blocks are optional. Ideal outputs could be experimental data). Choice of cost/loss function is arbitrary, as long as it's differentiable.* 
+@@
+\\ \\ \\
+**Compared to model fitting/optimisation (*which this is not*)**
+\\ \\
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/loss_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+\\
+- You start with an initial set of parameters for which the model 'works' as you want it to (as quantified by a cost/loss function). You can get this from model fitting/optimisation.
+
+- Each minimally disruptive curve is a continuous path in parameter space. Any point on the path is a set of parameters for which the model 'works' (nearly) as well as the initial set of parameters.
+- The job of the MD curve generator is to 
+> *get as far away as possible from the initial parameters, while keeping the cost function as low as possible*.
+
+\\
+
+**A minimally disruptive curve might look like this** (for a three-parameter model): 
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/mdc_traj_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+- Any point on the curve defines a set of parameters for which the model performs 'well' (as quantified by the cost function).
+
+
+
+@@infobox
+**By the way** 
+\\ \\
+Play around with curve specifications such as :
+- the initial curve direction
+- which parameters the curve can(not) change
+- which parameters the curve is biased towards changing
+- reparameterising the cost function
+... to get different minimally disruptive curves yielding different model insights.
+@@
+\\ \\
+**Not happy with the explanation? See the following sources for more information:**
+\\ \\
+
+|          Source                                                                     | Rigorous enough | Excessively rigorous | Excessively verbose | Unreliable |
+| ----------------------------------------------------------------------------------- | --------------- | -------------------- | ------------------- | ------- |
+| [My thesis, ch. 5 (ch. 4 is relevant too)](https://ora.ox.ac.uk/objects/uuid:f58aa335-db0a-495b-8eef-1ddb363cbd19/download_file?file_format=pdf&safe_filename=masterDoc.pdf&type_of_work=Thesis) |                 | x                    | x                   | |
+| \citep{Raman17}                                                                     | x               |                      | x                   | |
+| [How it works](/menu1/)                                                             | x               |       |               |                     |     
+| dvr23@cam.ac.uk | | | | x
+\\
+
+
 ## Use Cases  
 <!-- **The Context** -->
 
@@ -40,16 +120,18 @@
 <p style="color:black;font-size:18px;"> You have a mathematical model (of any flavour), and you want to answer questions like: </p> 
 ~~~
 <!-- **Next Questions**: -->
-- Are some model interactions unnecessary? Which ones?
-- Is there a hidden approximation you could make in the model that wouldn't greatly change behaviour? 
-- Which model parameters can never be determined by model-fitting to data? Can we instead find some identifiable function of these parameters? 
-- (*Dually*) What spaces of parameters are (approximately/exactly) consistent with the data?
-- Could changes in parameter $x$ could be continuously compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? If so, what form of compensation?
+- Which model interactions could I kill without greatly affecting model behaviour?
+- Is there a hidden approximation I could make in the model that wouldn't greatly change behaviour? 
+- Are model parameters structurally / practically identifiable from data? If not, which (functions of the) parameters are unidentifiable?
+- (*Dually*) What spaces of parameters are (approximately/exactly) consistent with the data / desired behaviour?
+- Could changes in parameter $x$ could be continuously compensated for by changes in parameters $y$ and $z$? Or by $u$, $v$, and $w$? Or by any parameters at all? If so, what kind of compensatory changes?
 \\
 
 @@infobox
-**By the way**
- - Successfully fitting your model to data does **not** imply that model parameters can be uniquely determined from data. It might not even bound their allowable values. 
+**By the way** 
+- We provide [Examples](/menu2/) in which MD curves answer all of the above questions 
+*(on differential equation models from systems biology/neuroscience due to author prejudice. The package is model-agnostic.)*
+- If you find any other use case, let me know!
 @@
 
 \\
@@ -61,59 +143,10 @@
 
 <!-- <p style = "text-align:right">  ...(but nothing is a substitute for expert domain knowledge) </p> -->
 
-## What it does (short form)
-
-At its' core, only one thing: 
-
-> Finds functional relationships between model parameters that best preserve model behaviour.
-
-~~~
-<p style = "text-align:right">  (...by solving a differential equation on the parameters) </p>
-~~~
-\\
-Each functional relationship is termed a 'minimally disruptive curve'. It's basically a path in parameter space over which model behaviour changes minimally. For a more complete characterisation, see table below:
-
-\\
-
-|          Source                                                                     | Rigorous enough | Excessively rigorous | Excessively verbose |
-| ----------------------------------------------------------------------------------- | --------------- | -------------------- | ------------------- |
-| [My thesis, ch. 5 (ch. 4 is relevant too)](https://ora.ox.ac.uk/objects/uuid:f58aa335-db0a-495b-8eef-1ddb363cbd19/download_file?file_format=pdf&safe_filename=masterDoc.pdf&type_of_work=Thesis) |                 | x                    | x                   |
-| \citep{Raman17}                                                                     | x               |                      | x                   |
-| [How it works](/menu1/)                                                             | x               |                      |                     |     
 
 
-\\
+## Basic workflow
 
-#### Ingredients
-
-- MinimallyDisruptiveCurves.jl doesn't care about / interact with the specific model you are using. It is 'model agnostic'. 
-- You only need a differentiable cost function (also called loss/objective), which maps model parameters to 'how bad' the model behaviour is. Pseudocode for required cost function methods below.
-- The optimal behaviour could be matching data, oscillating at 3Hz, or doing backflips. Your choice.
-
-```julia
-function cost(params)
-  ... 
-  return cost
-end
-
-function cost(params, gradient_holder)
-  ...
-  gradient_holder[:] = ∇C(params) # MUTATE gradient holder
-  return cost
-end
-```
-
-- You need a locally optimal set of parameters for that cost function. (You get these from 'fitting' the model). You can get these by optimising your cost function (model fitting), using the julia optimisation packages mentioned below, for example.
-\\ \\
-@@infobox
-**By the way**
-- Several julia optimisation packages (such as Optim.jl and NLOpt.jl, DiffEqParamEstim.jl) use the same specification for their cost functions (which they call objective functions). So you can exploit their existing APIs for building cost functions. This package contains additional helper functions and examples for building and transforming cost functions.
-- Otherwise, Zygote.jl and ForwardDiff.jl can collectively take the gradient of pretty much any differentiable Julia code between them. 
-- If all else fails, MinimallyDisruptiveCurves.jl provides a function: `make_fd_differentiable(cost)`, that spits out a function of the above form, with a finite-difference step to calculate the gradient. But using finite diffence differentiation with Julia is like using a Ferrari to do the school run. 
-@@  
-\\ \\
-
-#### Workflow
 
 ~~~
 <div class="row">
@@ -123,36 +156,79 @@ end
   </div>
 </div>
 ~~~
-- At each iteration, you choose which parameters the minimally disruptive curve can change (you can choose all of them!). 
-
-A minimally disruptive curve might look something like this (in the easily-visualisable case of a model with three parameters):
-
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/mdc_traj_schematic.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-
-- Every point on the curve corresponds to a set of model parameters. 
-- The starting point (which you provide, red dot) is a locally optimal set of parameters. That is, one that best matches 'optimal' model behaviour, where 'optimal' is defined in terms of your cost function. 
-- The minimally disruptive curve generator tries to change the parameters *as much as possible* while best preserving model behaviour (i.e. keeping the cost low/minimal). So any parameter set on the curve (e.g. green dot) should induce model behaviour that is similar/identical to the red dot. 
--  *As much as possible* requires a notion of distance on parameter space (i.e. a metric). You can play with this metric. It could be quantified as relative changes in parameter values. And/or you could bias the curve so that small changes in a particular parameter (let's call it p7) correspond to large changes in the metric. So the curve will try to align with p7, and tell you how other parameters in the model can compensate for changes in p7, to preserve model behaviour.
 
 @@infobox
-**Computational complexity**
-- Generating a minimally disruptive curve usually requires somewhere between a few hundred, and a few thousand, evaluations of your cost function (and its' gradient). That's the major computational cost. 
-- For differential equation-based models, 
+**By the way**
+- MinimallyDisruptiveCurves never interacts directly with your model. Only the cost function. So it is agnostic to the model / how you coded the model
+- Your cost function can be anything, as long as it's differentiable. Quantify how well the model matches data, oscillates at 4Hz or does backflips. Your choice.
 @@
+
+**What you need**
+1. A julia function (*the cost function*) with two methods as shown:
+
+```julia
+# method 1
+function cost(params)
+  ... 
+  return cost
+end
+
+# method 2
+function cost(params, gradient_holder)
+  ...
+  gradient_holder[:] = ∇C(params) 
+  # MUTATE gradient holder. 
+  # It must provide the gradient of the cost with respect to parameters.
+  return cost
+end
+```
+2. An initial set of parameters, `p0`, that are **locally minimal** with respect to the cost function. So
+
+```julia
+grad_holder = rand(size(p0))
+c0 = cost(p0, grad_holder)
+# now grad_holder ≈ zeros(size(grad_holder))
+```
+- *How do you get such a `p0`?* By fitting the model to the cost function. In Julia, you can choose from a [variety of optimisation packages](https://www.juliaopt.org/packages/). I use Optim.jl in the examples.
+\\ \\
+@@infobox
+**By the way**
+
+*Calculating the gradients of cost functions of complicated models is hard right?* 
+
+Not these days! Automatic differentiation of near-arbitrary code is one of the big advantages of Julia.
+- The two-method specification of the cost function above is shared with most julia optimisation packages (e.g. Optim.jl). So you can incorporate these seamlessly in a MinimallyDisruptiveCurves.jl workflow, for creating/pre-minimising cost functions. 
+- DiffEqParamEstim.jl makes cost functions of the required form for differential equation-based models.
+- Otherwise, Zygote.jl and ForwardDiff.jl can collectively take the gradient of pretty much any differentiable Julia code between them. 
+- If all else fails, MinimallyDisruptiveCurves.jl provides a function: `make_fd_differentiable(cost)`, that spits out a cost function of the required form, with a finite-difference step to calculate the gradient. *But using finite diffence differentiation with Julia is like using a Ferrari to do the school run.*
+@@  
+\\ \\
+
+
+
+ <!-- *As much as possible* requires a notion of distance on parameter space (i.e. a metric). You can play with this metric. It could be quantified as relative changes in parameter values. And/or you could bias the curve so that small changes in a particular parameter (let's call it p7) correspond to large changes in the metric. So the curve will try to align with p7, and tell you how other parameters in the model can compensate for changes in p7, to preserve model behaviour. -->
 
 
 ## Features
 
+**Computational complexity**
+- Since this package is not based on sampling parameter space, it doesn't suffer from the curse of dimensionality in models with many parameters.
+- Generating a minimally disruptive curve usually requires somewhere between a few hundred, and a few thousand, evaluations of your cost function (and its gradient). That's the major computational cost
 
 
-## Place in the literature ecosystem
+## Caveats
+- **Your cost function needs to be differentiable.** 
+Your cost function is a mathematical expression of what you want your model to do. A little bit of ingenuity can usually find differentiable cost functions that successfully express what you want the model to do. Otherwise, switch your brain off and take your cost as the L2 deviation from some ideal model output. 
+
+- **MinimallyDisruptiveCurves.jl generates 1d functional relationships (i.e.: *curves*)**
+
+There may be higher-dimensional functional relationships (i.e. *surfaces* or *hyper-surfaces*) in parameter space, over which model behaviour is approximately preserved. You won't automatically find these using MinimallyDisruptiveCurves.jl. But by evolving multiple curves with different initial conditions / at different points in parameter space, you could get somewhere. 
+
+
+
+
+
+## Related literature
 
 Structural identifiability, practical unidentifiability
 Profile likelihood without gradients. Mbam. 
