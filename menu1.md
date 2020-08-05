@@ -11,7 +11,7 @@
 - We denote the cost(/loss) function as 
 $$ C: \Theta \to \mathbb{R}. $$
     $C(\theta)$ tells us 'how badly' the model behaves when using the parameter vector $\theta$. The smaller $C(\theta)$ is, the better the model behaves. 
-
+  
 
 ## Background: model-fitting
 
@@ -50,7 +50,7 @@ Let's quickly recap the problem of model-fitting (optimising the model), and def
 
 @@infobox
 **By the way**
-- Most systems one would model in Biology and Engineering (my interests) are input-output systems. You turn the steering wheel, the car veers. You inject current, the neuron fires. You add a cytokine, the cell goes metabolically manic. 
+- Most systems one would model in Biology and Engineering (my interests) are input-output systems. You turn the steering wheel, the car veers. You inject current, the neuron fires. You add a cytokine, the cell's metabolic system responds.
 - Therefore reasonable cost functions should penalise bad model behaviour **for multiple inputs**. I want my car to turn left when I steer left. I also want my car to turn right when I steer right. 
 - Don't conveniently forget this to make the modelling/analysis easier. Too many biological models do. I'm also guilty. MinimallyDisruptiveCurves.jl allows you easily sum multiple cost functions (one for each input). It evaluates them in a multithreaded way, so that performance doesn't take such a hit.
 @@
@@ -95,6 +95,16 @@ Any point $\gamma(s)$ on the curve has a **derivative**, $\gamma'(s)$. This is t
 
 We will denote the set of allowable curves $\gamma$ (i.e. those satisfying the above constraints), as $\Gamma$. 
 
+~~~
+<div class="row">
+  <div class="container">
+    <img class="center" src="/assets/isacurve.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+
+
 @@infobox
 **By the way**
 
@@ -104,6 +114,16 @@ We are going to iteratively add constraints to the set of allowable curves, and 
 
 Now we want all points on our curve to define low-cost parameter configurations. In other words, we want $C(\gamma(s))$ to be small for any $s \in [0, F]$. How can we distinguish between 'good' and 'bad' curves? How about this:
 $$J[\gamma] = \int_{\gamma} C[\gamma(s)] \ ds $$
+
+\\ \\
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/lineintegral.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
 
 
 $J$ is the **line integral** of the cost $C$ along the curve $\gamma$. If $J[\gamma]$ is small, then $C$ is necessarily small along the entire curve. 
@@ -241,10 +261,31 @@ Given $C[\gamma(s)]$ (the current cost), $\nabla_{\theta} C[\gamma(s)]$ (and it'
 **By the way**
 - Get some intuition by setting $\mu_1(s) = 0$ in your head, then reviewing the equations. This occurs when the curve is currently pointing away from $\theta^*$.
 - Then you see that $u(s)$, the curve direction, is proportional to $\lambda(s)$, the costate ($\approx$ momentum).
-- Meanwhile, the costate is **integrating** the cost gradient, $\nabla_{\theta} C[\gamma(s)]$
+- Meanwhile, the costate is **integrating** the negative cost gradient, $-\nabla_{\theta} C[\gamma(s)]$
 - Notice the analogy with optimisation algorithms based on gradient descent with momentum, if you're into that kind of thing.
 @@
 
 
-## Why it works
+## TL;DR
 
+**What we are trying to do**
+@@backgroundbox
+We wanted a method to construct curves in parameter space, where
+- Every point on the curve represents a set of model parameters that is as low cost as possible.
+- The curves don't 'double back' on themselves (monotonically increasing distance from origin).
+- The curves have a fixed length $F$. 
+- The user sets the initial direction of the curve.
+
+This resulted in the optimisation problem of equation \eqref{eq:mainProb}.
+@@
+\\
+**How we do it**
+@@unobtrusivebox
+To make solution of this variational problem tractable, we turned it into an optimal control problem. 
+- We made the analogy of a rocket, with an automatic steering law, traversing parameter space
+- We asked what steering law would result in a rocket trajectory corresponding to a curve satisfying the above requirements.
+
+This resulted in a set of differential equations, that evolve paired 'position' and 'momentum' variables for the rocket. Position represents the point on parameter space (i.e. the curve).
+
+- Solution of this differential equation requires evaluation of the cost function and it's gradient at every step.
+@@

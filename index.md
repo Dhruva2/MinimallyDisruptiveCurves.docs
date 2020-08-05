@@ -35,7 +35,7 @@
 \\
 ## What it does (short form)
 
-At its' core, only one thing: 
+At its core, only one thing: 
 
 > Finds functional relationships between model parameters that best preserve model behaviour.
 
@@ -271,7 +271,7 @@ Note that `mdc::MinimallyDisruptiveCurve`. This type comes with functionality fo
 - Otherwise, switch your brain off and take your cost as the L2 deviation from some ideal model output. 
 - Or finite difference the gradient with `make_fd_differentiable(cost)`, close your eyes, and hope for the best.
 
-- **MinimallyDisruptiveCurves.jl generates 1d functional relationships (i.e.: *curves*)**
+**MinimallyDisruptiveCurves.jl generates 1d functional relationships (i.e.: *curves*)**
 
 There may be higher-dimensional functional relationships (i.e. *surfaces* or *hyper-surfaces*) in parameter space, over which model behaviour is approximately preserved. You won't automatically find these using MinimallyDisruptiveCurves.jl. But by evolving multiple curves with different initial conditions / at different points in parameter space, you could get somewhere. 
 
