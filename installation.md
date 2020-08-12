@@ -7,10 +7,22 @@
 
 # Installation
 \toc
-\\ \\ 
+\\ 
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/python_environment.png">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+  (*Credit: https://xkcd.com/1987/*)
+
+\\ 
 ### Dependencies
-Julia v1.4 or greater
-\\ \\
+- Julia v1.4 or greater
+- If you want to run the example jupyter notebooks, make sure IJulia is installed and working. See instructions [here](https://github.com/JuliaLang/IJulia.jl)
+\\ 
 
 ### Steps
 1. Open a REPL and enter the package manager (by typing ] at the prompt)
@@ -31,24 +43,30 @@ Julia v1.4 or greater
 ```julia
 using MinimallyDisruptiveCurves
 ```
-6. Feel smug that you're not using Python.
- *(... but you **are** using a superset of Python, see [PyCall.jl](https://github.com/JuliaPy/PyCall.jl) )*
 
+### Downloading tutorial notebooks
 
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/python_environment.png">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-  (*Credit: https://xkcd.com/1987/*)
+Tutorial notebooks are in the MDCExamples repository. 
 
+1. ```julia
+2.  git clone
+3. ```
+4. Start a julia session. Make sure you `cd` to the directory you have just cloned.
+5. Activate the environment:
+```julia
+] activate .   
+```
+4. (optional): Precompile the dependencies
+```julia
+] precompile
+```
 
-### Downloading tutorial notebook
+5. Open jupyter notebooks:
+```julia
+notebook(dir=pwd())
+```
+and then open/run the individual notebooks in the notebook environment. 
 
-No point downloading the software if you can't use it!
  
 
 

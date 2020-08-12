@@ -243,7 +243,7 @@ Note that `mdc::MinimallyDisruptiveCurve`. This type comes with functionality fo
 **Avoids the curse of dimensionality**
 - Since this package is not based on sampling parameter space, it doesn't suffer from the curse of dimensionality in models with many parameters.
 - Generating a minimally disruptive curve usually requires somewhere between a few hundred, and a few thousand, evaluations of your cost function (and its gradient). That's the major computational cost.
-- If you use reverse-mode automatic differentiation to compute your cost gradient, then the computational complexity of gradient evaluation does not grow with the number of parameters. That's why all these machine learning models with millions of parameters optimise so fast. 
+- If you use reverse-mode automatic differentiation to compute your cost gradient, then the computational complexity of gradient evaluation grows favourably with the number of parameters. That's why all these machine learning models with millions of parameters optimise so fast. 
 
 **Multithreaded cost function summation**
 - Often you want a model to behave one way for one input, and another way for another input. Each case induces a separate cost function. You can sum cost functions using the function `sum_losses(arr)`, where arr is an array of cost functions. The resulting summed cost function will run each component cost on a separate thread. So you can have a computationally efficient cost function with respect to model output on a library of inputs. 
@@ -281,9 +281,7 @@ There may be higher-dimensional functional relationships (i.e. *surfaces* or *hy
 
 ## Related literature
 
-Structural identifiability, practical unidentifiability
-Profile likelihood without gradients. Mbam. 
-<!-- http://pengqiu.gatech.edu/software/model_manifold/html/publish_MBAM_example.html -->
+Not convinced this is the right way to do things? \citep{Raman17} has a literature review of other methods, and the relative advantages/disadvantages. I won't rewrite it here. 
 
 
 ## Citing
