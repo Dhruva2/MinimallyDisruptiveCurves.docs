@@ -1,50 +1,138 @@
-<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/css/jtd.css"> <link rel=icon  href="/MinimallyDisruptiveCurves.docs/assets/favicon.ico"> <title>Installation</title> <div class=page-wrap > <div class=side-bar > <div class=header > <a href="/MinimallyDisruptiveCurves.docs/" class=title > User guide </a> </div> <label for=show-menu  class=show-menu >MENU</label> <input type=checkbox  id=show-menu  role=button > <div class=menu  id=side-menu > <ul class=menu-list > <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/" class="menu-list-link ">Home</a> <li class="menu-list-item active"><a href="/MinimallyDisruptiveCurves.docs/installation/"class="menu-list-link active">Installation</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu1/" class="menu-list-link ">How it works</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/sceptic/" class="menu-list-link ">Q&A with a sceptic</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu2/" class="menu-list-link ">Examples</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu3/" class="menu-list-link ">Tips & Tricks</a> <ul class="menu-list-child-list "> <li class="menu-list-item "><a href="#" class=menu-list-link >Submenu</a> </ul> </ul> </div> <div class=footer > This is <em>Just the docs</em>, adapted from the <a href="https://github.com/pmarsceill/just-the-docs" target=_blank >Jekyll theme</a>. </div> </div> <div class=main-content-wrap > <div class=main-content > <div class=main-header > <a id=github  href="https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl">MinimallyDisruptiveCurves.jl on GitHub</a> </div> <div class=franklin-content ><h1 id=installation ><a href="#installation">Installation</a></h1> <p><div class=franklin-toc ><ol><li><a href="#dependencies">Dependencies</a><li><a href="#steps">Steps</a><li><a href="#downloading_tutorial_notebooks">Downloading tutorial notebooks</a></ol></div> <br/> <div class=row > <div class=container > <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/python_environment.png"> <div style="clear: both"></div> </div> </div> &#40;<em>Credit: https://xkcd.com/1987/</em>&#41;</p> <p><br/> </p> <h3 id=dependencies ><a href="#dependencies">Dependencies</a></h3> <ul> <li><p>Julia v1.4 or greater</p> <li><p>If you want to run the example jupyter notebooks, make sure IJulia is installed and working. See instructions <a href="https://github.com/JuliaLang/IJulia.jl">here</a></p> </ul> <p><br/> </p> <h3 id=steps ><a href="#steps">Steps</a></h3> <ol> <li><p>Open a REPL and enter the package manager &#40;by typing &#93; at the prompt&#41;</p> <li><p>If you want, make a new environment &#40;see <a href="https://docs.julialang.org/en/v1/stdlib/Pkg/index.html">package management documentation</a> for more details &#41;, with:</p> </ol> <pre><code class="julia hljs">] activate .</code></pre>
-<ol start=3 >
-<li><p>Add MinimallyDisruptiveCurves.jl to your current environment with</p>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+   <link rel="stylesheet" href="/MinimallyDisruptiveCurves.docs/libs/highlight/github.min.css">
+   
+    <link rel="stylesheet" href="/MinimallyDisruptiveCurves.docs/css/jtd.css">
+  <link rel="icon" href="/MinimallyDisruptiveCurves.docs/assets/favicon.ico">
 
-</ol>
-<pre><code class="julia hljs">] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git</code></pre>
-<ol start=4 >
-<li><p>If you want access to MyModelMenagerie.jl, which contains a few differential equation models with which to try out MinimallyDisruptiveCurves.jl, you can do so:</p>
+   <title>Installation</title>  
+</head>
+<body>                      <!-- closed in foot.html -->
+<div class="page-wrap">   <!-- closed in foot.html -->
+  <!-- SIDE BAR -->
+  <div class="side-bar">
+    <div class="header">
+      <a href="/MinimallyDisruptiveCurves.docs/" class="title">
+        User guide
+      </a>
+    </div>
+    <label for="show-menu" class="show-menu">MENU</label>
+    <input type="checkbox" id="show-menu" role="button">
+    <div class="menu" id="side-menu">
+      <ul class="menu-list">
+        <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/" class="menu-list-link ">Home</a>
+        <li class="menu-list-item active"><a href="/MinimallyDisruptiveCurves.docs/installation/"class="menu-list-link active">Installation</a>
+        <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu1/" class="menu-list-link ">How it works</a>
+        <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/sceptic/" class="menu-list-link ">Q&A with a sceptic</a>
+        <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu2/" class="menu-list-link ">Examples</a>
+        <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu3/" class="menu-list-link ">Tips & Tricks</a>
+          <ul class="menu-list-child-list ">
+            <li class="menu-list-item "><a href="#" class="menu-list-link">Submenu</a>
+          </ul>
+      </ul>
+    </div>
+    <div class="footer">
+      This is <em>Just the docs</em>, adapted from the <a href="https://github.com/pmarsceill/just-the-docs" target="_blank">Jekyll theme</a>.
+    </div>
+  </div>
+  <!-- CONTENT -->
+  <div class="main-content-wrap"> <!-- closed in foot.html -->
+    <div class="main-content">    <!-- closed in foot.html -->
+      <div class="main-header">
+        <a id="github" href="https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl">MinimallyDisruptiveCurves.jl on GitHub</a>
+      </div>
 
-</ol>
-<pre><code class="julia hljs">] add https://github.com/Dhruva2/MyModelMenagerie.jl.git</code></pre>
-<ol start=5 >
-<li><p>Finally preface any julia code running in your environment, with:</p>
 
-</ol>
-<pre><code class="julia hljs"><span class=hljs-keyword >using</span> MinimallyDisruptiveCurves</code></pre>
-<h3 id=downloading_tutorial_notebooks ><a href="#downloading_tutorial_notebooks">Downloading tutorial notebooks</a></h3>
-<p>Tutorial notebooks are in the MDCExamples repository. </p>
-<ol>
-<li>
-</ol>
-<pre><code class="julia hljs"><span class=hljs-number >2.</span>  git clone
-<span class=hljs-number >3.</span></code></pre>
-<ol start=4 >
-<li><p>Start a julia session. Make sure you <code>cd</code> to the directory you have just cloned.</p>
 
-<li><p>Activate the environment:</p>
-
-</ol>
-<pre><code class="julia hljs">] activate .</code></pre>
-<ol start=4 >
-<li><p>&#40;optional&#41;: Precompile the dependencies</p>
-
-</ol>
-<pre><code class="julia hljs">] precompile</code></pre>
-<ol start=5 >
-<li><p>Open jupyter notebooks:</p>
-
-</ol>
-<pre><code class="julia hljs">notebook(dir=pwd())</code></pre>
-<p>and then open/run the individual notebooks in the notebook environment. </p>
-<div class=page-foot >
-  <div class=copyright >
-    &copy; Dhruva Venkita Raman. Last modified: August 12, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
+<!-- Content appended here (in class franklin-content) -->
+<div class="franklin-content"><h1 id="installation"><a href="#installation">Installation</a></h1>
+<p><div class="franklin-toc"><ol><li><a href="#dependencies">Dependencies</a></li><li><a href="#steps">Steps</a></li><li><a href="#downloading_tutorial_notebooks">Downloading tutorial notebooks</a></li></ol></div> <br/> 
+<div class="row">
+  <div class="container">
+    <img class="left" src="/MinimallyDisruptiveCurves.docs/assets/python_environment.png">
+    <div style="clear: both"></div>      
   </div>
 </div>
+   &#40;<em>Credit: https://xkcd.com/1987/</em>&#41;</p>
+<p><br/> </p>
+<h3 id="dependencies"><a href="#dependencies">Dependencies</a></h3>
+<ul>
+<li><p>Julia v1.4 or greater</p>
+</li>
+<li><p>If you want to run the example jupyter notebooks, make sure IJulia is installed and working. See instructions <a href="https://github.com/JuliaLang/IJulia.jl">here</a></p>
+</li>
+</ul>
+<p><br/> </p>
+<h3 id="steps"><a href="#steps">Steps</a></h3>
+<ol>
+<li><p>Open a julia session &#40;REPL&#41; </p>
+</li>
+<li><p>If you want, make a new environment &#40;see <a href="https://docs.julialang.org/en/v1/stdlib/Pkg/index.html">package management documentation</a> for more details &#41;, with:</p>
+</li>
+</ol>
+<pre><code class="julia hljs">] activate .</code></pre>
+<p>Here, <code>&#93;</code> switches from the julia REPL to the package manager</p>
+<ol start="3">
+<li><p>Add MinimallyDisruptiveCurves.jl to your current environment with</p>
+</li>
+</ol>
+<pre><code class="julia hljs">] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git</code></pre>
+<ol start="4">
+<li><p>If you want access to MyModelMenagerie.jl, which contains a few differential equation models with which to try out MinimallyDisruptiveCurves.jl, you can do so:</p>
+</li>
+</ol>
+<pre><code class="julia hljs">] add https://github.com/Dhruva2/MyModelMenagerie.jl.git</code></pre>
+<ol start="5">
+<li><p>Finally preface any julia code running in your environment, with:</p>
+</li>
+</ol>
+<pre><code class="julia hljs"><span class="hljs-keyword">using</span> MinimallyDisruptiveCurves</code></pre>
+<h3 id="downloading_tutorial_notebooks"><a href="#downloading_tutorial_notebooks">Downloading tutorial notebooks</a></h3>
+<p>Tutorial notebooks are in the MDCExamples repository. </p>
+<ol>
+<li><p>At a terminal, in the directory of your choice, type the following commands:</p>
+</li>
+</ol>
+<pre><code class="julia hljs">git clone https://github.com/Dhruva2/MDCExamples.git
+cd MDCExamples
+julia</code></pre>
+<p>This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.</p>
+<ol start="2">
+<li><p>In your new julia session, activate the environment:</p>
+</li>
+</ol>
+<pre><code class="julia hljs">] activate .</code></pre>
+<p><code>&#93;</code> switches to the package manager. <code>activate .</code> activates the predetermined package environment in which the notebooks can be run.</p>
+<ol start="3">
+<li><p>&#40;optional&#41;: Precompile the dependencies to save a few minutes later</p>
+</li>
+</ol>
+<pre><code class="julia hljs">] precompile</code></pre>
+<ol start="5">
+<li><p>Open jupyter notebooks:</p>
+</li>
+</ol>
+<pre><code class="julia hljs"><span class="hljs-keyword">using</span> IJulia
+notebook(dir=pwd())</code></pre>
+<p>and then open/run the individual notebooks in the notebook environment. </p>
+<div class="page-foot">
+  <div class="copyright">
+    &copy; Dhruva Venkita Raman. Last modified: October 05, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
+  </div>
 </div>
-    </div> 
-    </div> 
+</div><!-- CONTENT ENDS HERE -->
+    </div> <!-- end of class main-content -->
+    </div> <!-- end of class main-content-wrap -->
     </div> <!-- end of class page-wrap-->
+    
+    
+      
+
+
+    
+  </body>
+</html>
