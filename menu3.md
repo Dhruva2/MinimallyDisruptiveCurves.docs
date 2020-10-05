@@ -6,21 +6,24 @@
 Let's call it $\delta \theta$. If model sensitivity to $\delta \theta$ is high, then ...
 - if you're lucky the curve will change direction quickly onto a better (more insensitive) direction
 - if you're unlucky it won't find a better direction, and will evolve in a slow, jaggedly meandering manner that is disruptive of model behaviour.
+- if it involves lots of parameters, it might be hard to interpret
 
 Note that sensitivity is quantified by:
 
-$$ \| \nabla^2 C[\theta^*] \delta \theta \|_2.$$
+$$ \delta \theta^T \nabla^2 C[\theta^*] \delta \theta $$
 
-The bigger this is, the more sensitive the direction. If you don't have an intuitively motivated initial direction, you could **follow these steps**:
+The bigger this is, the more sensitive the direction. If you don't have an intuitively motivated initial direction, you could **follow these steps** (which are explicitly done in the NFKB example notebook):
 
 @@unobtrusivebox
 1. Fix parameters you're not interested in (if any).
-2. Generate an approximation of the Hessian $\nabla^2 C[\theta^*]$ (finite difference, `l2_hessian`, or otherwise).  
+2. Generate an approximation of the Hessian $\nabla^2 C[\theta^*]$ (finite difference, automatic differentiation, `l2_hessian`, or otherwise).  
 3. Solve the [QCQP](https://juliacomputing.com/industries/optimization.html):
 $$ \min_{\delta \theta} \delta \theta^T \nabla^2 C[\theta^*] \delta \theta + \lambda \| \delta \theta \|_1 \quad \text{subject to} \quad \| \delta \theta \|_2^2 = 1. $$ 
 
-- *The value of $\lambda >0 $ is proportional to your desire to involve only a subset of parameters in the initial direction: it is a sparsity-encouraging ($\mathcal{L}_1$) regularisation term.*
+- *The value of $\lambda >0 $ is proportional to your desire to involve only a small number of parameters in the initial direction: it is a sparsity-encouraging ($\mathcal{L}_1$) regularisation term.*
 - *If $\lambda = 0$ then the solution is just the eigenvector with the smallest eigenavalue.*  
+- Otherwise, this is non-convex, and will usually have multiple local solutions, depending on the initial condition of the optimisation problem. Each of these local solutions is a great candidate for an MD curve! (again, see the NFKB or STG neuron examples for an actual implementation.)
+- Set extremely small (e.g. $<1e-5$) components of the initial direction vector to zero. This potentially saves the curve generator some trouble at the beginning
 @@
 \\ \\
 @@infobox
@@ -41,7 +44,7 @@ If it's too low, the curve will terminate early (as soon as cost > momentum). It
 2. *Is a big change the same across different model parameters?*
 
 **Answers**
-1. Very thorny issue. Depends on the questions being asked of the model.
+1. Very thorny issue. Depends on the (questions being asked of the) model.
 2. No.
 @@
 
@@ -59,32 +62,34 @@ Using these, and other transformation structures, are demonstrated in the Exampl
 
 ...if you want to maximise numerical accuracy.
 
-Check which parameters are significantly changing over the curve, and fix all the other parameters using `only_free_parametes`.
+Check which parameters are significantly changing over the curve, and fix all the other parameters using `only_free_parametes`, for the second run.
+
+Of course....your curve might rely on apparently small changes in 'unimportant' parameters on the first curve. But that's useful information!
 
 ## The MinimallyDisruptiveCurves.jl agony aunt
 
-
+@@unobtrusivebox
 **You promised that the distance from initial parameters would be monotonically increasing. But my curve is sawtoothing!**
+@@
 
+Default settings in the `evolve` function (which generates MD curves) are to have `momentum_tol = 1e-3`. What is this? 
+- Functionally, it helps with accuracy of the curve evolution.
+- Mathematically (not something to worry about in this context) it uses an algebraic identity on what the costate (i.e. momentum) should be to occasionally reset the costate. 
 
+There is a bug whereby if the MD curve cannot find any new good directions **and** it resets the costate, it can double back on itself and violate the monotonic increase in distance from initial parameter values. You can stop this by setting the keyword argument:
+```julia
+evolve(...; momentum_tol = NaN)
+``` 
+I'll fix this at some point.
+\\ 
+@@unobtrusivebox
 **My curve looks like the simulation of a Rodeo rider!**
+@@
+
+- Again, try playing around with `; momentum_tol = NaN`, or increasing momentum_tol to a higher value. 
+
+- **Increasing** the momentum can also help. 
 
 
 
 
-
-**Relative changes in parameters**
-
-Scientifically it is often useful. Numerically it *might* (not) be better conditioned. How do you find out? You could look at the Hessian at $p0$ and the condition number. This is the 'sloppiness' of the system (lit refs). 
-
-**Stabilising a bucking curve**
-
-- try momentum tolerance = NaN. 
-
-
-**Only a few parameters change significantly**
-
-In this case you can get a more accurate curve by running twice. The second time, fix all parameters that didn't change significantly on the first go. 
-
-**Finding a good starting direction**
-If you have a hypothesis on a few parameters only, Fix the other parameters, and then find a direction which doesn't project onto the the reduced Hessian.

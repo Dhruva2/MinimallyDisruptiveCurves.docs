@@ -25,11 +25,13 @@
 \\ 
 
 ### Steps
-1. Open a REPL and enter the package manager (by typing ] at the prompt)
+1. Open a julia session (REPL) 
+   
 2. If you want, make a new environment (see [package management documentation](https://docs.julialang.org/en/v1/stdlib/Pkg/index.html) for more details ), with:
 ```julia
 ] activate .
 ```
+Here, `]` switches from the julia REPL to the package manager
 3. Add MinimallyDisruptiveCurves.jl to your current environment with
 ```julia
 ] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git
@@ -47,22 +49,27 @@ using MinimallyDisruptiveCurves
 ### Downloading tutorial notebooks
 
 Tutorial notebooks are in the MDCExamples repository. 
+1. At a terminal, in the directory of your choice, type the following commands:
+```julia
+ git clone https://github.com/Dhruva2/MDCExamples.git
+cd MDCExamples
+julia ```
+This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.
 
-1. ```julia
-2.  git clone
-3. ```
-4. Start a julia session. Make sure you `cd` to the directory you have just cloned.
-5. Activate the environment:
+2. In your new julia session, activate the environment:
 ```julia
 ] activate .   
 ```
-4. (optional): Precompile the dependencies
+`]` switches to the package manager. `activate .` activates the predetermined package environment in which the notebooks can be run.
+
+3. (optional): Precompile the dependencies to save a few minutes later
 ```julia
 ] precompile
 ```
 
 5. Open jupyter notebooks:
 ```julia
+using IJulia
 notebook(dir=pwd())
 ```
 and then open/run the individual notebooks in the notebook environment. 
