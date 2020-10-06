@@ -51,7 +51,7 @@
 
 <!-- Content appended here (in class franklin-content) -->
 <div class="franklin-content"><h1 id="minimallydisruptivecurvesjl"><a href="#minimallydisruptivecurvesjl">MinimallyDisruptiveCurves.jl</a></h1>
-<p><div class="franklin-toc"><ol><li><a href="#what_it_does_short_form">What it does &#40;short form&#41;</a></li><li><a href="#use_cases">Use Cases  </a></li><li><a href="#basic_workflow">Basic workflow</a></li><li><a href="#features">Features</a></li><li><a href="#caveats">Caveats</a></li><li><a href="#related_literature">Related literature</a></li><li><a href="#citing">Citing</a></li><li><a href="#references">References </a></li></ol></div> <br/> <br/> 
+<p><div class="franklin-toc"><ol><li><a href="#what_it_does_short_form">What it does &#40;short form&#41;</a></li><li><a href="#use_cases">Use Cases  </a></li><li><a href="#basic_workflow">Basic workflow</a></li><li><a href="#features">Features</a></li><li><a href="#caveats">Caveats</a></li><li><a href="#related_literature">Related literature</a></li><li><a href="#citing_acknowledgements">Citing, Acknowledgements</a></li><li><a href="#references">References </a></li></ol></div> <br/> <br/> 
 <p style="color:black;font-size:20px;"> Because building a good model is hard</p>  
 </p>
 
@@ -316,7 +316,7 @@ plot(mdc)
 <p>There may be higher-dimensional functional relationships &#40;i.e. <em>surfaces</em> or <em>hyper-surfaces</em>&#41; in parameter space, over which model behaviour is approximately preserved. You won&#39;t automatically find these using MinimallyDisruptiveCurves.jl. But by evolving multiple curves with different initial conditions / at different points in parameter space, you could get somewhere. </p>
 <h2 id="related_literature"><a href="#related_literature">Related literature</a></h2>
 <p>Not convinced this is the right way to do things? <span class="bibref">(<a href="#raman17">Raman et al. (2017)</a>)</span> has a literature review of other methods, and the relative advantages/disadvantages. I won&#39;t rewrite it here. </p>
-<h2 id="citing"><a href="#citing">Citing</a></h2>
+<h2 id="citing_acknowledgements"><a href="#citing_acknowledgements">Citing, Acknowledgements</a></h2>
 <p><strong>The algorithm</strong>: &#40;minus a few tweaks&#41;</p>
 <pre><code class="julia hljs"><span class="hljs-meta">@article</span>{raman2017delineating,
   title={Delineating parameter unidentifiabilities <span class="hljs-keyword">in</span> complex models},
@@ -329,6 +329,7 @@ plot(mdc)
   publisher={APS}
 }</code></pre>
 <p><strong>The software</strong>: as yet unpublished, keep your eye on this&#33;</p>
+<p><strong>This work was supported by European Research Council grant StG 2016 FLEXNEURO &#40;716643&#41;.</strong> Thanks&#33;</p>
 <h2 id="references"><a href="#references">References </a></h2>
 <ul>
 <li><p><a id="raman17" class="anchor"></a><strong>Raman</strong>,  <strong>Anderson</strong>  and <strong>Papachristodoulou</strong>, <a href="https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.032314">Delineating parameter unidentifiabilities in complex models.</a>, Physical Review E 95.3 &#40;2017&#41;.</p>
@@ -336,7 +337,7 @@ plot(mdc)
 </ul>
 <div class="page-foot">
   <div class="copyright">
-    &copy; Dhruva Venkita Raman. Last modified: October 05, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
+    &copy; Dhruva Venkita Raman. Last modified: October 06, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
   </div>
 </div>
 </div><!-- CONTENT ENDS HERE -->
