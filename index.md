@@ -284,7 +284,7 @@ There may be higher-dimensional functional relationships (i.e. *surfaces* or *hy
 Not convinced this is the right way to do things? \citep{Raman17} has a literature review of other methods, and the relative advantages/disadvantages. I won't rewrite it here. 
 
 
-## Citing
+## Citing, Acknowledgements
 
 **The algorithm**: (minus a few tweaks)
 ```
@@ -302,6 +302,7 @@ Not convinced this is the right way to do things? \citep{Raman17} has a literatu
 
 **The software**: as yet unpublished, keep your eye on this!
 
+**This work was supported by European Research Council grant StG 2016 FLEXNEURO (716643).** Thanks!
 
 ## References 
 * \biblabel{Raman17}{Raman et al. (2017)} **Raman**,  **Anderson**  and **Papachristodoulou**, [Delineating parameter unidentifiabilities in complex models.](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.032314), Physical Review E 95.3 (2017).
