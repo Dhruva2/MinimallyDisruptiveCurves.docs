@@ -121,7 +121,6 @@ We will use this terminology in our description of the MD curves.
 
 @@unobtrusivebox
 ### Minimally disruptive curve 1
-\\ 
 - The main panel depicts how each of the four parameters change along the curve. Distance from the starting point on the curve is the $x$-axis. 
 - Any point on the $x$-axis defines a set of parameters. 
 - We take the farthest set of parameters (distance = 15), and simulate the model. Look! Model features are almost exactly the same as the nominal!
@@ -139,7 +138,6 @@ We will use this terminology in our description of the MD curves.
 
 @@unobtrusivebox
 ### Minimally disruptive curve 2
-\\ 
 - As we move along the curve, predators move towards an $K$-strategy, and prey moves towards a $r$-strategy. The opposite of mdc1!
 ~~~
 <div class="row">
@@ -231,4 +229,22 @@ nominal_trajectory = plot(sol_at_p(mdc(0.)[:states]), label = ["prey" "predator"
 perturbed_trajectory = plot(sol_at_p(mdc(-15.)[:states]), label = ["prey" "predator"])
 traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (2,1), xlabel = "time", ylabel = "population")
 ```
+### Lessons
+
+- MinimallyDisruptiveCurves.jl showed how we could continuously vary the parameters of the Lotka-Volterra model, while preserving
+  1. mean prey population over time
+  2. max predator population over time 
+
+- Along the axis of $r$-strategies to $K$-strategies, we found that predators (prey) could move in either direction, as long as prey (predators) moved in the opposite direction. We also got the precise parameter compensations that induced these movements. 
+
+- However, there is a limit: prey birth rates cannot go too low (see MDC2), or a mean prey population cannot be preserved. We see the specific birth rate at which this issue arises.  At this point, MDC2 switches the direction of change for prey birth rates.
+
+@@infobox
+**By the way**
+
+The maximum predator population over time is a **non differentiable** function of the solution. How come this worked?
+
+*Well, the maximum of a collection of elements (predator measurements over time), is differentiable except at crossing points, where two elements share a maximal value. Different values of predator(t) will never have **exactly** the same value, due to numerical error as well as equation dynamics. So it works out! Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.
+@@
+
 
