@@ -51,7 +51,7 @@
 
 <!-- Content appended here (in class franklin-content) -->
 <div class="franklin-content"><h1 id="examples"><a href="#examples">Examples</a></h1>
-<div class="franklin-toc"><ol><li><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a></li><li><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a><ol><li><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></li><li><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></li><li><a href="#the_code">The code</a></li></ol></li></ol></div>
+<div class="franklin-toc"><ol><li><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a></li><li><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a><ol><li><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></li><li><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></li><li><a href="#the_code">The code</a></li><li><a href="#lessons">Lessons</a></li></ol></li></ol></div>
 <p>
 <div class="row">
   <div class="container">
@@ -178,7 +178,6 @@ notebook(dir=pwd())</code></pre>
 </li>
 </ul>
 <div class="unobtrusivebox"><h3 id="minimally_disruptive_curve_1"><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></h3>
-<p><br/> </p>
 <ul>
 <li><p>The main panel depicts how each of the four parameters change along the curve. Distance from the starting point on the curve is the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>-axis. </p>
 </li>
@@ -202,7 +201,6 @@ notebook(dir=pwd())</code></pre>
 </li>
 </ul></div>
 <div class="unobtrusivebox"><h3 id="minimally_disruptive_curve_2"><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></h3>
-<p><br/> </p>
 <ul>
 <li><p>As we move along the curve, predators move towards an <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>-strategy, and prey moves towards a <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>-strategy. The opposite of mdc1&#33;</p>
 </li>
@@ -290,6 +288,24 @@ mdc_plot = plot(p1,p2, layout=(<span class="hljs-number">2</span>,<span class="h
 nominal_trajectory = plot(sol_at_p(mdc(<span class="hljs-number">0.</span>)[:states]), label = [<span class="hljs-string">&quot;prey&quot;</span> <span class="hljs-string">&quot;predator&quot;</span>])
 perturbed_trajectory = plot(sol_at_p(mdc(-<span class="hljs-number">15.</span>)[:states]), label = [<span class="hljs-string">&quot;prey&quot;</span> <span class="hljs-string">&quot;predator&quot;</span>])
 traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (<span class="hljs-number">2</span>,<span class="hljs-number">1</span>), xlabel = <span class="hljs-string">&quot;time&quot;</span>, ylabel = <span class="hljs-string">&quot;population&quot;</span>)</code></pre>
+<h3 id="lessons"><a href="#lessons">Lessons</a></h3>
+<ul>
+<li><p>MinimallyDisruptiveCurves.jl showed how we could continuously vary the parameters of the Lotka-Volterra model, while preserving</p>
+<ol>
+<li><p>mean prey population over time</p>
+</li>
+<li><p>max predator population over time </p>
+</li>
+</ol>
+</li>
+<li><p>Along the axis of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>-strategies to <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>-strategies, we found that predators &#40;prey&#41; could move in either direction, as long as prey &#40;predators&#41; moved in the opposite direction. We also got the precise parameter compensations that induced these movements. </p>
+</li>
+<li><p>However, there is a limit: prey birth rates cannot go too low &#40;see MDC2&#41;, or a mean prey population cannot be preserved. We see the specific birth rate at which this issue arises.  At this point, MDC2 switches the direction of change for prey birth rates.</p>
+</li>
+</ul>
+<div class="infobox"><p><strong>By the way</strong></p>
+<p>The maximum predator population over time is a <strong>non differentiable</strong> function of the solution. How come this worked?</p>
+<p>*Well, the maximum of a collection of elements &#40;predator measurements over time&#41;, is differentiable except at crossing points, where two elements share a maximal value. Different values of predator&#40;t&#41; will never have <strong>exactly</strong> the same value, due to numerical error as well as equation dynamics. So it works out&#33; Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.</p></div>
 <div class="page-foot">
   <div class="copyright">
     &copy; Dhruva Venkita Raman. Last modified: October 10, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
