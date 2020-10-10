@@ -63,7 +63,7 @@ evolve(c::curveProblem, solmethod=nothing; callback=nothing, momentum_tol = 1e-3
 @@unobtrusivebox
 The profile likelihood method (introduced in \citep{Venzon88}, and applied, with a software toolbox, for Systems Biology in \citep{Raue09}) does precisely this! And doesn't require a differentiable cost function. 
 
-Essentially they pick a parameter ($j$), and iteratively change it. At each step, all the other parameters are re-optimised to minimise the cost function. This solves a slightly different problem: making effective confidence intervals on the parameters for a particular model behaviour. 
+Essentially they pick a parameter ($j$), and iteratively change it. At each step, all the other parameters are re-optimised to minimise the cost function. This solves a slightly different problem: making effective confidence intervals on the parameters for a particular model behaviour. I informally tried to compare this method to mine on the examples of the 2017 paper, and couldn't use it to extract functional relationships between parameters. The reason? MD Curves have momentumum in a particular (potentially curving) insensitive direction. The iterative re-optimisation procedure can and will change parameters in a different insensitive direction at each iteration. 
 @@
 \\ \\
 *🦎: All these numerical methods though...what about numerical error?*

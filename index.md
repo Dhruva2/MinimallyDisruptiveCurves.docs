@@ -43,6 +43,7 @@ At its core, only one thing:
 <p style = "text-align:right">  (...by solving a differential equation on the parameters) </p>
 ~~~
 \\
+Each minimally disruptive curve corresponds to a functional relationship like this.
 
 @@unobtrusivebox
 **Schematic**
