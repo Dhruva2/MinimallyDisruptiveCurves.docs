@@ -78,8 +78,7 @@ and then open/run the individual notebooks in the notebook environment.
 - Note that one of the model features we analyse is **non-differentiable**. Mathematically. Computationally everything works fine, as we'll explain.
 
 @@unobtrusivebox
-
-**Lotka Volterra model of predator-prey interactions**
+### Lotka Volterra model of predator-prey interactions
 
 The dynamics for the system are:
 $$ \frac{d
@@ -90,7 +89,9 @@ $$
 - $p_1$ and $p_2$ are the birth and death rates of 🐁 
 - $p_3$ and $p_4$ are the birth and death rates of 🦉
 ... and here is a time-course of their populations when
-`p = [1.5,1.0,3.0,1.0]`
+`p = [1.5,1.0,3.0,1.0]`. We call these values the **nominal parameters**.
+\\ \\
+**Nominal system** (i.e. simulated with nominal parameter values)
 ~~~
 <div class="row">
   <div class="container">
@@ -99,12 +100,13 @@ $$
   </div>
 </div>
 ~~~
-- We will call the system, with these specific parameter values, the **nominal system**.
 @@
 
 - We will follow [b](https://diffeq.sciml.ai/v6.9/analysis/global_sensitivity/) in having **two** features of interest: 
   - **mean** population of 🐁  over time
   - **max** population of 🦉 over time
+- The model features of the nominal system are $[2.98, 4.57]$
+- Our **cost function on model behaviour** is the mean square deviation from these nominal model features. 
 
 @@infobox
 **By the way**
@@ -116,13 +118,12 @@ We will use this terminology in our description of the MD curves.
 
 - By running the code at the bottom of the page twice, setting `whichdir = 1` and `whichdir=2` respectively, we get two MD curves (see below).
 
-- On the first curve, predators 
-
 
 @@unobtrusivebox
 ### Minimally disruptive curve 1
-- The main panel depicts how each of the four parameters change along the curve. Distance from the starting point on the curve is the $x$-axis. 
-- Any point on the $x$-axis defines a set of parameters. 
+- The starting point on the curve (main panel, distance = 0) is the nominal set of parameters. 
+- Moving along the $x$-axis on the main panel, each parameter changes. So any vertical cross section of the graph defines a new set of model parameters.
+- Because it's an MD curve, any of these new sets of parameters are minimally disruptive with respect to model features. 
 - We take the farthest set of parameters (distance = 15), and simulate the model. Look! Model features are almost exactly the same as the nominal!
 ~~~
 <div class="row">
