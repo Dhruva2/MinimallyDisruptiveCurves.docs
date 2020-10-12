@@ -51,7 +51,7 @@
 
 <!-- Content appended here (in class franklin-content) -->
 <div class="franklin-content"><h1 id="examples"><a href="#examples">Examples</a></h1>
-<div class="franklin-toc"><ol><li><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a></li><li><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a><ol><li><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></li><li><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></li><li><a href="#the_code">The code</a></li><li><a href="#lessons">Lessons</a></li></ol></li></ol></div>
+<div class="franklin-toc"><ol><li><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a></li><li><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a><ol><li><a href="#lotka_volterra_model_of_predator-prey_interactions">Lotka Volterra model of predator-prey interactions</a></li><li><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></li><li><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></li><li><a href="#the_code">The code</a></li><li><a href="#lessons">Lessons</a></li></ol></li></ol></div>
 <p>
 <div class="row">
   <div class="container">
@@ -128,7 +128,7 @@ notebook(dir=pwd())</code></pre>
 <li><p>Note that one of the model features we analyse is <strong>non-differentiable</strong>. Mathematically. Computationally everything works fine, as we&#39;ll explain.</p>
 </li>
 </ul>
-<div class="unobtrusivebox"><p><strong>Lotka Volterra model of predator-prey interactions</strong></p>
+<div class="unobtrusivebox"><h3 id="lotka_volterra_model_of_predator-prey_interactions"><a href="#lotka_volterra_model_of_predator-prey_interactions">Lotka Volterra model of predator-prey interactions</a></h3>
 <p>The dynamics for the system are:</p>
 <span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mtext>🐁</mtext></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><msub><mi>p</mi><mn>1</mn></msub><mtext>🐁</mtext><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mtext>🐁🦉</mtext><mspace linebreak="newline"></mspace><mfrac><mrow><mi>d</mi><mtext>🦉</mtext></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo>−</mo><msub><mi>p</mi><mn>3</mn></msub><mtext>🦉</mtext><mo>+</mo><msub><mi>p</mi><mn>4</mn></msub><mtext>🐁🦉</mtext></mrow><annotation encoding="application/x-tex"> \frac{d
 🐁}{dt} =  p_1 🐁 - p_2🐁 🦉 \\
@@ -141,18 +141,14 @@ notebook(dir=pwd())</code></pre>
 <li><p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>3</mn></msub></mrow><annotation encoding="application/x-tex">p_3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>p</mi><mn>4</mn></msub></mrow><annotation encoding="application/x-tex">p_4</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault">p</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> are the birth and death rates of 🦉</p>
 </li>
 </ul>
-<p>... and here is a time-course of their populations when <code>p &#61; &#91;1.5,1.0,3.0,1.0&#93;</code> 
+<p>... and here is a time-course of their populations when <code>p &#61; &#91;1.5,1.0,3.0,1.0&#93;</code>. We call these values the <strong>nominal parameters</strong>. <br/> <br/> <strong>Nominal system</strong> &#40;i.e. simulated with nominal parameter values&#41; 
 <div class="row">
   <div class="container">
     <img class="left" src="/MinimallyDisruptiveCurves.docs/assets/nominal_lv.png">
     <div style="clear: both"></div>      
   </div>
 </div>
-</p>
-<ul>
-<li><p>We will call the system, with these specific parameter values, the <strong>nominal system</strong>.</p>
-</li>
-</ul></div>
+</p></div>
 <ul>
 <li><p>We will follow <a href="https://diffeq.sciml.ai/v6.9/analysis/global_sensitivity/">b</a> in having <strong>two</strong> features of interest: </p>
 <ul>
@@ -161,6 +157,10 @@ notebook(dir=pwd())</code></pre>
 <li><p><strong>max</strong> population of 🦉 over time</p>
 </li>
 </ul>
+</li>
+<li><p>The model features of the nominal system are <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>2.98</mn><mo separator="true">,</mo><mn>4.57</mn><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[2.98, 4.57]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">2</span><span class="mord">.</span><span class="mord">9</span><span class="mord">8</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">4</span><span class="mord">.</span><span class="mord">5</span><span class="mord">7</span><span class="mclose">]</span></span></span></span></p>
+</li>
+<li><p>Our <strong>cost function on model behaviour</strong> is the mean square deviation from these nominal model features. </p>
 </li>
 </ul>
 <div class="infobox"><p><strong>By the way</strong> In your ecology class, you may have heard of <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi><mi mathvariant="normal">/</mi><mi>K</mi></mrow><annotation encoding="application/x-tex">r/K</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mord">/</span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span> selection. This is a &#40;criticised&#41; theory of how there are two extremal strategies that individual species trade off between:  </p>
@@ -174,14 +174,14 @@ notebook(dir=pwd())</code></pre>
 <ul>
 <li><p>By running the code at the bottom of the page twice, setting <code>whichdir &#61; 1</code> and <code>whichdir&#61;2</code> respectively, we get two MD curves &#40;see below&#41;.</p>
 </li>
-<li><p>On the first curve, predators </p>
-</li>
 </ul>
 <div class="unobtrusivebox"><h3 id="minimally_disruptive_curve_1"><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></h3>
 <ul>
-<li><p>The main panel depicts how each of the four parameters change along the curve. Distance from the starting point on the curve is the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>-axis. </p>
+<li><p>The starting point on the curve &#40;main panel, distance &#61; 0&#41; is the nominal set of parameters. </p>
 </li>
-<li><p>Any point on the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>-axis defines a set of parameters. </p>
+<li><p>Moving along the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>-axis on the main panel, each parameter changes. So any vertical cross section of the graph defines a new set of model parameters.</p>
+</li>
+<li><p>Because it&#39;s an MD curve, any of these new sets of parameters are minimally disruptive with respect to model features. </p>
 </li>
 <li><p>We take the farthest set of parameters &#40;distance &#61; 15&#41;, and simulate the model. Look&#33; Model features are almost exactly the same as the nominal&#33;</p>
 </li>
@@ -308,7 +308,7 @@ traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (<span
 <p>*Well, the maximum of a collection of elements &#40;predator measurements over time&#41;, is differentiable except at crossing points, where two elements share a maximal value. Different values of predator&#40;t&#41; will never have <strong>exactly</strong> the same value, due to numerical error as well as equation dynamics. So it works out&#33; Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.</p></div>
 <div class="page-foot">
   <div class="copyright">
-    &copy; Dhruva Venkita Raman. Last modified: October 10, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
+    &copy; Dhruva Venkita Raman. Last modified: October 12, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
   </div>
 </div>
 </div><!-- CONTENT ENDS HERE -->
