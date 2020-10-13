@@ -117,19 +117,20 @@ notebook(dir=pwd())</code></pre>
 
 </ul></div>
 <div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_2 ><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></h3>
-<ul>
-<li><p>This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features</p>
-
-<li><p>Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained &#40;as the period approaches the length of simulation&#41;. It goes from decreasing the frequency to increasing it.</p>
-
-</ul>
 
 <div class=row >
   <div class=container >
     <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/mdc2.gif">
     <div style="clear: both"></div>      
   </div>
-</div></div>
+</div>
+
+<ul>
+<li><p>This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features</p>
+
+<li><p>Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained &#40;as the period approaches the length of simulation&#41;. It goes from decreasing the frequency to increasing it.</p>
+
+</ul></div>
 <h3 id=the_code ><a href="#the_code">The code</a></h3>
 <ul>
 <li><p>Gives static plots of the minimally disruptive curves. Code for the gifs was a bit more involved&#33;</p>
@@ -227,7 +228,12 @@ traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (<span
 </ul>
 <div class=infobox ><p><strong>By the way</strong></p>
 <p>The maximum predator population over time is a <strong>non differentiable</strong> function of the solution. How come this worked?</p>
-<p>*Well, the maximum of a collection of elements &#40;predator measurements over time&#41;, is differentiable except at crossing points, where two elements share a maximal value. Different values of predator&#40;t&#41; will never have <strong>exactly</strong> the same value, due to numerical error as well as equation dynamics. So it works out&#33; Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.</p></div>
+<ol>
+<li><p>First note that ReLu units in neural networks are also technically nondifferentiable at a point, but are still used in differentiable machine learning models. Same reason&#33;</p>
+
+<li><p>OK the details? The maximum of a collection of elements &#40;predator measurements over time&#41;, is differentiable except at crossing points, where two elements share a maximal value. Different values of predator&#40;t&#41; will never have <strong>exactly</strong> the same value, due to numerical error as well as equation dynamics. So it works out&#33; Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.</p>
+
+</ol></div>
 <div class=page-foot >
   <div class=copyright >
     &copy; Dhruva Venkita Raman. Last modified: October 13, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
