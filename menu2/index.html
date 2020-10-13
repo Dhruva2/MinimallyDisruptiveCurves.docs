@@ -70,7 +70,7 @@ notebook(dir=pwd())</code></pre>
 <p>... and here is a time-course of their populations when <code>p &#61; &#91;1.5,1.0,3.0,1.0&#93;</code>. We call these values the <strong>nominal parameters</strong>. <br/> <br/> <strong>Nominal system</strong> &#40;i.e. simulated with nominal parameter values&#41; 
 <div class=row >
   <div class=container >
-    <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/nominal_lv.png">
+    <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/nominal_lv.svg">
     <div style="clear: both"></div>      
   </div>
 </div>
@@ -103,42 +103,23 @@ notebook(dir=pwd())</code></pre>
 </ul>
 <div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_1 ><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></h3>
 <ul>
-<li><p>The starting point on the curve &#40;main panel, distance &#61; 0&#41; is the nominal set of parameters. </p>
-
-<li><p>Moving along the <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">x</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault">x</span></span></span></span>-axis on the main panel, each parameter changes. So any vertical cross section of the graph defines a new set of model parameters.</p>
-
-<li><p>Because it&#39;s an MD curve, any of these new sets of parameters are minimally disruptive with respect to model features. </p>
-
-<li><p>We take the farthest set of parameters &#40;distance &#61; 15&#41;, and simulate the model. Look&#33; Model features are almost exactly the same as the nominal&#33;</p>
-
-</ul>
-
-<div class=row >
-  <div class=container >
-    <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/lotka_mdc1.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-
-<ul>
 <li><p>As we move along the curve, predators move towards an <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>-strategy, and prey moves towards a <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>-strategy.</p>
 
-<li><p>If cost &gt; momentum, the curve terminates. We set momentum &#61; 1. So the curve stops early on the RHS.</p>
+<li><p>We can also move in the opposite direction &#40;prey to <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> strategy, predator to <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>&#41;. To avoid figure clutter, run the pasted code yourself to see this&#33;</p>
 
 </ul></div>
 <div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_2 ><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></h3>
 <ul>
-<li><p>As we move along the curve, predators move towards an <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>-strategy, and prey moves towards a <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>-strategy. The opposite of mdc1&#33;</p>
+<li><p>This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features</p>
+
+<li><p>Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained &#40;as the period approaches the length of simulation&#41;. It goes from decreasing the frequency to increasing it.</p>
+
+</ul></div>
+<h3 id=the_code ><a href="#the_code">The code</a></h3>
+<ul>
+<li><p>Gives static plots of the minimally disruptive curves. Code for the gifs was a bit more involved&#33;</p>
 
 </ul>
-
-<div class=row >
-  <div class=container >
-    <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/lotka_mdc2.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div></div>
-<h3 id=the_code ><a href="#the_code">The code</a></h3>
 <pre><code class="julia hljs"><span class=hljs-keyword >using</span> OrdinaryDiffEq, ForwardDiff, MinimallyDisruptiveCurves, Statistics, Plots, LinearAlgebra, LaTeXStrings
 
 <span class=hljs-comment >#which md curve to plot</span>
@@ -224,9 +205,9 @@ traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (<span
 
 </ol>
 
-<li><p>Along the axis of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>-strategies to <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>-strategies, we found that predators &#40;prey&#41; could move in either direction, as long as prey &#40;predators&#41; moved in the opposite direction. We also got the precise parameter compensations that induced these movements. </p>
+<li><p>One strategy &#40;MDC1&#41; was to alter the parameters to increase &#40;decrease&#41; birth and death rates of the predators while decreasing &#40;increasing&#41; those of the prey. Along the axis of <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span>-strategies to <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>-strategies, this corresponds to one species moving in one direction, with the other going in reverse.</p>
 
-<li><p>However, there is a limit: prey birth rates cannot go too low &#40;see MDC2&#41;, or a mean prey population cannot be preserved. We see the specific birth rate at which this issue arises.  At this point, MDC2 switches the direction of change for prey birth rates.</p>
+<li><p>Another strategy &#40;MDC2&#41; was to modulate the frequency of the oscillations. MDC2 showed us exactly how to change the parameters to continuously modulate this frequency.</p>
 
 </ul>
 <div class=infobox ><p><strong>By the way</strong></p>
