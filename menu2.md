@@ -95,7 +95,7 @@ $$
 ~~~
 <div class="row">
   <div class="container">
-    <img class="left" src="/assets/nominal_lv.png">
+    <img class="left" src="/assets/nominal_lv.svg">
     <div style="clear: both"></div>      
   </div>
 </div>
@@ -121,38 +121,37 @@ We will use this terminology in our description of the MD curves.
 
 @@unobtrusivebox
 ### Minimally disruptive curve 1
-- The starting point on the curve (main panel, distance = 0) is the nominal set of parameters. 
-- Moving along the $x$-axis on the main panel, each parameter changes. So any vertical cross section of the graph defines a new set of model parameters.
-- Because it's an MD curve, any of these new sets of parameters are minimally disruptive with respect to model features. 
-- We take the farthest set of parameters (distance = 15), and simulate the model. Look! Model features are almost exactly the same as the nominal!
-~~~
+<!-- ~~~
 <div class="row">
   <div class="container">
-    <img class="left" src="/assets/lotka_mdc1.svg">
+    <img class="left" src="/assets/mdc1.gif">
     <div style="clear: both"></div>      
   </div>
 </div>
-~~~
+~~~ -->
 - As we move along the curve, predators move towards an $r$-strategy, and prey moves towards a $K$-strategy.
-- If cost > momentum, the curve terminates. We set momentum = 1. So the curve stops early on the RHS.
+- We can also move in the opposite direction (prey to $r$ strategy, predator to $K$). To avoid figure clutter, run the pasted code yourself to see this!
 @@
 
 @@unobtrusivebox
 ### Minimally disruptive curve 2
-- As we move along the curve, predators move towards an $K$-strategy, and prey moves towards a $r$-strategy. The opposite of mdc1!
-~~~
+- This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features
+- Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained (as the period approaches the length of simulation). It goes from decreasing the frequency to increasing it.
+<!-- ~~~
 <div class="row">
   <div class="container">
-    <img class="left" src="/assets/lotka_mdc2.svg">
+    <img class="left" src="/assets/mdc2.gif">
     <div style="clear: both"></div>      
   </div>
 </div>
-~~~
+~~~ -->
+
 @@
 
 
 
 ### The code
+- Gives static plots of the minimally disruptive curves. Code for the gifs was a bit more involved!
 ```julia
 using OrdinaryDiffEq, ForwardDiff, MinimallyDisruptiveCurves, Statistics, Plots, LinearAlgebra, LaTeXStrings
 
@@ -236,10 +235,10 @@ traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (2,1),
   1. mean prey population over time
   2. max predator population over time 
 
-- Along the axis of $r$-strategies to $K$-strategies, we found that predators (prey) could move in either direction, as long as prey (predators) moved in the opposite direction. We also got the precise parameter compensations that induced these movements. 
+- One strategy (MDC1) was to alter the parameters to increase (decrease) birth and death rates of the predators while decreasing (increasing) those of the prey. Along the axis of $r$-strategies to $K$-strategies, this corresponds to one species moving in one direction, with the other going in reverse.
 
-- However, there is a limit: prey birth rates cannot go too low (see MDC2), or a mean prey population cannot be preserved. We see the specific birth rate at which this issue arises.  At this point, MDC2 switches the direction of change for prey birth rates.
-
+- Another strategy (MDC2) was to modulate the frequency of the oscillations. MDC2 showed us exactly how to change the parameters to continuously modulate this frequency.
+  
 @@infobox
 **By the way**
 
