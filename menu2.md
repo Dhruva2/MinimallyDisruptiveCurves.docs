@@ -121,14 +121,14 @@ We will use this terminology in our description of the MD curves.
 
 @@unobtrusivebox
 ### Minimally disruptive curve 1
-~~~
+<!-- ~~~
 <div class="row">
   <div class="container">
     <img class="left" src="/assets/mdc1.gif">
     <div style="clear: both"></div>      
   </div>
 </div>
-~~~
+~~~ -->
 - As we move along the curve, predators move towards an $r$-strategy, and prey moves towards a $K$-strategy.
 - We can also move in the opposite direction (prey to $r$ strategy, predator to $K$). To avoid figure clutter, run the pasted code yourself to see this!
 @@
@@ -137,14 +137,15 @@ We will use this terminology in our description of the MD curves.
 ### Minimally disruptive curve 2
 - This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features
 - Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained (as the period approaches the length of simulation). It goes from decreasing the frequency to increasing it.
-~~~
+<!-- ~~~
 <div class="row">
   <div class="container">
     <img class="left" src="/assets/mdc2.gif">
     <div style="clear: both"></div>      
   </div>
 </div>
-~~~
+~~~ -->
+
 @@
 
 
