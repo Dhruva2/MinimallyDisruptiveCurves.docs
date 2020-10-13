@@ -121,6 +121,7 @@ We will use this terminology in our description of the MD curves.
 
 @@unobtrusivebox
 ### Minimally disruptive curve 1
+
 ~~~
 <div class="row">
   <div class="container">
@@ -135,8 +136,7 @@ We will use this terminology in our description of the MD curves.
 
 @@unobtrusivebox
 ### Minimally disruptive curve 2
-- This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features
-- Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained (as the period approaches the length of simulation). It goes from decreasing the frequency to increasing it.
+
 ~~~
 <div class="row">
   <div class="container">
@@ -146,6 +146,9 @@ We will use this terminology in our description of the MD curves.
 </div>
 ~~~
 
+- This curve instead finds a way to modulate the frequency of predator prey interactions, while preserving model features
+- Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained (as the period approaches the length of simulation). It goes from decreasing the frequency to increasing it.
+  
 @@
 
 
@@ -244,7 +247,8 @@ traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (2,1),
 
 The maximum predator population over time is a **non differentiable** function of the solution. How come this worked?
 
-*Well, the maximum of a collection of elements (predator measurements over time), is differentiable except at crossing points, where two elements share a maximal value. Different values of predator(t) will never have **exactly** the same value, due to numerical error as well as equation dynamics. So it works out! Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.
+1. First note that ReLu units in neural networks are also technically nondifferentiable at a point, but are still used in differentiable machine learning models. Same reason!
+2. OK the details? The maximum of a collection of elements (predator measurements over time), is differentiable except at crossing points, where two elements share a maximal value. Different values of predator(t) will never have **exactly** the same value, due to numerical error as well as equation dynamics. So it works out! Indeed, notice the timepoints at which maximal values are attained changes with the model parameters.
 @@
 
 
