@@ -105,7 +105,7 @@ $$
 - Each minimally disruptive curve finds a different way to change parameters while preserving these model features:
 
 **MDC 1**
-~~~
+<!-- ~~~
 <div class="row">
   <div class="container">
     <img class="left" src="/assets/mdc1.gif">
@@ -121,7 +121,7 @@ $$
     <div style="clear: both"></div>      
   </div>
 </div>
-~~~
+~~~ -->
 - Both curves evolved in seconds on my laptop. 
 - MDC generation was automatic. No human insight required!
 \\
