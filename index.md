@@ -82,51 +82,18 @@ Each minimally disruptive curve corresponds to a functional relationship like th
 @@
 \\
 
-## Explanation by example
-- This is the four parameter Lotka Volterra differential equation model of predator-prey dynamics. Covered in more detail in [Examples](/menu2/)
-$$ \frac{d
-🐁}{dt} =  p_1 🐁 - p_2🐁 🦉 \\
-\frac{d
-🦉}{dt} = -p_3🦉   + p_4 🐁 🦉
-$$  
-- Model dynamics at $p = [1.5,1.0,3.0,1.0]$:
+**A minimally disruptive curve might look like this** (for a three-parameter model): 
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/mdc_traj_schematic.svg">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+- Any point on the curve defines a set of parameters for which the model performs 'well' (as quantified by the cost function).
 
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/nominal_lv.svg">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-- Selected model features to 'minimally disrupt':
-  - **mean prey population over time**
-  - **max predator population over time** 
-- Each minimally disruptive curve finds a different way to change parameters while preserving these model features:
-
-**MDC 1**
-<!-- ~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/mdc1.gif">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~
-**MDC 2**
-~~~
-<div class="row">
-  <div class="container">
-    <img class="left" src="/assets/mdc2.gif">
-    <div style="clear: both"></div>      
-  </div>
-</div>
-~~~ -->
-- Both curves evolved in seconds on my laptop. 
-- MDC generation was automatic. No human insight required!
 \\
- 
-
 
 @@infobox
 **By the way** 
