@@ -34,7 +34,7 @@
 Here, `]` switches from the julia REPL to the package manager
 3. Add MinimallyDisruptiveCurves.jl to your current environment with
 ```julia
-] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git
+] add MinimallyDisruptiveCurves
 ```
 
 4. If you want access to MyModelMenagerie.jl, which contains a few differential equation models with which to try out MinimallyDisruptiveCurves.jl, you can do so:

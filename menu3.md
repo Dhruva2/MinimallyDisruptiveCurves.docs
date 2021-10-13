@@ -17,7 +17,7 @@ The bigger this is, the more sensitive the direction. If you don't have an intui
 @@unobtrusivebox
 1. Fix parameters you're not interested in (if any).
 2. Generate an approximation of the Hessian $\nabla^2 C[\theta^*]$ (finite difference, automatic differentiation, `l2_hessian`, or otherwise).  
-3. Solve the [QCQP](https://juliacomputing.com/industries/optimization.html):
+3. Solve the [QCQP](https://en.wikipedia.org/wiki/Quadratically_constrained_quadratic_program) using e.g. JUMP.jl:
 $$ \min_{\delta \theta} \delta \theta^T \nabla^2 C[\theta^*] \delta \theta + \lambda \| \delta \theta \|_1 \quad \text{subject to} \quad \| \delta \theta \|_2^2 = 1. $$ 
 
 - *The value of $\lambda >0 $ is proportional to your desire to involve only a small number of parameters in the initial direction: it is a sparsity-encouraging ($\mathcal{L}_1$) regularisation term.*
