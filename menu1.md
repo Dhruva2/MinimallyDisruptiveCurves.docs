@@ -82,7 +82,7 @@ To do this, our curve generator wants to
 @@infobox
 **By the way**
 - Optimisation consists of **descending to the lowest point of the cost landscape** (without worrying about your particular trajectory).
--  We, on the other hand, are trying to **flow along the valleys of the landscape**. Like a river. But flowing backwards (since we start at the lowest point). 
+-  We, on the other hand, are trying to **flow along the valleys of the landscape**. Like a river. But one that has enough energy to go uphill to a specified elevation (the momentum parameter) if it can't find a flat/downhill direction. 
 @@
 
 Let's express this mathematically. We can define a curve on parameter space as a function:

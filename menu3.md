@@ -54,7 +54,7 @@ But maybe a small (absolute) $L2$ change in parameter $1$ would be very signific
 
 - If your parameters don't cross zero (i.e. they are only positive or negative) then use the `logabs_transform` to consider relative, rather than absolute $L2$ changes in parameters. IE $0.01 \to 0.02$ is the same as $100 \to 200$. 
 
-- Otherwise, use `bias_transform` to weight the importance of absolute changes in different parameters.
+- Otherwise, use `bias_transform` to weight the importance of absolute changes in different parameters. The more uniform this is, **the faster the MD curve will evolve**, heuristically.
 
 Using these, and other transformation structures, are demonstrated in the Examples notebook: transforming_costs.ipynb .
 
