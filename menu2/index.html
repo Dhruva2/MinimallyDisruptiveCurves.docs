@@ -1,18 +1,18 @@
-<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/libs/katex/katex.min.css"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/css/jtd.css"> <link rel=icon  href="/MinimallyDisruptiveCurves.docs/assets/favicon.ico"> <title>Examples</title> <div class=page-wrap > <div class=side-bar > <div class=header > <a href="/MinimallyDisruptiveCurves.docs/" class=title > User guide </a> </div> <label for=show-menu  class=show-menu >MENU</label> <input type=checkbox  id=show-menu  role=button > <div class=menu  id=side-menu > <ul class=menu-list > <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/" class="menu-list-link ">Home</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/installation/"class="menu-list-link ">Installation</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu1/" class="menu-list-link ">How it works</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/sceptic/" class="menu-list-link ">Q&A with a sceptic</a> <li class="menu-list-item active"><a href="/MinimallyDisruptiveCurves.docs/menu2/" class="menu-list-link active">Examples</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu3/" class="menu-list-link ">Tips & Tricks</a> <ul class="menu-list-child-list "> <li class="menu-list-item "><a href="#" class=menu-list-link >Submenu</a> </ul> </ul> </div> <div class=footer > This is <em>Just the docs</em>, adapted from the <a href="https://github.com/pmarsceill/just-the-docs" target=_blank >Jekyll theme</a>. </div> </div> <div class=main-content-wrap > <div class=main-content > <div class=main-header > <a id=github  href="https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl">MinimallyDisruptiveCurves.jl on GitHub</a> </div> <div class=franklin-content ><h1 id=examples ><a href="#examples">Examples</a></h1> <div class=franklin-toc ><ol><li><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a><li><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a><ol><li><a href="#lotka_volterra_model_of_predator-prey_interactions">Lotka Volterra model of predator-prey interactions</a><li><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a><li><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a><li><a href="#the_code">The code</a><li><a href="#lessons">Lessons</a></ol></ol></div> <p> <div class=row > <div class=container > <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/will_it_work.png"> <div style="clear: both"></div> </div> </div> &#40;<em>Credit: https://xkcd.com/1742/</em>&#41;</p> <h2 id=pulling_notebooks_from_github ><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a></h2> <p>Tutorial notebooks are in the MDCExamples repository. </p> <ol> <li><p>At a terminal, in the directory of your choice, type the following commands:</p> </ol> <pre><code class="julia hljs">git clone https://github.com/Dhruva2/MDCExamples.git
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/libs/katex/katex.min.css"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/libs/highlight/github.min.css"> <link rel=stylesheet  href="/MinimallyDisruptiveCurves.docs/css/jtd.css"> <link rel=icon  href="/MinimallyDisruptiveCurves.docs/assets/favicon.ico"> <title>Examples</title> <div class=page-wrap > <div class=side-bar > <div class=header > <a href="/MinimallyDisruptiveCurves.docs/" class=title > User guide </a> </div> <label for=show-menu  class=show-menu >MENU</label> <input type=checkbox  id=show-menu  role=button > <div class=menu  id=side-menu > <ul class=menu-list > <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/" class="menu-list-link ">Home</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/installation/"class="menu-list-link ">Installation</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu1/" class="menu-list-link ">How it works</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/sceptic/" class="menu-list-link ">Q&A with a sceptic</a> <li class="menu-list-item active"><a href="/MinimallyDisruptiveCurves.docs/menu2/" class="menu-list-link active">Examples</a> <li class="menu-list-item "><a href="/MinimallyDisruptiveCurves.docs/menu3/" class="menu-list-link ">Tips & Tricks</a> <ul class="menu-list-child-list "> <li class="menu-list-item "><a href="#" class=menu-list-link >Submenu</a> </ul> </ul> </div> <div class=footer > This is <em>Just the docs</em>, adapted from the <a href="https://github.com/pmarsceill/just-the-docs" target=_blank >Jekyll theme</a>. </div> </div> <div class=main-content-wrap > <div class=main-content > <div class=main-header > <a id=github  href="https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl">MinimallyDisruptiveCurves.jl on GitHub</a> </div> <div class=franklin-content ><h1 id=examples ><a href="#examples" class=header-anchor >Examples</a></h1> <div class=franklin-toc ><ol><li><a href="#pulling_notebooks_from_github">Pulling notebooks from Github</a><li><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a><ol><li><a href="#lotka_volterra_model_of_predator-prey_interactions">Lotka Volterra model of predator-prey interactions</a><li><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a><li><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a><li><a href="#the_code">The code</a><li><a href="#lessons">Lessons</a></ol></ol></div> <p> <div class=row > <div class=container > <img class=left  src="/MinimallyDisruptiveCurves.docs/assets/will_it_work.png"> <div style="clear: both"></div> </div> </div> &#40;<em>Credit: https://xkcd.com/1742/</em>&#41;</p> <h2 id=pulling_notebooks_from_github ><a href="#pulling_notebooks_from_github" class=header-anchor >Pulling notebooks from Github</a></h2> <p>Tutorial notebooks are in the MDCExamples repository. </p> <ol> <li><p>At a terminal, in the directory of your choice, type the following commands:</p> </ol> <pre><code class=language-julia >git clone https://github.com/Dhruva2/MDCExamples.git
 cd MDCExamples
-julia</code></pre> <p>This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.</p> <ol start=2 > <li><p>In your new julia session, activate the environment:</p> </ol> <pre><code class="julia hljs">] activate .</code></pre>
+julia</code></pre> <p>This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.</p> <ol start=2 > <li><p>In your new julia session, activate the environment:</p> </ol> <pre><code class=language-julia >&#93; activate .</code></pre>
 <p><code>&#93;</code> switches to the package manager. <code>activate .</code> activates the predetermined package environment in which the notebooks can be run.</p>
 <ol start=3 >
 <li><p>&#40;optional&#41;: Precompile the dependencies to save a few minutes later</p>
 
 </ol>
-<pre><code class="julia hljs">] precompile</code></pre>
+<pre><code class=language-julia >&#93; precompile</code></pre>
 <ol start=5 >
 <li><p>Open jupyter notebooks:</p>
 
 </ol>
-<pre><code class="julia hljs"><span class=hljs-keyword >using</span> IJulia
-notebook(dir=pwd())</code></pre>
+<pre><code class=language-julia >using IJulia
+notebook&#40;dir&#61;pwd&#40;&#41;&#41;</code></pre>
 <p>and then open/run the individual notebooks in the notebook environment. </p>
 <p><strong>Suggested order to go through notebooks</strong></p>
 <ol>
@@ -37,7 +37,7 @@ notebook(dir=pwd())</code></pre>
 <li><p>Nos 4. and 5. show you how to use the &#40;much quicker to evaluate&#41; collocation cost. I&#39;ve generated, but haven&#39;t really had time to properly analyse, the minimally disruptive curves.</p>
 
 </ul>
-<h2 id=a_copy-paste_minimal_example ><a href="#a_copy-paste_minimal_example">A copy-paste, minimal example</a></h2>
+<h2 id=a_copy-paste_minimal_example ><a href="#a_copy-paste_minimal_example" class=header-anchor >A copy-paste, minimal example</a></h2>
 <ul>
 <li><p>This example is less didactic than the notebooks, but useful for somebody who just wants to get things working quickly.</p>
 
@@ -48,13 +48,13 @@ notebook(dir=pwd())</code></pre>
 <li><p>You can copy and paste the code at the bottom, and run it as a .jl script. It runs in seconds &#40;after package/function pre-compilation&#41;. Just make sure you add all the package dependencies first:</p>
 
 </ul>
-<pre><code class="julia hljs">] add OrdinaryDiffEq, ForwardDiff, Statistics, Plots, LinearAlgebra, LaTeXStrings
-] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git</code></pre>
+<pre><code class=language-julia >&#93; add OrdinaryDiffEq, ForwardDiff, Statistics, Plots, LinearAlgebra, LaTeXStrings
+&#93; add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git</code></pre>
 <ul>
 <li><p>Note that one of the model features we analyse is <strong>non-differentiable</strong>. Mathematically. Computationally everything works fine, as we&#39;ll explain.</p>
 
 </ul>
-<div class=unobtrusivebox ><h3 id=lotka_volterra_model_of_predator-prey_interactions ><a href="#lotka_volterra_model_of_predator-prey_interactions">Lotka Volterra model of predator-prey interactions</a></h3>
+<div class=unobtrusivebox ><h3 id=lotka_volterra_model_of_predator-prey_interactions ><a href="#lotka_volterra_model_of_predator-prey_interactions" class=header-anchor >Lotka Volterra model of predator-prey interactions</a></h3>
 <p>The dynamics for the system are:</p>
 <span class=katex-display ><span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mi>d</mi><mtext>🐁</mtext></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><msub><mi>p</mi><mn>1</mn></msub><mtext>🐁</mtext><mo>−</mo><msub><mi>p</mi><mn>2</mn></msub><mtext>🐁🦉</mtext><mspace linebreak=newline ></mspace><mfrac><mrow><mi>d</mi><mtext>🦉</mtext></mrow><mrow><mi>d</mi><mi>t</mi></mrow></mfrac><mo>=</mo><mo>−</mo><msub><mi>p</mi><mn>3</mn></msub><mtext>🦉</mtext><mo>+</mo><msub><mi>p</mi><mn>4</mn></msub><mtext>🐁🦉</mtext></mrow><annotation encoding="application/x-tex"> \frac{d
 🐁}{dt} =  p_1 🐁 - p_2🐁 🦉 \\
@@ -101,7 +101,7 @@ notebook(dir=pwd())</code></pre>
 <li><p>By running the code at the bottom of the page twice, setting <code>whichdir &#61; 1</code> and <code>whichdir&#61;2</code> respectively, we get two MD curves &#40;see below&#41;.</p>
 
 </ul>
-<div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_1 ><a href="#minimally_disruptive_curve_1">Minimally disruptive curve 1</a></h3>
+<div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_1 ><a href="#minimally_disruptive_curve_1" class=header-anchor >Minimally disruptive curve 1</a></h3>
 
 <div class=row >
   <div class=container >
@@ -116,7 +116,7 @@ notebook(dir=pwd())</code></pre>
 <li><p>We can also move in the opposite direction &#40;prey to <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>r</mi></mrow><annotation encoding="application/x-tex">r</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span></span></span></span> strategy, predator to <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>K</mi></mrow><annotation encoding="application/x-tex">K</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07153em;">K</span></span></span></span>&#41;. To avoid figure clutter, run the pasted code yourself to see this&#33;</p>
 
 </ul></div>
-<div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_2 ><a href="#minimally_disruptive_curve_2">Minimally disruptive curve 2</a></h3>
+<div class=unobtrusivebox ><h3 id=minimally_disruptive_curve_2 ><a href="#minimally_disruptive_curve_2" class=header-anchor >Minimally disruptive curve 2</a></h3>
 
 <div class=row >
   <div class=container >
@@ -131,87 +131,87 @@ notebook(dir=pwd())</code></pre>
 <li><p>Note how it abruptly changes direction when slowing frequency eventually prevents model features being maintained &#40;as the period approaches the length of simulation&#41;. It goes from decreasing the frequency to increasing it.</p>
 
 </ul></div>
-<h3 id=the_code ><a href="#the_code">The code</a></h3>
+<h3 id=the_code ><a href="#the_code" class=header-anchor >The code</a></h3>
 <ul>
 <li><p>Gives static plots of the minimally disruptive curves. Code for the gifs was a bit more involved&#33;</p>
 
 </ul>
-<pre><code class="julia hljs"><span class=hljs-keyword >using</span> OrdinaryDiffEq, ForwardDiff, MinimallyDisruptiveCurves, Statistics, Plots, LinearAlgebra, LaTeXStrings
+<pre><code class=language-julia >using OrdinaryDiffEq, ForwardDiff, MinimallyDisruptiveCurves, Statistics, Plots, LinearAlgebra, LaTeXStrings
 
-<span class=hljs-comment >#which md curve to plot</span>
-which_dir = <span class=hljs-number >2</span>
+#which md curve to plot
+which_dir &#61; 2
 
-<span class=hljs-comment >## define dynamics of differential equation</span>
-<span class=hljs-keyword >function</span> f(du,u,p,t)
-  du[<span class=hljs-number >1</span>] = p[<span class=hljs-number >1</span>]*u[<span class=hljs-number >1</span>] - p[<span class=hljs-number >2</span>]*u[<span class=hljs-number >1</span>]*u[<span class=hljs-number >2</span>] <span class=hljs-comment >#prey</span>
-  du[<span class=hljs-number >2</span>] = -p[<span class=hljs-number >3</span>]*u[<span class=hljs-number >2</span>] + p[<span class=hljs-number >4</span>]*u[<span class=hljs-number >1</span>]*u[<span class=hljs-number >2</span>] <span class=hljs-comment >#predator</span>
-<span class=hljs-keyword >end</span>
+## define dynamics of differential equation
+function f&#40;du,u,p,t&#41;
+  du&#91;1&#93; &#61; p&#91;1&#93;*u&#91;1&#93; - p&#91;2&#93;*u&#91;1&#93;*u&#91;2&#93; #prey
+  du&#91;2&#93; &#61; -p&#91;3&#93;*u&#91;2&#93; &#43; p&#91;4&#93;*u&#91;1&#93;*u&#91;2&#93; #predator
+end
 
-u0 = [<span class=hljs-number >1.0</span>;<span class=hljs-number >1.0</span>] <span class=hljs-comment ># initial populations</span>
-tspan = (<span class=hljs-number >0.0</span>,<span class=hljs-number >10.0</span>) <span class=hljs-comment >#time span to simulate over</span>
-t = collect(range(<span class=hljs-number >0</span>, stop=<span class=hljs-number >10.</span>, length=<span class=hljs-number >200</span>)) <span class=hljs-comment ># time points to measure</span>
-p = [<span class=hljs-number >1.5</span>,<span class=hljs-number >1.0</span>,<span class=hljs-number >3.0</span>,<span class=hljs-number >1.0</span>] <span class=hljs-comment ># initial parameter values</span>
-nom_prob = ODEProblem(f,u0,tspan,p) <span class=hljs-comment ># package as an ODE problem</span>
-nom_sol = solve(nom_prob, Tsit5()) <span class=hljs-comment ># solve </span>
+u0 &#61; &#91;1.0;1.0&#93; # initial populations
+tspan &#61; &#40;0.0,10.0&#41; #time span to simulate over
+t &#61; collect&#40;range&#40;0, stop&#61;10., length&#61;200&#41;&#41; # time points to measure
+p &#61; &#91;1.5,1.0,3.0,1.0&#93; # initial parameter values
+nom_prob &#61; ODEProblem&#40;f,u0,tspan,p&#41; # package as an ODE problem
+nom_sol &#61; solve&#40;nom_prob, Tsit5&#40;&#41;&#41; # solve 
 
 
-<span class=hljs-comment >## Model features of interest are mean prey population, and max predator population (over time)</span>
-<span class=hljs-keyword >function</span> features(p)
-  prob = remake(nom_prob; p=p)
-  sol = solve(prob, Tsit5(); saveat = t)
-  <span class=hljs-keyword >return</span> [mean(sol[<span class=hljs-number >1</span>,:]), maximum(sol[<span class=hljs-number >2</span>,:])]
-<span class=hljs-keyword >end</span>
+## Model features of interest are mean prey population, and max predator population &#40;over time&#41;
+function features&#40;p&#41;
+  prob &#61; remake&#40;nom_prob; p&#61;p&#41;
+  sol &#61; solve&#40;prob, Tsit5&#40;&#41;; saveat &#61; t&#41;
+  return &#91;mean&#40;sol&#91;1,:&#93;&#41;, maximum&#40;sol&#91;2,:&#93;&#41;&#93;
+end
 
-nom_features = features(p)
+nom_features &#61; features&#40;p&#41;
 
-<span class=hljs-comment >## loss function, we can take as l2 difference of features vs nominal features</span>
-<span class=hljs-keyword >function</span> loss(p)
-  prob = remake(nom_prob; p=p)
-  p_features = features(p)
-  loss = sum(abs2, p_features - nom_features)
-  <span class=hljs-keyword >return</span> loss
-<span class=hljs-keyword >end</span>
+## loss function, we can take as l2 difference of features vs nominal features
+function loss&#40;p&#41;
+  prob &#61; remake&#40;nom_prob; p&#61;p&#41;
+  p_features &#61; features&#40;p&#41;
+  loss &#61; sum&#40;abs2, p_features - nom_features&#41;
+  return loss
+end
 
-<span class=hljs-comment >## gradient of loss function</span>
-<span class=hljs-keyword >function</span> lossgrad(p,g)
-  g[:] = ForwardDiff.gradient(p) <span class=hljs-keyword >do</span> p
-    loss(p)
-  <span class=hljs-keyword >end</span>
-  <span class=hljs-keyword >return</span> loss(p)
-<span class=hljs-keyword >end</span>
+## gradient of loss function
+function lossgrad&#40;p,g&#41;
+  g&#91;:&#93; &#61; ForwardDiff.gradient&#40;p&#41; do p
+    loss&#40;p&#41;
+  end
+  return loss&#40;p&#41;
+end
 
-<span class=hljs-comment >## package the loss and gradient into a DiffCost structure</span>
-cost = DiffCost(loss, lossgrad)
+## package the loss and gradient into a DiffCost structure
+cost &#61; DiffCost&#40;loss, lossgrad&#41;
 
-<span class=hljs-string >&quot;&quot;&quot;
+&quot;&quot;&quot;
 We evaluate the hessian once only, at p.
 Why? to find locally insensitive directions of parameter perturbation
 The small eigenvalues of the Hessian are one easy way of defining these directions 
-&quot;&quot;&quot;</span>
-hess0 = ForwardDiff.hessian(loss,p)
-ev(i) = eigen(hess0).vectors[:,i]
+&quot;&quot;&quot;
+hess0 &#61; ForwardDiff.hessian&#40;loss,p&#41;
+ev&#40;i&#41; &#61; eigen&#40;hess0&#41;.vectors&#91;:,i&#93;
 
-<span class=hljs-comment >## Now we set up a minimally disruptive curve, with nominal parameters p and initial direction ev(1) </span>
-init_dir = ev(which_dir); momentum = <span class=hljs-number >1.</span>; span = (-<span class=hljs-number >15.</span>,<span class=hljs-number >15.</span>)
-curve_prob = curveProblem(cost, p, init_dir, momentum, span)
-<span class=hljs-meta >@time</span> mdc = evolve(curve_prob, Tsit5)
+## Now we set up a minimally disruptive curve, with nominal parameters p and initial direction ev&#40;1&#41; 
+init_dir &#61; ev&#40;which_dir&#41;; momentum &#61; 1.; span &#61; &#40;-15.,15.&#41;
+curve_prob &#61; curveProblem&#40;cost, p, init_dir, momentum, span&#41;
+@time mdc &#61; evolve&#40;curve_prob, Tsit5&#41;
 
-<span class=hljs-keyword >function</span> sol_at_p(p)
-  prob = remake(nom_prob; p=p)
-  sol = solve(prob, Tsit5())
-<span class=hljs-keyword >end</span>
+function sol_at_p&#40;p&#41;
+  prob &#61; remake&#40;nom_prob; p&#61;p&#41;
+  sol &#61; solve&#40;prob, Tsit5&#40;&#41;&#41;
+end
 
-p1 = plot(mdc; pnames = [<span class=hljs-string >L&quot;p_1&quot;</span> <span class=hljs-string >L&quot;p_2&quot;</span> <span class=hljs-string >L&quot;p_3&quot;</span> <span class=hljs-string >L&quot;p_4&quot;</span>])
+p1 &#61; plot&#40;mdc; pnames &#61; &#91;L&quot;p_1&quot; L&quot;p_2&quot; L&quot;p_3&quot; L&quot;p_4&quot;&#93;&#41;
 
-cost_vec = [mdc.cost(el) <span class=hljs-keyword >for</span> el <span class=hljs-keyword >in</span> eachcol(trajectory(mdc))]
-p2 = plot(distances(mdc), log.(cost_vec), ylabel = <span class=hljs-string >&quot;log(cost)&quot;</span>, xlabel = <span class=hljs-string >&quot;distance&quot;</span>, title = <span class=hljs-string >&quot;cost over MD curve&quot;</span>);
+cost_vec &#61; &#91;mdc.cost&#40;el&#41; for el in eachcol&#40;trajectory&#40;mdc&#41;&#41;&#93;
+p2 &#61; plot&#40;distances&#40;mdc&#41;, log.&#40;cost_vec&#41;, ylabel &#61; &quot;log&#40;cost&#41;&quot;, xlabel &#61; &quot;distance&quot;, title &#61; &quot;cost over MD curve&quot;&#41;;
 
-mdc_plot = plot(p1,p2, layout=(<span class=hljs-number >2</span>,<span class=hljs-number >1</span>), size = (<span class=hljs-number >800</span>,<span class=hljs-number >800</span>))
+mdc_plot &#61; plot&#40;p1,p2, layout&#61;&#40;2,1&#41;, size &#61; &#40;800,800&#41;&#41;
 
-nominal_trajectory = plot(sol_at_p(mdc(<span class=hljs-number >0.</span>)[:states]), label = [<span class=hljs-string >&quot;prey&quot;</span> <span class=hljs-string >&quot;predator&quot;</span>])
-perturbed_trajectory = plot(sol_at_p(mdc(-<span class=hljs-number >15.</span>)[:states]), label = [<span class=hljs-string >&quot;prey&quot;</span> <span class=hljs-string >&quot;predator&quot;</span>])
-traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (<span class=hljs-number >2</span>,<span class=hljs-number >1</span>), xlabel = <span class=hljs-string >&quot;time&quot;</span>, ylabel = <span class=hljs-string >&quot;population&quot;</span>)</code></pre>
-<h3 id=lessons ><a href="#lessons">Lessons</a></h3>
+nominal_trajectory &#61; plot&#40;sol_at_p&#40;mdc&#40;0.&#41;&#91;:states&#93;&#41;, label &#61; &#91;&quot;prey&quot; &quot;predator&quot;&#93;&#41;
+perturbed_trajectory &#61; plot&#40;sol_at_p&#40;mdc&#40;-15.&#41;&#91;:states&#93;&#41;, label &#61; &#91;&quot;prey&quot; &quot;predator&quot;&#93;&#41;
+traj_comparison &#61; plot&#40;nominal_trajectory, perturbed_trajectory, layout &#61; &#40;2,1&#41;, xlabel &#61; &quot;time&quot;, ylabel &#61; &quot;population&quot;&#41;</code></pre>
+<h3 id=lessons ><a href="#lessons" class=header-anchor >Lessons</a></h3>
 <ul>
 <li><p>MinimallyDisruptiveCurves.jl showed how we could continuously vary the parameters of the Lotka-Volterra model, while preserving</p>
 <ol>
@@ -236,10 +236,19 @@ traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (<span
 </ol></div>
 <div class=page-foot >
   <div class=copyright >
-    &copy; Dhruva Venkita Raman. Last modified: December 08, 2020. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
+    &copy; Dhruva Venkita Raman. Last modified: October 13, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
   </div>
 </div>
 </div>
     </div> 
     </div> 
     </div> <!-- end of class page-wrap-->
+    
+      
+
+
+
+    
+    
+      <script src="/MinimallyDisruptiveCurves.docs/libs/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();hljs.configure({tabReplace: '    '});</script>
