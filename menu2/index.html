@@ -193,7 +193,7 @@ ev&#40;i&#41; &#61; eigen&#40;hess0&#41;.vectors&#91;:,i&#93;
 
 ## Now we set up a minimally disruptive curve, with nominal parameters p and initial direction ev&#40;1&#41; 
 init_dir &#61; ev&#40;which_dir&#41;; momentum &#61; 1.; span &#61; &#40;-15.,15.&#41;
-curve_prob &#61; curveProblem&#40;cost, p, init_dir, momentum, span&#41;
+curve_prob &#61; MDCProblem&#40;cost, p, init_dir, momentum, span&#41;
 @time mdc &#61; evolve&#40;curve_prob, Tsit5&#41;
 
 function sol_at_p&#40;p&#41;
@@ -236,7 +236,7 @@ traj_comparison &#61; plot&#40;nominal_trajectory, perturbed_trajectory, layout 
 </ol></div>
 <div class=page-foot >
   <div class=copyright >
-    &copy; Dhruva Venkita Raman. Last modified: October 13, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
+    &copy; Dhruva Venkita Raman. Last modified: October 27, 2021. Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a>.
   </div>
 </div>
 </div>
