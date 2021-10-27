@@ -36,6 +36,17 @@ I will add better functionality for easily synthesising good initial directions 
 
 If it's too low, the curve will terminate early (as soon as cost > momentum). It will also slow the evolution of the curve numerically. **But** it can be more accurate (providing a more minimally disruptive curve).
 
+### Jumpstart (on master, and coming in v0.3)
+
+The differential equation evolving the minimally disruptive curve can be quite ill conditioned near the start of the curve. This means it can take a lot of time to evolve a small amount at the beginning. To bypass this, you can take an MDCProblem and transform it so that it *jumpstarts*:
+```julia
+new_prob = jumpstart(mdcprob::MDCProblem, 1e-2, true)
+```
+Essentially, the starting point of the curve solved by new_prob is now `mdcprob.p0 + (1e-2)mdcprob.dp0`. The third, Boolean, argument specifies whether the solver should attempt to calculate a new initial curve direction, or just use `mdcprob.dp0`. You can also figure out an initial direction yourself, and modify it in `new_prob` through
+```julia
+new_prob.dp0 = [1., 2., 3., ...]
+```
+
 ### Exploit parameter biasing and the logabs transform
 
 @@unobtrusivebox

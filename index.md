@@ -255,17 +255,17 @@ span = (-50.,100.)
 # the length of the curve-to-be. 
 # Negative values => two curves are evolved in parallel, in the directions plus/minus dp0, and with lengths span[1] and span[2].
 
-eprob = curveProblem(cost, p0, dp0, mom, span)
+eprob = MDCProblem(cost, p0, dp0, mom, span)
 # create an object eprob that stores all the curve information
 
-mdc = evolve(eprob, Tsit5; callbacks=cb)
+mdc = evolve(eprob, Tsit5)
 # solve the differential equation that evolves the md curve. 
 # using (in this case) the Tsit5 ODE solver. You can use any solver defined in DifferentialEquation.jl.
 using Plots
 plot(mdc)
 # custom plotting of the important features of the MD curve.
 ```
-Note that `mdc::MinimallyDisruptiveCurve`. This type comes with functionality for inspecting/interpolating the curve at different points. All hijacked from DifferentialEquations.jl, of course.
+Note that `mdc::MDCSolution`. This type comes with functionality for inspecting/interpolating the curve at different points. All hijacked from DifferentialEquations.jl, of course.
 
 
  <!-- *As much as possible* requires a notion of distance on parameter space (i.e. a metric). You can play with this metric. It could be quantified as relative changes in parameter values. And/or you could bias the curve so that small changes in a particular parameter (let's call it p7) correspond to large changes in the metric. So the curve will try to align with p7, and tell you how other parameters in the model can compensate for changes in p7, to preserve model behaviour. -->

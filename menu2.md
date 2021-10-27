@@ -213,7 +213,7 @@ ev(i) = eigen(hess0).vectors[:,i]
 
 ## Now we set up a minimally disruptive curve, with nominal parameters p and initial direction ev(1) 
 init_dir = ev(which_dir); momentum = 1.; span = (-15.,15.)
-curve_prob = curveProblem(cost, p, init_dir, momentum, span)
+curve_prob = MDCProblem(cost, p, init_dir, momentum, span)
 @time mdc = evolve(curve_prob, Tsit5)
 
 function sol_at_p(p)
