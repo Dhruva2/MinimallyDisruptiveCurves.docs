@@ -77,11 +77,39 @@ Check which parameters are significantly changing over the curve, and fix all th
 
 Of course....your curve might rely on apparently small changes in 'unimportant' parameters on the first curve. But that's useful information!
 
-## The MinimallyDisruptiveCurves.jl agony aunt
+## Agony aunt
 
-@@unobtrusivebox
-**You promised that the distance from initial parameters would be monotonically increasing. But my curve is sawtoothing!**
+### Curve doesn't get started when evolving
+
+In other words, when you set the Verbose callback to tell you how far along the curve you are, the distance from the origin grows very slowly / stalls close to zero.
+
+- Use a fixed timestep method when calling `evolve`:
+
+```julia
+evolve(mdcprob, Tsit5, ...;  adaptive = false, ...)
+```
+or
+```
+evolve(mdcprob, Tsit5, ...;  adaptive = false, dt = 0.05, ...)
+```
+or
+```
+evolve(mdcprob, Tsit5, ...; dtmin = 0.05, ...)
+```
+where the `dt` keyword argument is optional and 0.05 is fairly arbitrary.
+
+@@infobox
+**By the way**
+\\
+- Usually the cause of this problem is stiffness in the differential equation that generates the curve, when close to the origin.
+- For some discussion of this, see the fourth question on [Q&A with a sceptic](/sceptic/).
+- Heuristically, adaptive timestep solvers sometimes get worried about the stiffness, and start proposing iteratively smaller step sizes to control numerical error at the origin. If they bludgeon through the first tiny section of curve, this disappears.
 @@
+
+ 
+
+
+### Curve is sawtoothing
 
 Default settings in the `evolve` function (which generates MD curves) are to have `momentum_tol = 1e-3`. What is this? 
 - Functionally, it helps with accuracy of the curve evolution.
@@ -91,15 +119,12 @@ There is a bug whereby if the MD curve cannot find any new good directions **and
 ```julia
 evolve(...; momentum_tol = NaN)
 ``` 
-I'll fix this at some point.
-\\ 
-@@unobtrusivebox
-**My curve looks like the simulation of a Rodeo rider!**
-@@
+I'll fix this at some point. Pragmatically it means the curve can't find a direction that gets further away from the origin, at the point of the sawtooth.
 
-- Again, try playing around with `; momentum_tol = NaN`, or increasing momentum_tol to a higher value. 
+### Curve is slow to generate
 
-- **Increasing** the momentum can also help. 
+- Make sure you have optimised the gradient calculation of your cost function. A gnarly curve might take e.g. 5000 evaluations of this, which is the dominant source of compute time.
+- Increase the momentum by two orders of magnitude.
 
 
 

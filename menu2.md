@@ -23,7 +23,7 @@
 
 
 
-Tutorial notebooks are in the MDCExamples repository. 
+Tutorial Pluto notebooks are in the MDCExamples repository. 
 1. At a terminal, in the directory of your choice, type the following commands:
 ```julia
  git clone https://github.com/Dhruva2/MDCExamples.git
@@ -31,29 +31,26 @@ cd MDCExamples
 julia ```
 This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.
 
-2. In your new julia session, activate the environment:
+2. In your new julia session, open the Pluto environment:
 ```julia
-] activate .   
+using Pluto; Pluto.run()
 ```
-`]` switches to the package manager. `activate .` activates the predetermined package environment in which the notebooks can be run.
+This should open a new window in your web browser, in which you can run the notebooks.
 
-3. (optional): Precompile the dependencies to save a few minutes later
+
+3. Open and run the notebooks! Note that precompiling packages for the notebooks, the first time round, can take a few minutes. For information on how to run Pluto notebooks, see [the docs](https://github.com/fonsp/Pluto.jl)
+
+3b. Pluto notebooks run annotated .jl files. You can also run the .jl files themselves without using Pluto:
 ```julia
-] precompile
+include("xxx.jl")
 ```
 
-5. Open jupyter notebooks:
-```julia
-using IJulia
-notebook(dir=pwd())
-```
-and then open/run the individual notebooks in the notebook environment. 
 
 **Suggested order to go through notebooks**
 
-1. `Transforming_cost_functions.ipynb`
-2. `MassSpringExample.ipynb`
-3. `NFKB_example.ipynb`
+1. `Transforming_cost_functions.jl`
+2. `mass_spring_intro.jl`
+3. `NFKBExamples.jl`
 4. `stg_neuron_prelim_collocation.ipynb`
 5. `CircadianOscillator.ipynb`
 

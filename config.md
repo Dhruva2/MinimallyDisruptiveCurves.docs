@@ -3,7 +3,7 @@ Add here global page variables to use throughout your
 website.
 The website_* must be defined for the RSS to work
 -->
-@def title = "MinimallyDisrupviteCurves.jl: Documentation"
+@def title = "MinimallyDisruptiveCurves.jl: Documentation"
 @def website_title = "MinimallyDisruptiveCurves.jl: Documentation"
 @def website_descr = "Extract relationships between parameters from a mathematical model"
 @def website_url   = "https://dhruva2.github.io/MinimallyDisruptiveCurves.docs/"

@@ -87,6 +87,20 @@ $$
 ~~~
 - Both curves evolved in seconds on my laptop. 
 - MDC generation was automatic. No human insight required!
+
+@@unobtrusivebox
+- Want more involved examples with more complicated models? Check out the Pluto.jl notebooks on https://github.com/Dhruva2/MDCExamples.git.
+- **Here is a teaser**: parameter relationships on a model of a bursting neuron that preserve it's physiological, time-averaged calcium concentration, and the 'bursting' phenotype of its' voltage trace. Parameters here are the ion-channel densities, which are physiologically variable:
+\\
+~~~
+<div class="row">
+  <div class="container">
+    <img class="left" src="/assets/bursting_neuron.gif">
+    <div style="clear: both"></div>      
+  </div>
+</div>
+~~~
+@@
 \\
 ## Schematic
 @@unobtrusivebox

@@ -20,8 +20,7 @@
 
 \\ 
 ### Dependencies
-- Julia v1.4 or greater
-- If you want to run the example jupyter notebooks, make sure IJulia is installed and working. See instructions [here](https://github.com/JuliaLang/IJulia.jl)
+- Julia v1.6 or newer
 \\ 
 
 ### Steps
@@ -37,11 +36,7 @@ Here, `]` switches from the julia REPL to the package manager
 ] add MinimallyDisruptiveCurves
 ```
 
-4. If you want access to MyModelMenagerie.jl, which contains a few differential equation models with which to try out MinimallyDisruptiveCurves.jl, you can do so:
-```julia
-] add https://github.com/Dhruva2/MyModelMenagerie.jl.git
-```
-5. Finally preface any julia code running in your environment, with:
+4. Finally preface any julia code running in your environment, with:
 ```julia
 using MinimallyDisruptiveCurves
 ```
@@ -67,10 +62,9 @@ This clones the github repository with the examples, changes location to the clo
 ] precompile
 ```
 
-5. Open jupyter notebooks:
+5. Open Pluto notebooks:
 ```julia
-using IJulia
-notebook(dir=pwd())
+using Pluto; Pluto.run()
 ```
 and then open/run the individual notebooks in the notebook environment. 
 
