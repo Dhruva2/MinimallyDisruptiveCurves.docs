@@ -9,14 +9,14 @@
 
   <channel>
     <title>
-      <![CDATA[  {{fd2rss website_title}}  ]]>
+      <![CDATA[  MinimallyDisruptiveCurves.jl: Documentation  ]]>
     </title>
-    <link> {{website_url}} </link>
+    <link> https://dhruva2.github.io/MinimallyDisruptiveCurves.docs/ </link>
     <description>
-      <![CDATA[  {{fd2rss website_description}}  ]]>
+      <![CDATA[  Extract relationships between parameters from a mathematical model  ]]>
     </description>
     <atom:link
-      href="{{fd_rss_feed_url}}"
+      href="https://dhruva2.github.io/MinimallyDisruptiveCurves.docs/feed.xml"
       rel="self"
       type="application/rss+xml" />
 
