@@ -39,7 +39,7 @@ Conversely, MinimallyDisruptiveCurves.jl extracts **structure** from this cloud 
 As an example, compare the output of the Bayesian inference on a Lotka Volterra example you mentioned ([link here](https://turing.ml/dev/tutorials/ 010-bayesian-differential-equations/)) with MinimallyDisruptiveCurves.jl:
 - Turing.jl extracts regions of likely parameter values for the model (see the image after `plot(chains)` in the link). 
 - MinimallyDisruptiveCurves.jl extracts relationships between parameters over which high likelihood is maintained (see animation below)
-- There is a formal correspondence between posterior / likelihood functions and minimally disruptive curves. See Raman et. al. (2017) (reference on main page) for details.
+- There is a formal correspondence between posterior / likelihood functions and minimally disruptive curves. See [Raman et. al. (2017)](https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.032314) for details.
 
 
 ~~~
@@ -54,7 +54,7 @@ As an example, compare the output of the Bayesian inference on a Lotka Volterra 
 
 \\
 \\
-- 🪲: Why do you think that MDC isn't yet used so much? Do you think it should be used by many more people? How about social sciences (the domain that I'm stuck in for the next 2 years still).
+- 🪲: Why do you think that MDC isn't yet used so much? Do you think it should be used by many more people? How about social sciences?
 
 @@unobtrusivebox
 I certainly think it could be used for social sciences! In particular, the concept of multicollinearity is very important in statistical regression analyses. This is when one regressor variable can be predicted by a **linear** combination of other regressor variables. It has all sorts of important practical and theoretical consequences on what can(not) be inferred from the model (see [wiki link](https://en.wikipedia.org/wiki/Multicollinearity#)). There are various algorithmic tests to infer the existence of multicollinearity.
@@ -69,7 +69,7 @@ Why isn’t MDC.jl used so much? I guess I haven’t published a didactic paper 
 @@
 \\
 \\
-- 🪲: According to Villaverde et al (2017), unidentifiable parameter estimates are meaningless, so that seems interesting. How can I spot unidentifiable parameters via MDC? 
+- 🪲: According to [Villaverde et al (2017)](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005878), unidentifiable parameter estimates are meaningless, so that seems interesting. How can I spot unidentifiable parameters via MDC? 
 
 @@unobtrusivebox
 Any parameter that changes a lot inside a minimally disruptive curve is unidentifiable with respect to the user defined cost function. For instance in the lotka volterra example, all parameters move quite a bit, so are effectively unidentifiable with respect to the model observation of mean prey and max predator population. The tools Villaverde et al present look for structurally unidentifiable combinations of parameters. These correspond to minimally disruptive curves that are ’non-disruptive’, i.e. the cost stays at zero. MDC can also find ‘practically unidentifiable’ combinations, unlike algebraic methods, where the cost isn't at algebraic zero, but is sufficiently small that the practical consequences are the same.
