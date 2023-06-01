@@ -127,5 +127,9 @@ I'll fix this at some point. Pragmatically it means the curve can't find a direc
 - Increase the momentum by two orders of magnitude.
 
 
+### Curve generation hangs
 
+- Does the span of your curve cross zero? IE is it of the form $(-a, b)$ where $a,b > 0$. Sometimes on Pluto, this hangs for unknown reasons probably to do with multithreading. Try generating two curves: $(-a, 0)$ and $(0, b)$ and sticking them together. 
+
+More specifically, two-sided curves as above are evolved as two separate curves running on two separate threads on MinimallyDisruptiveCurves.jl. Sometimes, this doesn't seem to play nicely on Pluto.jl notebooks. 
 

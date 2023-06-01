@@ -19,46 +19,43 @@
 ~~~
   (*Credit: https://xkcd.com/1742/*)
 
-## Pulling notebooks from Github
+## Tutorial notebooks
 
 
 
-Tutorial Pluto notebooks are in the MDCExamples repository. 
-1. At a terminal, in the directory of your choice, type the following commands:
+Tutorial Pluto notebooks are in the [MDCExamples](https://github.com/Dhruva2/MDCExamples) repository. Pluto notebooks are like Jupyter notebooks, but (IMO) better for Julia. To install [Pluto](https://github.com/fonsp/Pluto.jl), open a Julia REPL, and type
 ```julia
- git clone https://github.com/Dhruva2/MDCExamples.git
-cd MDCExamples
-julia ```
-This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.
-
-2. In your new julia session, open the Pluto environment:
-```julia
-using Pluto; Pluto.run()
-```
-This should open a new window in your web browser, in which you can run the notebooks.
-
-
-3. Open and run the notebooks! Note that precompiling packages for the notebooks, the first time round, can take a few minutes. For information on how to run Pluto notebooks, see [the docs](https://github.com/fonsp/Pluto.jl)
-
-3b. Pluto notebooks run annotated .jl files. You can also run the .jl files themselves without using Pluto:
-```julia
-include("xxx.jl")
+]add Pluto
+using Pluto
+Pluto.run()
 ```
 
+Install/open [Pluto.jl](https://github.com/fonsp/Pluto.jl) and copy one of the tutorial URLs into the Pluto search bar. I've put them in a suggested order:
 
-**Suggested order to go through notebooks**
 
-1. `Transforming_cost_functions.jl`
-2. `mass_spring_intro.jl`
-3. `NFKBExamples.jl`
-4. `stg_neuron_prelim_collocation.ipynb`
-5. `CircadianOscillator.ipynb`
+1. [https://github.com/Dhruva2/MDCExamples/blob/master/Transforming_cost_functions.jl](https://github.com/Dhruva2/MDCExamples/blob/master/Transforming_cost_functions.jl)
 
-- No. 1 just shows you how to play around with cost functions
-- No. 2 is an example on an extremely simple model. Running curves takes fractions of a second here, so it's a good playground for playing with curve settings.
-- No. 3 is fairly detailed. It's useful if you want to see how scientific insight can be gained from looking at Minimally Disruptive Curves. Each curve on this notebook takes 2-10 mins to generate on my laptop (2017 macbook pro).
-- Nos 4. and 5. show you how to use the (much quicker to evaluate) collocation cost. I've generated, but haven't really had time to properly analyse, the minimally disruptive curves.
+- Not about MinimallyDisruptiveCurves specifically, but introduces you to the cost function transformations that are useful when iteratively running MDCs. 
 
+2. [https://github.com/Dhruva2/MDCExamples/blob/master/mass_spring_intro.jl](https://github.com/Dhruva2/MDCExamples/blob/master/mass_spring_intro.jl)
+
+- Applying MDCs to the simplest possible differential equation: a damped oscillator. MDC generation happens in the blink of an eye for a model this simple, so it's useful for playing around.  
+
+3. [https://github.com/Dhruva2/MDCExamples/blob/master/NFKBExample.jl](https://github.com/Dhruva2/MDCExamples/blob/master/NFKBExample.jl)
+
+- Takes a seminal model of the NFkB metabolic pathway. Shows how you can iteratively extract mechanistic insight from the model using MDCs. 
+
+4. [https://github.com/Dhruva2/MDCExamples/blob/master/CircadianOscillator.jl](https://github.com/Dhruva2/MDCExamples/blob/master/CircadianOscillator.jl)
+
+- Takes a seminal but rather large model of the intracellular Circadian rhythm. Shows how you can use a 'cheap' loss function (the injection/collocation) loss, to massively speed up MDC generation. The MDCs seem eminently interpretable, but I haven't interpreted them yet. Have a go, if you're a Circadian expert!
+
+5. [https://github.com/Dhruva2/MDCExamples/blob/master/calcium_homeo.jl](https://github.com/Dhruva2/MDCExamples/blob/master/calcium_homeo.jl)
+
+- (Built by Andrea Ramirez Hincapie). I'm a neuron. I have to modulate my electrical activity (e.g. from spiking to bursting). This is called neuromodulation. I also have to maintain calcium homeostasis: internal calcium concentration needs to be in a tight range for me to be happy. But changing baseline electrical activity changes baseline calcium! How can I safely neuromodulate, while preserving calcium concentration? MDCs tell me how.... 
+
+
+
+ 
 ## A copy-paste, minimal example
 
 
@@ -159,42 +156,42 @@ using OrdinaryDiffEq, ForwardDiff, MinimallyDisruptiveCurves, Statistics, Plots,
 which_dir = 2
 
 ## define dynamics of differential equation
-function f(du,u,p,t)
-  du[1] = p[1]*u[1] - p[2]*u[1]*u[2] #prey
-  du[2] = -p[3]*u[2] + p[4]*u[1]*u[2] #predator
+function f(du, u, p, t)
+    du[1] = p[1] * u[1] - p[2] * u[1] * u[2] #prey
+    du[2] = -p[3] * u[2] + p[4] * u[1] * u[2] #predator
 end
 
-u0 = [1.0;1.0] # initial populations
-tspan = (0.0,10.0) #time span to simulate over
-t = collect(range(0, stop=10., length=200)) # time points to measure
-p = [1.5,1.0,3.0,1.0] # initial parameter values
-nom_prob = ODEProblem(f,u0,tspan,p) # package as an ODE problem
+u0 = [1.0; 1.0] # initial populations
+tspan = (0.0, 10.0) #time span to simulate over
+t = collect(range(0, stop=10.0, length=200)) # time points to measure
+p = [1.5, 1.0, 3.0, 1.0] # initial parameter values
+nom_prob = ODEProblem(f, u0, tspan, p) # package as an ODE problem
 nom_sol = solve(nom_prob, Tsit5()) # solve 
 
 
 ## Model features of interest are mean prey population, and max predator population (over time)
 function features(p)
-  prob = remake(nom_prob; p=p)
-  sol = solve(prob, Tsit5(); saveat = t)
-  return [mean(sol[1,:]), maximum(sol[2,:])]
+    prob = remake(nom_prob; p=p)
+    sol = solve(prob, Tsit5(); saveat=t)
+    return [mean(sol[1, :]), maximum(sol[2, :])]
 end
 
 nom_features = features(p)
 
 ## loss function, we can take as l2 difference of features vs nominal features
 function loss(p)
-  prob = remake(nom_prob; p=p)
-  p_features = features(p)
-  loss = sum(abs2, p_features - nom_features)
-  return loss
+    prob = remake(nom_prob; p=p)
+    p_features = features(p)
+    loss = sum(abs2, p_features - nom_features)
+    return loss
 end
 
 ## gradient of loss function
-function lossgrad(p,g)
-  g[:] = ForwardDiff.gradient(p) do p
-    loss(p)
-  end
-  return loss(p)
+function lossgrad(p, g)
+    g[:] = ForwardDiff.gradient(p) do p
+        loss(p)
+    end
+    return loss(p)
 end
 
 ## package the loss and gradient into a DiffCost structure
@@ -205,29 +202,39 @@ We evaluate the hessian once only, at p.
 Why? to find locally insensitive directions of parameter perturbation
 The small eigenvalues of the Hessian are one easy way of defining these directions 
 """
-hess0 = ForwardDiff.hessian(loss,p)
-ev(i) = eigen(hess0).vectors[:,i]
+hess0 = ForwardDiff.hessian(loss, p)
+ev(i) = eigen(hess0).vectors[:, i]
 
 ## Now we set up a minimally disruptive curve, with nominal parameters p and initial direction ev(1) 
-init_dir = ev(which_dir); momentum = 1.; span = (-15.,15.)
+init_dir = ev(which_dir);
+momentum = 1.0;
+span = (-15.0, 15.0);
 curve_prob = MDCProblem(cost, p, init_dir, momentum, span)
 @time mdc = evolve(curve_prob, Tsit5)
 
 function sol_at_p(p)
-  prob = remake(nom_prob; p=p)
-  sol = solve(prob, Tsit5())
+    prob = remake(nom_prob; p=p)
+    sol = solve(prob, Tsit5())
 end
 
-p1 = plot(mdc; pnames = [L"p_1" L"p_2" L"p_3" L"p_4"])
+p1 = plot(mdc; pnames=[L"p_1" L"p_2" L"p_3" L"p_4"])
 
-cost_vec = [mdc.cost(el) for el in eachcol(trajectory(mdc))]
-p2 = plot(distances(mdc), log.(cost_vec), ylabel = "log(cost)", xlabel = "distance", title = "cost over MD curve");
+cost_vec = [cost(el) for el in eachcol(trajectory(mdc))]
+p2 = plot(distances(mdc), log.(cost_vec), ylabel="log(cost)", xlabel="distance", title="cost over MD curve");
 
-mdc_plot = plot(p1,p2, layout=(2,1), size = (800,800))
+mdc_plot = plot(p1, p2, layout=(2, 1), size=(800, 800))
 
-nominal_trajectory = plot(sol_at_p(mdc(0.)[:states]), label = ["prey" "predator"])
-perturbed_trajectory = plot(sol_at_p(mdc(-15.)[:states]), label = ["prey" "predator"])
-traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout = (2,1), xlabel = "time", ylabel = "population")
+nominal_trajectory = plot(sol_at_p(mdc(0.0)[:states]), label=["prey" "predator"])
+perturbed_trajectory = plot(sol_at_p(mdc(-15.0)[:states]), label=["prey" "predator"])
+
+feature_labels = ["mean prey", "max predator"]
+for i in 1:2
+    hline!(nominal_trajectory, nom_features, linestyle=:dash, label=feature_labels[i])
+    hline!(perturbed_trajectory, features(mdc(-15.0)[:states]), linestyle=:dash, label=feature_labels[i])
+end
+
+## Different parameters/trajectories at different points on the curve...but features are preserved, i.e. minimally disrupted!
+traj_comparison = plot(nominal_trajectory, perturbed_trajectory, layout=(2, 1), xlabel="time", ylabel="population")
 ```
 ### Lessons
 
