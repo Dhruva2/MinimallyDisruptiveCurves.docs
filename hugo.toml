@@ -1,0 +1,38 @@
+[module]
+[[module.imports]]
+  path = 'github.com/alex-shpak/hugo-book'
+
+# Book configuration
+disablePathToLower = true
+enableGitInfo = true
+
+[params]
+  # Color theme: 'light', 'dark' or 'auto'
+  # Auto switches based on OS/browser preference
+  BookTheme = 'ayu-light'
+  BookKaTeX = false
+  math = true
+  BookToC = true
+  BookFavicon = 'images/favicon.ico'
+  # (Optional, default docs) Specify root page to render child pages as menu.
+  BookSection = 'docs'
+  BookRepo = "https://github.com/SciML/MinimallyDisruptiveCurves.jl"
+  BookEditPath = "edit/main/content"
+  BookLastChangeLink = '{{ .Site.Params.BookRepo }}/commit/{{ .GitInfo.Hash }}'
+  BookEditLink = '{{ .Site.Params.BookRepo }}/edit/main/{{ .Path }}'
+
+[menu]
+[[menu.home]]
+  name = 'User Guide'
+  pageRef = '/docs/intro'
+  weight = 2
+
+[[menu.home]]
+  name = 'Examples'
+  pageRef = '/examples/'
+  weight = 3
+
+[[menu.home]]
+  name = 'Github'
+  url = 'https://github.com/SciML/MinimallyDisruptiveCurves.jl'
+  weight = 4

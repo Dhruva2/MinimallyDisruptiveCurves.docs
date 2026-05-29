@@ -1,13 +1,6 @@
-# hi
+---
+layout: landing
+title: "MinimallyDisruptiveCurves.jl"
+---
+# MinimallyDisruptiveCurves.jl
 
-
-```katex
-
-x^2 + 4
-```
-
-$$ x^2 + 4 $$
-
-{{< box type="info" >}}
-This is an informational note.
-{{< /box >}}
