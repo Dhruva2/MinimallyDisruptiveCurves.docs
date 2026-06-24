@@ -1,4 +1,4 @@
-baseURL = "https://dhruva2.github.io/MinimallyDisruptiveCurves.docs
+baseURL = "https://dhruva2.github.io/MinimallyDisruptiveCurves.docs"
 
 [module]
 [[module.imports]]
