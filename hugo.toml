@@ -1,5 +1,5 @@
 baseURL = "https://dhruva2.github.io/MinimallyDisruptiveCurves.docs"
-
+canonifyURLs = true
 [module]
 [[module.imports]]
   path = 'github.com/alex-shpak/hugo-book'
