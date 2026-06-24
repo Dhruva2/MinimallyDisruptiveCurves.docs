@@ -1,0 +1,14 @@
+<!-- Load MathJax 4 with equation numbering -->
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+<script>
+window.MathJax = {
+  tex: {
+    tags: 'all',             // number all displayed equations
+    tagSide: 'right',        // numbers on the right
+    tagIndent: '0.8em',
+    displayMath: [['$$','$$'], ['\\[','\\]']],
+    inlineMath: [['\\(','\\)']]
+  },
+  loader: { load: ['ui/safe'] }
+};
+</script>

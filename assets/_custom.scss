@@ -1,0 +1,86 @@
+@import "plugins/themes";
+
+/* =========================
+   BASE STYLES
+========================= */
+
+body {
+  outline: 3px solid red;
+}
+
+/* Core box */
+.box {
+  padding: 1rem;
+  margin: 3rem 0;
+  border-radius: 8px;
+
+  border-left: 5px solid #999;
+  background: #f7f7f7;
+
+  /* 🔴 IMPORTANT FIX: prevents layout issues with figures, math, etc. */
+  display: flow-root;
+}
+
+/* Ensure figures/images behave correctly inside boxes */
+.box figure {
+  display: block;
+  margin: 1rem 0;
+}
+
+.box img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   VARIANTS
+========================= */
+
+/* INFO */
+.box.info {
+  background: #e8f4ff !important;
+  border-left-color: #1e88e5 !important;
+}
+
+/* WARNING */
+.box.warning {
+  background: #fff4e5;
+  border-left-color: #fb8c00;
+}
+
+/* THEOREM */
+.box.theorem {
+  background: #f3f0ff;
+  border-left-color: #5e35b1;
+}
+
+/* RESULT */
+.box.result {
+  background: #e8fff1;
+  border-left-color: #2e7d32;
+}
+
+/* QUOTE / REFLECTION BOX */
+.box.quote {
+  background: #fffbea;
+  border-left-color: #e0b100;
+}
+
+/* ATTENTION / EMPHASIS BOX */
+.box.attention {
+  background: #d4af37;
+  border-left-color: #d4af37;
+  color: #fff8dc;
+}
+
+/* SECTION BOX */
+.box.section {
+  background: #f3f4f6;
+  border-left: none;
+  border: 1px solid #e5e7eb;
+
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 10px;
+}

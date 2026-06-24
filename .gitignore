@@ -1,6 +1,25 @@
-__site/
+# --- Hugo build output ---
+/public/
+/resources/_gen/
+/assets/jsconfig.json
+
+# --- Hugo cache ---
+.hugo_build.lock
+
+# --- OS files ---
 .DS_Store
-franklin
-franklin.pub
-node_modules/
-plotting_scripts/
+Thumbs.db
+
+# --- Editor files ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- Logs ---
+*.log
+
+# --- Temporary files ---
+*.tmp
+*.temp
+
