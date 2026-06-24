@@ -1,14 +1,14 @@
 {
   "name": "",
   "short_name": "",
-  "start_url": "/MinimallyDisruptiveCurves.docs/",
-  "scope": "/MinimallyDisruptiveCurves.docs/",
+  "start_url": "/./",
+  "scope": "/./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/MinimallyDisruptiveCurves.docs/favicon.svg",
+      "src": "/./favicon.svg",
       "sizes": "512x512"
     }
   ]
