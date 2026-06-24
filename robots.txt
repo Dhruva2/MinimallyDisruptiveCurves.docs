@@ -1,4 +1,0 @@
-Sitemap: https://dhruva2.github.io/MinimallyDisruptiveCurves.docs/sitemap.xml
-
-User-agent: *
-Disallow:

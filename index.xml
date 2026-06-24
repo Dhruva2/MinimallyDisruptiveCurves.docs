@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>MinimallyDisruptiveCurves.jl on</title><link>/</link><description>Recent content in MinimallyDisruptiveCurves.jl on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 22 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml"/><item><title>Introduction</title><link>/docs/intro/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/intro/</guid><description>&lt;h1 id="minimallydisruptivecurvesjl"&gt;MinimallyDisruptiveCurves.jl&lt;a class="anchor" href="#minimallydisruptivecurvesjl"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h1 id="because-building-a-good-model-is-hard"&gt;Because building a good model is hard&lt;a class="anchor" href="#because-building-a-good-model-is-hard"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;figure&gt;&lt;img src="/images/physicists.png" width="30%"&gt;
+&lt;/figure&gt;
+
+&lt;h1 id="but-extracting-useful-insight-from-it-is-harder"&gt;But extracting useful insight from it is harder&lt;a class="anchor" href="#but-extracting-useful-insight-from-it-is-harder"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;figure&gt;&lt;img src="/images/curve_fitting.png" width="60%"&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;(Credit: &lt;a href="https://xkcd.com/793/"&gt;https://xkcd.com/793/&lt;/a&gt; and &lt;a href="https://xkcd.com/2048/"&gt;https://xkcd.com/2048/&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id="what-it-does-short-form"&gt;What it does (short form)&lt;a class="anchor" href="#what-it-does-short-form"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;At its core, only one thing:&lt;/p&gt;
+&lt;div class="box quote"&gt;
+ &lt;p&gt;Finds the hidden, potentially nonlinear relationships between model parameters that best preserve user‑defined features of model behaviour.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;(&amp;hellip;by solving a differential equation on the parameters)&lt;/p&gt;
+&lt;h2 id="explanation-by-example"&gt;Explanation by example&lt;a class="anchor" href="#explanation-by-example"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;This is the four‑parameter Lotka‑Volterra differential‑equation model predator‑prey dynamics. Covered in more detail in &lt;a href="/content/docs/Examples.md"&gt;Examples&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+\begin{aligned}
+\frac{d\text{🐁}}{dt} &amp;amp;= p_1\text{🐁} - p_2 \text{🦉} \text{🐁} \\
+\frac{d\text{🦉}}{dt} &amp;amp;= -p_3\text{🦉} + p_4 \text{🐁} \text{🦉}
+\end{aligned}
+$$&lt;/p&gt;</description></item><item><title>Installation</title><link>/docs/newinstallation/</link><pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate><guid>/docs/newinstallation/</guid><description>&lt;h1 id="installation"&gt;Installation&lt;a class="anchor" href="#installation"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src="/images/python_environment.png"&gt;
+&lt;/figure&gt;
+
+(&lt;em&gt;Credit: &lt;a href="https://xkcd.com/1987/"&gt;https://xkcd.com/1987/&lt;/a&gt;&lt;/em&gt;)&lt;/p&gt;
+&lt;h3 id="dependencies"&gt;Dependencies&lt;a class="anchor" href="#dependencies"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Julia v1.10 or newer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="steps"&gt;Steps&lt;a class="anchor" href="#steps"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open a julia session (REPL)&lt;/li&gt;
+&lt;li&gt;If you want, make a new environment (see &lt;a href="https://docs.julialang.org/en/v1/stdlib/Pkg/index.html"&gt;package management documentation&lt;/a&gt; for more details), with:
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-julia" data-lang="julia"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;] activate &lt;span style="color:#ff6ac1"&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Here, &lt;code&gt;]&lt;/code&gt; switches from the julia REPL to the package manager&lt;/li&gt;
+&lt;li&gt;Add &lt;em&gt;MinimallyDisruptiveCurves.jl&lt;/em&gt; to your current environment with
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-julia" data-lang="julia"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;] add MinimallyDisruptiveCurves&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Finally preface any julia code running in your environment, with:
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-julia" data-lang="julia"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ff6ac1"&gt;using&lt;/span&gt; MinimallyDisruptiveCurves&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>Examples</title><link>/docs/examples/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/examples/</guid><description>&lt;h1 id="examples"&gt;Examples&lt;a class="anchor" href="#examples"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src="/images/will_it_work.png"&gt;
+&lt;/figure&gt;
+
+(&lt;em&gt;Credit: &lt;a href="https://xkcd.com/1742/"&gt;https://xkcd.com/1742/&lt;/a&gt;&lt;/em&gt;)&lt;/p&gt;
+&lt;h2 id="a-copypaste-minimal-example"&gt;A copy‑paste, minimal example&lt;a class="anchor" href="#a-copypaste-minimal-example"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Copy paste the code in this section to just get the pipeline working quickly.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;We do a cursory analysis of the Lotka‑Volterra, predator‑prey differential‑equation model. This is often used as a toy example for global‑sensitivity‑analysis tools; see e.g. the following links:&lt;br&gt;
+– &amp;lt;https://cran.r-project.org/web/packages/ODEsensitivity/vignettes/ – &lt;a href="https://diffeq.sciml.ai/v6.9/analysis/global_sensitivity/"&gt;https://diffeq.sciml.ai/v6.9/analysis/global_sensitivity/&lt;/a&gt;&lt;br&gt;
+– &lt;a href="https://strimas.com/post/lotka-volterra/"&gt;https://strimas.com/post/lotka-volterra/&lt;/a&gt;. Because it’s really simplesimple.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Note that one of the model features we analyse is &lt;strong&gt;non‑differentiable&lt;/strong&gt;. Mathematically that would be a problem, but computationally everything works fine – we’ll explain why later.&lt;/p&gt;</description></item><item><title>Q&amp;A with a sceptic</title><link>/docs/newsceptic/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/newsceptic/</guid><description>&lt;h3 id="this-is-marna"&gt;This is Marna&lt;a class="anchor" href="#this-is-marna"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;figure&gt;&lt;img src="/images/rndimg.jpg"&gt;
+&lt;/figure&gt;
+
+&lt;ul&gt;
+&lt;li&gt;We met online, as is common these days. She was hanging out on the website template from which I built this user guide.&lt;/li&gt;
+&lt;li&gt;Marna is a gentleman and a scholar. She is also a &lt;strong&gt;mar&lt;/strong&gt;ine igua&lt;strong&gt;na&lt;/strong&gt;. &lt;em&gt;Amblyrhynchus cristatus&lt;/em&gt;. Do you know what &lt;em&gt;Ambly&lt;/em&gt; means? Blunt.&lt;/li&gt;
+&lt;li&gt;Her native disposition was further blunted by a traumatic childhood spent &lt;a href="https://www.youtube.com/watch?v=Rv9hn4IGofM"&gt;fleeing snakes&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;As such, she has acquired a healthy dislike for all things curve‑shaped. Especially those that claim to be minimally disruptive.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;em&gt;🦎: This doesn&amp;rsquo;t make sense. The gradient of a function \(C: \mathbb{R}^n \to \mathbb{R}\) gives the direction of maximal &lt;strong&gt;sensitivity&lt;/strong&gt;. It doesn&amp;rsquo;t say much about the remaining \(n-1\) directions, or how &lt;strong&gt;insensitive&lt;/strong&gt; they are. But you&amp;rsquo;re trying to use gradient information alone to evolve curves in a maximally &lt;strong&gt;insensitive&lt;/strong&gt; direction of the cost function&lt;/em&gt;&lt;/p&gt;</description></item><item><title>How it works</title><link>/docs/howitworks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/howitworks/</guid><description>&lt;h1 id="how-it-works"&gt;How it works&lt;a class="anchor" href="#how-it-works"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;h2 id="notation"&gt;Notation&lt;a class="anchor" href="#notation"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Let’s say our model has \(N \) parameters.&lt;/li&gt;
+&lt;li&gt;The set of allowable parameter values is denoted \(\Theta \subseteq \mathbb{R}^N \). For instance, maybe parameter values must be positive, in which case \(\Theta \) is the positive orthant.&lt;/li&gt;
+&lt;li&gt;Any particular model configuration can be defined by a vector of \(N \) parameters: \(\theta \in \Theta \).&lt;/li&gt;
+&lt;li&gt;We denote the cost (loss) function as&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;$$
+C: \Theta \to \mathbb{R}.
+$$&lt;/p&gt;</description></item><item><title>Questions from the audience</title><link>/docs/questions/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/questions/</guid><description>&lt;h1 id="questions-from-the-audience"&gt;Questions from the audience&lt;a class="anchor" href="#questions-from-the-audience"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;I’ve had some questions about &lt;strong&gt;MinimallyDisruptiveCurves.jl&lt;/strong&gt;.&lt;/li&gt;
+&lt;li&gt;I’m putting answers to them here (with the permission of the questioners!), in case anybody finds them useful.&lt;/li&gt;
+&lt;li&gt;If you have any questions, I’m happy to answer them and add to this page!&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure&gt;&lt;img src="/images/conference_question.png"&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;🪲: How does MDC compare to Bayesian modelling? Turing &lt;a href="https://turing.ml/dev/tutorials/10-bayesian-differential-equations/"&gt;can also&lt;/a&gt; estimate parameters for the Lotka‑Volterra model. My guess is that MDC is less flexible, but also faster and more accurate.&lt;/p&gt;</description></item><item><title>Tips, Tricks &amp; Agony Aunt</title><link>/docs/tipstricks/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>/docs/tipstricks/</guid><description>&lt;h2 id="tips--tricks"&gt;Tips &amp;amp; Tricks&lt;a class="anchor" href="#tips--tricks"&gt;#&lt;/a&gt;&lt;/h2&gt;
+&lt;h3 id="the-initial-direction-is-important"&gt;The initial direction is important&lt;a class="anchor" href="#the-initial-direction-is-important"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s call it \(\delta \theta \). If model sensitivity to \(\delta \theta \) is high, then …&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;if you&amp;rsquo;re lucky the curve will change direction quickly onto a better ((more insensitive) direction&lt;/li&gt;
+&lt;li&gt;if you&amp;rsquo;re unlucky it won&amp;rsquo;t find a better direction, and will evolve in slow, jaggedly meandering manner that is disruptive of model behaviour.&lt;/li&gt;
+&lt;li&gt;if it involves lots of parameters, it might be hard to interpret&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Note that sensitivity is quantified by:&lt;/p&gt;</description></item></channel></rss>

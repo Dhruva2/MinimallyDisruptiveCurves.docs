@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Syntax on</title><link>/tags/syntax/</link><description>Recent content in Syntax on</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 22 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="/tags/syntax/index.xml" rel="self" type="application/rss+xml"/><item><title>Installation</title><link>/docs/newinstallation/</link><pubDate>Fri, 22 Mar 2019 00:00:00 +0000</pubDate><guid>/docs/newinstallation/</guid><description>&lt;h1 id="installation"&gt;Installation&lt;a class="anchor" href="#installation"&gt;#&lt;/a&gt;&lt;/h1&gt;
+&lt;p&gt;&lt;figure&gt;&lt;img src="/images/python_environment.png"&gt;
+&lt;/figure&gt;
+
+(&lt;em&gt;Credit: &lt;a href="https://xkcd.com/1987/"&gt;https://xkcd.com/1987/&lt;/a&gt;&lt;/em&gt;)&lt;/p&gt;
+&lt;h3 id="dependencies"&gt;Dependencies&lt;a class="anchor" href="#dependencies"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Julia v1.10 or newer&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id="steps"&gt;Steps&lt;a class="anchor" href="#steps"&gt;#&lt;/a&gt;&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Open a julia session (REPL)&lt;/li&gt;
+&lt;li&gt;If you want, make a new environment (see &lt;a href="https://docs.julialang.org/en/v1/stdlib/Pkg/index.html"&gt;package management documentation&lt;/a&gt; for more details), with:
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-julia" data-lang="julia"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;] activate &lt;span style="color:#ff6ac1"&gt;.&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;Here, &lt;code&gt;]&lt;/code&gt; switches from the julia REPL to the package manager&lt;/li&gt;
+&lt;li&gt;Add &lt;em&gt;MinimallyDisruptiveCurves.jl&lt;/em&gt; to your current environment with
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-julia" data-lang="julia"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;] add MinimallyDisruptiveCurves&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;Finally preface any julia code running in your environment, with:
+&lt;div class="highlight"&gt;&lt;pre tabindex="0" style="color:#e2e4e5;background-color:#282a36;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"&gt;&lt;code class="language-julia" data-lang="julia"&gt;&lt;span style="display:flex;"&gt;&lt;span&gt;&lt;span style="color:#ff6ac1"&gt;using&lt;/span&gt; MinimallyDisruptiveCurves&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ol&gt;</description></item></channel></rss>
