@@ -29,7 +29,7 @@ enableGitInfo = true
 
 [[menu.home]]
   name = 'Examples'
-  pageRef = '/examples/'
+  pageRef = '/docs/examples'
   weight = 3
 
 [[menu.home]]

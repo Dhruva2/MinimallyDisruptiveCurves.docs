@@ -15,7 +15,7 @@ hascode: true
 (*Credit: https://xkcd.com/1987/*)
 
 ### Dependencies
-- Julia v1.6 or newer
+- Julia v1.10 or newer
 
 ### Steps
 1. Open a julia session (REPL) 
@@ -33,30 +33,4 @@ hascode: true
    using MinimallyDisruptiveCurves
    ```
 
-### Downloading tutorial notebooks
-Tutorial notebooks are in the **MDCExamples** repository.  
 
-1. At a terminal, in the directory of your choice, type the following commands:
-   ```julia
-   git clone https://github.com/Dhruva2/MDCExamples.git
-   cd MDCExamples
-   julia
-   ```
-   This clones the github repository with the examples, changes location to the cloned repository, and starts a julia session.
-
-2. In your new julia session, activate the environment:
-   ```julia
-   ] activate .
-   ```
-   `]` switches to the package manager. `activate .` activates the predetermined package environment in which the notebooks can be run.
-
-3. *(optional)*: Pre‑compile the dependencies to save a few minutes later
-   ```julia
-   ] precompile
-   ```
-
-4. Open Pluto notebooks:
-   ```julia
-   using Pluto; Pluto.run()
-   ```
-   and then open/run the individual notebooks in the notebook environment.

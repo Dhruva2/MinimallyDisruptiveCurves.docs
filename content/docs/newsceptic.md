@@ -45,13 +45,12 @@ Roughly speaking, we could divide numerical errors into systematic, and unsystem
 We can think again of the minimally disruptive curve as a ball rolling along a valley in the loss landscape (where height is cost, and lateral co‑ordinates are parameter values). Our ball has weight, and thus some momentum. This is the costate variable \\(\lambda(t)\\) described in the [How it works](/menu1) section. We can think of the ball being buffeted by the wind (unsystematic numerical errors). The momentum of the ball prevents this buffeting from affecting the trajectory too much **unless** the direction is systematic….
 
 **Systematic errors**  
-Every so often, the minimally disruptive curve generator resets the momentum (costate) variable. This factors out numerical error that has integrated over time. You can set the numerical tolerance at which this reset happens, or switch it off entirely:
+Every so often, the minimally disruptive curve generator resets the momentum (costate) variable. This factors out numerical error that has integrated over time. You can set the numerical tolerance at which this reset happens, or switch it off entirely (by setting `callback=nothing`, not recommended).
 
 ```julia
-evolve(c::curveProblem, solmethod=nothing; callback=nothing, momentum_tol = 1e-3, kwargs...)
+MDCSolve(sys::MDCProblem; callback=mdc_momentum_readjustment(sys, tol=1e-3))
 ```
 
-Set `momentum_tol = nothing` to switch off this resetting. In many examples, this will cause the minimally disruptive curve to veer off course or even go completely unstable.  
 {{< /box >}}
   
 

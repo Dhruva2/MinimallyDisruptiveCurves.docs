@@ -8,58 +8,17 @@ weight: 2
 {{< figure src="/images/will_it_work.png" >}}
 (*Credit: https://xkcd.com/1742/*)
 
-## Notebooks
-
-[nfkb](/examples/NFKBExample.html)
-
-
-## Tutorial notebooks
-
-Tutorial Pluto notebooks are in the [MDCExamples](https://github.com/[MDCExamples) repository. Pluto notebooks are like Jupyter notebooks, but (IMO) better for Julia. To install [Pluto](https://github.com/fonsp/Pluto.jl), open a Julia REPL and type
-
-```julia
-]add Pluto
-using Pluto
-Pluto.run()
-```
-
-Install/open Pluto and copy one of the tutorial URLs into the Pluto bar. I've put them in a suggested order:
-
-1. https://github.com/Dhruva2/MDCExamples/blob/master/
-
-Not about MinimallyDisruptiveCurves specifically, but introduces you to the cost‑function transformations that are useful when iteratively running MDCs.
-
-2 https://github.com/Dhruva2/MDCExamples/blob/master/mass_spring_intro.
-
-Applying MDCs to the simplest possible differential equation: a damped oscillator. MDC generation happens in the blink of an eye for a model this simple, so it's useful for playing around.
-
-3. https://github.com/Dhruva2/MDCExamples/blob/master/NFKBExample.jl  
-
-Takes a seminal model of the NFkB metabolic pathway. Shows how you can iteratively extract mechanistic insight from the model using MDCs.
-
-4. https://github.com/Dhruva2/MDCExamples/blob/master/
-
-Takes a seminal but rather large model of the intracellular rhythm. Shows how you can use a “cheap’’ loss function (the injection/injection/collocation loss) to massively speed up MDC generation. The seem eminently interpretable, but I haven’t interpreted them yet. Have a go, if you’re a Circadian expert!
-
-5. https://github.com/Dhruva2/MDCExamples/blob/master/calcium_homeo.jl  
-
-(Built by Andrea Ramirez Hincapie). I’m a neuron. I have to modulate my electrical activity (e.g. from spiking to bursting). I also have to maintain calcium homeostasis: internal calcium concentration needs to be in a tight range for me to be happy. But changing baseline electrical activity changes baseline calcium! How can I safely neuromodulate, while preserving calcium concentration? MDCs tell me how…
 
 ## A copy‑paste, minimal example
 
-- This example is less didactic than the notebooks, but useful for somebody who just wants to get things working quickly.  
+- Copy paste the code in this section to just get the pipeline working quickly.  
 - We do a cursory analysis of the Lotka‑Volterra, predator‑prey differential‑equation model. This is often used as a toy example for global‑sensitivity‑analysis tools; see e.g. the following links:  
   – <https://cran.r-project.org/web/packages/ODEsensitivity/vignettes/  – <https://diffeq.sciml.ai/v6.9/analysis/global_sensitivity/>  
   – <https://strimas.com/post/lotka-volterra/>. Because it’s really simplesimple.
 
-- You can copy and paste the code at the bottom, and run it as a *.jl* script. It runs in seconds (after package/function pre‑compilation). Just make sure you add all the package dependencies first:
 
-```julia
-] add OrdinaryDiffEq, ForwardDiff, Statistics, Plots, LinearAlgebra, LaTeXStrings
-] add https://github.com/Dhruva2/MinimallyDisruptiveCurves.jl.git
-```
 
-- Note that one of the model features we analyse is **non‑differentiable**non‑differentiable**. Mathematically that would be a problem, but computationally everything works fine – we’ll explain why later.
+- Note that one of the model features we analyse is **non‑differentiable**. Mathematically that would be a problem, but computationally everything works fine – we’ll explain why later.
 
 {{< box type="section" >}}
 ### Lotka‑Volterra model of predator‑prey interactions
@@ -124,96 +83,160 @@ We will use this terminology in our description of the MD curves.
 
 ### The code
 
-- Gives static plots of the minimally disruptive curves. Code for the was a bit more involved!
+This snippet runs and plots the MDCs
 
 ```julia
-using OrdinaryDiffEq, ForwardDiff, MinimallyDisruptiveCurves, Statistics,
-      Plots, LinearAlgebra, LaTeXStrings
+using LinearAlgebra, OrdinaryDiffEq, MinimallyDisruptiveCurves, Statistics, Plots, ForwardDiff, LaTeXStrings
 
-# which md curve to plot
-which_dir = 2
+# Which eigenvector (direction) to explore along the manifold
+# Change this to 1 or 2 to generate the different MDCs discussed above!
+which_dir = 1
 
-## define dynamics of differential equation
-function f(du, u, p, t)
-    du[1] = p[1] * u[1] - p[2] * u[1] * u[2]   # prey
-    du[2] = -p[3] * u[2] + p[4] * u[1] * u[2]  # predator
+# ====================================================================
+# --- Core Physics Engine (Lotka-Volterra) ---
+# ====================================================================
+
+function lotka_volterra_dynamics!(du, u, p, t)
+    du[1] = p[1] * u[1] - p[2] * u[1] * u[2]
+    du[2] = -p[3] * u[2] + p[4] * u[1] * u[2]
+    return nothing
 end
 
-u0 = [1.0; 1.0]                     # initial populations
-tspan = (0.0, 10.0)                 # time span to simulate over
-t = collect(range(0, stop=10.0, length=200))   # time points to measure
-p = [1.5, 1.0, 3.0, 1.0]            # initial parameter values
-nom_prob = ODEProblem(f, u0, tspan, p)          # package as an ODE problem
-nom_sol = solve(nom_prob, Tsit5())               # solve
+u0 = [1.0, 1.0]
+tspan = (0.0, 10.0)
+p_nominal = [1.5, 1.0, 3.0, 1.0]
 
-## Model features of interest are mean prey population, and max predator population (over time)
-function features(p)
-    prob = remake(nom_prob; p=p)
-    sol = solve(prob, Tsit5(); saveat=t)
-    return [mean(sol[1, :]), maximum(sol[2, :])]
+nom_prob = ODEProblem(lotka_volterra_dynamics!, u0, tspan, p_nominal)
+
+# Helper for evaluations
+solve_at_p(p) = solve(remake(nom_prob; p = p), Tsit5())
+
+# ====================================================================
+# --- Objective Features & Cost Framework ---
+# ====================================================================
+
+function extract_features(p)
+    sol = solve_at_p(p)
+    grid = range(0.0, 10.0, length = 200)
+
+    # Efficient lazy evaluations utilizing solution interpolation
+    mean_prey = mean(sol(t)[1] for t in grid)
+    max_predator = maximum(sol(t)[2] for t in grid)
+
+    return [mean_prey, max_predator]
 end
 
-nom_features = features(p)
+nom_features = extract_features(p_nominal)
 
-## loss function, we can take as ℓ₂ difference of features vs nominal features
 function loss(p)
-    prob = remake(nom_prob; p=p)
-    p_features = features(p)
-    return sum(abs2, p_features - nom_features)
+    p_features = extract_features(p)
+    return sum(abs2, p_features .- nom_features)
 end
 
-## gradient of loss function
-function lossgrad(p, g)
-    g[:] = ForwardDiff.gradient(loss, p)
-    return loss(p)
+function loss_grad!(g, p)
+    ForwardDiff.gradient!(g, loss, p)
+    return g
 end
 
-## package the loss and gradient into a DiffCost structure
-cost = DiffCost(loss, lossgrad)
+core_cost = CostFunction(loss, loss_grad!)
 
-"""
-We evaluate the hessian once only, at p.
-Why? to find locally insensitive directions of parameter perturbation.
-The small eigenvalues of the Hessian are one easy way of defining these directions.
-"""
-hess0 = ForwardDiff.hessian(loss, p)
-ev(i) = eigen(hess0).vectors[:, i]
+# ====================================================================
+# --- Execution Pipeline ---
+# ====================================================================
 
-## Now we set up a minimally disruptive curve, with nominal parameters p and initial direction ev(1)
-init_dir = ev(which_dir)
-momentum = 1.0
-span = (-15.0, 15.0)
-curve_prob = MDCProblem(cost, p, init_dir, momentum, span)
-@time mdc = evolve(curve_prob, Tsit5)
+println("--- Setting up Lotka-Volterra MDC System ---")
 
-function sol_at_p(p)
-    prob = remake(nom_prob; p=p)
-    solve(prob, Tsit5())
+# Compute the local Hessian at nominal parameters to discover insensitive directions
+hess0 = ForwardDiff.hessian(loss, p_nominal)
+eigen_decomposition = eigen(hess0)
+init_dir = eigen_decomposition.vectors[:, which_dir]
+
+# Leverage our automated IdentityTransform fallbacks to keep the top layer clean
+sys = MDCProblem(
+    core_cost,
+    p_nominal,
+    init_dir,
+    1.0;                  # Energy Headroom (H)
+    names = [:p₁, :p₂, :p₃, :p₄]
+)
+
+println("Launching parallel manifold integration...")
+mdc_curves = MDCSolve(sys, span = MDCSpan(-1.0, 5.0))
+
+plot(mdc_curves)
+```
+
+The next snippet uses our animation methodology to get a nice animation. All you need to provide is a function (`lotka_volterra_sandbox_painter` in this case) that goes from parameters to a drawing of your simulation.
+
+```julia
+# ====================================================================
+# --- Animation Pipeline Integration ---
+# ====================================================================
+
+println("\nPreparing continuous manifold animation...")
+
+# Define the live sandbox rendering function
+function lotka_volterra_sandbox_painter(θ_physical)
+    plot_t_grid = range(tspan[1], tspan[2], length = 200)
+
+    sol_nominal = solve_at_p(p_nominal)
+    sol_perturbed = solve_at_p(θ_physical)
+
+    states_nom = [sol_nominal(t_val) for t_val in plot_t_grid]
+    states_pert = [sol_perturbed(t_val) for t_val in plot_t_grid]
+
+    prey_nominal = [u[1] for u in states_nom]
+    pred_nominal = [u[2] for u in states_nom]
+
+    prey_perturbed = [u[1] for u in states_pert]
+    pred_perturbed = [u[2] for u in states_pert]
+
+    mean_prey_nom = mean(prey_nominal)
+    mean_prey_pert = mean(prey_perturbed)
+    max_pred_nom = maximum(pred_nominal)
+    max_pred_pert = maximum(pred_perturbed)
+
+    Plots.plot!(
+        plot_t_grid, [prey_nominal pred_nominal],
+        subplot = 1,
+        linealpha = 0.2, linestyle = :dash,
+        color = [:blue :red], label = false
+    )
+
+    Plots.plot!(
+        plot_t_grid, [prey_perturbed pred_perturbed],
+        subplot = 1,
+        linewidth = 2,
+        color = [:blue :red], label = ["Prey (x)" "Predator (y)"],
+        legend = :topright
+    )
+
+    Plots.hline!([mean_prey_nom], subplot = 1, linestyle = :dot, linealpha = 0.4, color = :blue, label = false)
+    Plots.hline!([max_pred_nom], subplot = 1, linestyle = :dot, linealpha = 0.4, color = :red, label = false)
+
+    Plots.hline!([mean_prey_pert], subplot = 1, linestyle = :dashdot, linewidth = 1.2, color = :darkblue, label = "Mean Prey")
+    Plots.hline!([max_pred_pert], subplot = 1, linestyle = :dashdot, linewidth = 1.2, color = :darkred, label = "Max Predator")
+
+    return Plots.plot!(
+        subplot = 1,
+        xlabel = "Time", ylabel = "Population",
+        xlims = tspan,
+        ylims = (0.0, 6.0)
+    )
 end
 
-p1 = plot(mdc; pnames=[L"p_1" L"p_2" L"p_3" L"p_4"])
+# Invoke the updated linear animation tracking utility function
+lv_animation = animate_mdc(
+    mdc_curves,
+    lotka_volterra_sandbox_painter;
+    fps = 20,
+    density = 150,
+    raw = true
+)
 
-cost_vec = [cost(el) for el in eachcol(trajectory(mdc))]
-p2 = plot(distances(mdc), log.(cost_vec),
-          ylabel="log(cost)", xlabel="distance", title="cost over MD curvecurve")
-
-mdc_plot = plot(p1, p2, layout=(2, 1), size=(800, 800))
-
-nominal_trajectory   = plot(sol_at_p(mdc(0.0)[:states],
-                               label=["prey" "predator"])
-perturbed_trajectory  = plot(sol_at_p(mdc(-15.0)[:states],
-                               label=["prey" "predator"])
-
-feature_labels = ["mean prey", "max predator"]
-for i in 1:2
-    hline!(nominal_trajectory,   nom_features,   linestyle=:dash, label=label=feature_labels[i])
-    hline!(perturbed_trajectory, features(mdc(-15.0)[:states]), linestylelinestyle=:dash,
-           label=feature_labels[i])
-end
-
-## Different parameters/trajectories at different points on the curve…but features are preserved, i.e. minimally disrupted!
-traj_comparison = plot(nominal_trajectory, perturbed_trajectory,
-                       layout=(2, 1), xlabel="time", ylabel="population")
+output_path = joinpath(pwd(), "lotka_volterra_mdc.gif")
+println("Rendering frames and saving video to: $output_path")
+Plots.gif(lv_animation, output_path)
 ```
 
 ### Lessons
@@ -235,4 +258,64 @@ The maximum predator population over time is a **non‑differentiable** function
 1. ReLU units in neural networks are also technically nondifferentiable a single point, yet they are used successfully in differentiable machine‑machine‑learning models. Same reason!  
 2. The maximum of a collection of values is differentiable except at points where two values tie for the maximum. Numerical error and the dynamics of the ODE ensure that exact ties never occur, so the gradient well‑defined in practice.  
 {{< /box >}}
+
+
+
+
+
+## Scripts
+
+If you clone the package itself, it contains some didactic example scripts that show how to build differentiable cost functions out of differential equation models (including those built with ModelingToolkit.jl v11), and extract insight from the underlying models. Specifically, in the terminal:
+
+
+ - Clone the package (`git clone https://github.com/SciML/MinimallyDisruptiveCurves.jl.git`)
+
+```zsh
+git clone https://github.com/SciML/MinimallyDisruptiveCurves.jl.git
+```
+
+- Move to root directory:
+
+```zsh
+cd MinimallyDisruptiveCurves.jl
+```
+
+
+- Run Julia from the terminal in the package directory as:
+
+```zsh
+julia --project=scripts
+```
+
+Then in the julia REPL that opens, you can run the scripts as follows:
+
+```julia
+include("scripts/basic_mass_spring.jl") # most basic example on a damped mass spring model
+include("scripts/basic_lotka_volterra.jl") # adds one level of complexity: finding good initial curve directions.
+include("scripts/frozen_mtk_loss_test.jl") # simple example of how to make a differentiable cost function on an ODE built with ModelingToolkit.jl. No MDC involved!
+include("scripts/lotka_volterra_optim.jl") # same lotka volterra model, this time built with ModelingToolkit.jl 
+include("scripts/build_NFKB.jl") # more complicated model built with ModelingToolkit.jl. more advanced initial curve direction generation. shows how to get real mechanistic insight with the package.
+include("scripts/mass_spring_transforms.jl") # how to use the `TransformChain` functionality to manipulate your parameter space for more insightful MDCs
+include("scripts/basic_mass_spring.jl")
+include("scripts/basic_mass_spring.jl")
+```
+
+
+
+## Pluto Notebooks
+
+These use the deprecated version of the package for now. So old syntax. But the didactic flow could be useful, and is similar. Has 
+
+- [Basic tutorial with mass spring oscillator](/examples/mass_spring_intro.html)
+- [Extracting mechanistic insight from an NFKB model](/examples/NFKBExample.html)
+- [Extracting mechanistic insight from a Circadian Oscillator model](/examples/CircadianOscillator.html)
+
+Another notebook using the deprecated package version but that's interesting is
+[https://github.com/Dhruva2/MDCExamples/blob/master/calcium_homeo.jl](https://github.com/Dhruva2/MDCExamples/blob/master/calcium_homeo.jl)
+
+(Built by Andrea Ramirez Hincapie). I’m a calcium-sensitive bursting neuron model. I have to modulate my electrical activity (e.g. from spiking to bursting). I also have to maintain calcium homeostasis: internal calcium concentration needs to be in a tight range for me to be happy. But changing baseline electrical activity changes baseline calcium! How can I safely neuromodulate, while preserving calcium concentration? MDCs tell me how…
+
+It leads up to generating:
+{{< figure src="/images/bursting_neuron.gif" >}}  
+
 

@@ -58,8 +58,9 @@ $$
 Both curves evolved in seconds on a laptop.  
 MDC generation was automatic – no human insight required!
 
-**Want more involved examples with more complicated models?**  
-Check out the Pluto.jl notebooks on https://github.com/Dhruva2/MDCExamples.git.  
+**Want more involved examples?**  
+Check out the examples in the docs.
+
 
 **Here is a teaser**: parameter relationships on a model of a bursting neuron that preserve its physiological, time‑averaged calcium concentration, and the “bursting’’ phenotype of its voltage trace. Parameters are the ion‑channel densities, which are physiologically variable.
 
@@ -150,20 +151,30 @@ Play around with curve specifications such as :
 1. A Julia function (*the cost function*) with two methods as shown:
 
 ```julia
-# method 1
+# 1. The cost function (returns a scalar)
 function cost(params)
   … 
-  return cost
+  return cost_value
 end
 
-# method 2
-function cost(params, gradient_holder)
+# 2. The in-place gradient function (mutates g)
+function grad!(g, params)
   …
-  gradient_holder[:] = ∇C(params) 
-  # MUTATE gradient holder. 
-  # It must provide the gradient of the cost with respect to parameters.
-  return cost
+  g .= ∇C(params)  # MUTATE the gradient holder. 
+  return g          # The package ignores the return value, but returning `g` is good Julia convention.
 end
+
+# 3. Wrap them into a CostFunction
+core_cost = CostFunction(cost, grad!)
+
+# 4. OPTIONAL: Wrap in a TransformedCost to explore relative/log space, 
+# bias parameters, or fix certain parameters. 
+# If omitted, MDCProblem will automatically use an empty TransformChain.
+chain = TransformChain(LogAbsTransform())
+transformed_cost = TransformedCost(core_cost, chain)
+
+# 5. Pass to the MDCProblem
+sys = MDCProblem(transformed_cost, p0, dp0, mom)
 ```
 
 2. An initial set of parameters, `p0`, that are **locally minimal** (or close enough) with respect to the cost function. So
@@ -198,19 +209,21 @@ Not these days! Automatic differentiation of near‑arbitrary code is one of the
 Then you can run the following code:
 
 ```julia
-span = (-50.,100.)   # length of the curve‑to‑be
+# span defines the length of the curve in the negative and positive directions.
 # Negative values ⇒ two curves are evolved in parallel, in the directions ±dp0,
 # with lengths span[1] and span[2].
 
-eprob = MDCProblem(cost, p0, dp0, mom, span)
+sys = MDCProblem(cost, p0, dp0, mom)
 # create an object that stores all the curve information
 
-mdc = evolve(eprob, Tsit5)   # solve the ODE that evolves the MD curve
+mdc_curves = MDCSolve(sys; span=MDCSpan(-50.0, 100.0))   # solve the ODE that evolves the MD curve
 using Plots
-plot(mdc)   # custom plotting of the important features of the MD curve.
-```
+plot(mdc_curves)   # custom plotting of the important features of the MD curve.```
+
 
 `mdc` is a `MDCSolution`. This type comes with functionality for inspecting / interpolating the curve at different points – all hijacked from DifferentialEquations.jl, of course.
+
+
 
 ## Features
 
@@ -228,27 +241,28 @@ plot(mdc)   # custom plotting of the important features of the MD curve.
 **Easily manipulate cost functions**  
 - Many MinimallyDisruptiveCurves.jl workflows require regularly fixing / freeing cost‑function parameters, or completely reparameterising cost functions.  
 - For example, you might be interested in only allowing a few parameters to change, or you might want to bias the curve to align with a particular parameter.  
-- The package provides composable `TransformationStructure` objects that define a transformation  
+- The package provides composable `AbstractTransform` objects that you chain together into a `TransformChain` to define a transformation  
 
   $$ T : \mathbb{R}^N \to \mathbb{R}^M $$  
 
-  from the “old’’ \\( N \\)-dimensional parameter space to the “new’’ \\( M \\)-dimensional space. You just need to define \\( T \\) and \\( T^{-1} \\). Then use  
+  from the optimizer space to the physical space. You just wrap your `CostFunction` in a `TransformedCost` along with your chain:
 
   ```julia
-  C_new = transform_cost(C_old, p0, tr::TransformationStructure; kwargs)
-  ```  
+  chain = TransformChain(LogAbsTransform(), ScaleTransform([1.0, 10.0]))
+  C_new = TransformedCost(core_cost, chain)
 
   to obtain a new differentiable cost function \\( \tilde{C} \\) satisfying  
 
-  $$ \tilde{C}(T(p)) = C(p). $$  
+  $$ \tilde{C}(T(p)) = C(p). $$
 
-- Pre‑loaded transformation structures include  
+- Pre‑loaded transforms include  
 
-  - \\( T = \log \circ |\cdot| \\) for relative‑change‑sensitive parameters.  
-  - \\( T : p_i \mapsto k\,p_i \\) for biasing towards or away from particular parameters.  
-  - Fixing / freeing (all except / only) named parameters.  
+  - `LogAbsTransform()`: \\( T = \log \circ |\cdot| \\) for relative‑change‑sensitive parameters.  
+  - `ScaleTransform(w)`: \\( T : p_i \mapsto w_i\,p_i \\) for biasing towards or away from particular parameters.  
+  - `FixedParamsTransform()`: Fixing / freeing (all except / only) named parameters.  
 
 - The source code for each of these is ≤ 10 lines, so you can easily write your own.
+
 
 ## Caveats
 
